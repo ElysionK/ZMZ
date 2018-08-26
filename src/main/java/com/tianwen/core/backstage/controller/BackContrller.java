@@ -29,6 +29,7 @@ public class BackContrller extends BaseController {
 	@Autowired
 	private BackService backService;
 	
+<<<<<<< HEAD
 	/************************************** banner ***********************************************/
 
 	
@@ -47,6 +48,8 @@ public class BackContrller extends BaseController {
 	
 	/************************************* category *******************************************/
 	
+=======
+>>>>>>> f803b43d402831835b6cf7a762839d4cceee0543
 
 	@GetMapping(value = "/index")
 	public ModelAndView toBackIndex(){
