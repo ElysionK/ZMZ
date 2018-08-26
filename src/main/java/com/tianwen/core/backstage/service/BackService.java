@@ -18,6 +18,5 @@ public interface BackService {
 	JsonResponseResult addNewProduct(Product product);
 	
 	List<Banner> findAllBanners();
-	
 
 }

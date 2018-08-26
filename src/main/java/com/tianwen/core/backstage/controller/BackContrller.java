@@ -30,8 +30,6 @@ public class BackContrller extends BaseController {
 	private BackService backService;
 	
 	/************************************** banner ***********************************************/
-
-	
 	@GetMapping(value = "/banner/list")
 	public ModelAndView toBannerList(){
 		List<CategoryDto> list = backService.findAllCategories();
