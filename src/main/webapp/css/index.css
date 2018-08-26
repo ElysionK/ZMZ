@@ -1,0 +1,81 @@
+header{width:100%;height:1.28rem;background:-webkit-linear-gradient(#FFC43D,#FFC53F);position:relative;padding:0 0.15rem}
+.header_top{width:100%;height:0.63rem;font-weight:bold}
+.dingwei{font-family:'iconfont';font-size:0.24rem;margin-top:0.21rem;float:left;color:#333}
+.position{font-size:0.2rem;float:left;margin-top:0.2rem;color:#333;margin-left:0.21rem}
+.right{font-family:'iconfont';font-size:0.13rem;margin-top:0.26rem;margin-left:0.09rem;float:left;color:#333}
+.message{font-size:0.29rem;color:#333;float:right;font-family:'iconfont';margin-top:0.19rem}
+.sun{font-size:0.29rem;color:#333;margin-top:0.19rem;float:right;margin-right:0.28rem;font-family:'iconfont'}
+.weather{float:right;width:0.3rem;margin-top:0.19rem}
+.weather_word,.wendu{text-align:center;color:#333;font-size:0.16rem;float:left}
+.wendu{float:right;margin-right:0.05rem}
+input{width:100%;height:0.5rem;background-color:#fff;border-radius:0.05rem;float:left;border:none;outline:none;font-size:0.18rem;color:#ccc;padding-left:0.36rem}
+.search{font-size:0.18rem;color:#999;position:absolute;font-family:'iconfont';left:0.26rem;bottom:0.31rem}
+.banner,.banner img{width:100%;height:1.5rem}
+.list{width:100%;height:2.85rem;padding-top:0.26rem}
+.list li{width:1.08rem;height:1.23rem;overflow:hidden;float:left}
+.list li img{display:block;width:0.66rem;height:0.66rem;margin:0 auto}
+.list_word{display:block;font-size:0.17rem;color:#333;text-align:center;margin-top:0.12rem}
+.youhui{width:100%;height:auto;overflow:hidden;padding:0 0.15rem}
+h1{font-size:0.28rem;color:#333;line-height:0.62rem}
+.youhui img{width:2.51rem;height:1.56rem;float:left}
+.youhui img:nth-child(3){margin-left:0.08rem}
+.youhui img:nth-child(4),.youhui img:nth-child(5),.youhui img:nth-child(6),.youhui img:nth-child(7){width:1.21rem;height:1.56rem;float:left;margin-top:0.08rem}
+.youhui img:nth-child(5),.youhui img:nth-child(6),.youhui img:nth-child(7){margin-left:0.08rem}
+.youxuan{width:100%;height:auto;overflow:hidden;padding:0 0.15rem;}
+.youxuan_title{float:left}
+h2{font-size:0.2rem;float:right;margin-top:0.25rem}
+.right1{float:right;line-height:0.2rem;color:#333}
+.youxuan_box{width:100%;height:auto;overflow:hidden}
+.youxuan img{width:2.47rem;height:1.54rem;float:left}
+.youxuan p{display:block;font-size:0.16rem;color:#ccc;line-height:0.46rem;margin-left:0.17rem}
+.youxuan_box li:nth-child(2n){margin-left:0.15rem}
+.youxuan_box li{width:2.47rem;height:2rem;float:left}
+.middle{width:100%;height:3.43rem;margin-top:0.16rem}
+.middle img{width:100%;height:3.43rem}
+.self{width:100%;height:auto;overflow:hidden;margin-top:0.1rem;padding:0 0.15rem}
+h3{font-size:0.28rem;float:left;line-height:0.91rem}
+.self_title{width:100%;height:auto;overflow:hidden}
+.self_wenzi{font-size:0.18rem;color:#999;float:left;line-height:0.91rem;margin-left:0.1rem}
+.self_list{width:100%;height:1.14rem;display:flex;overflow-x:scroll}
+.self_list li{width:3.76rem;height:1.14rem;background:url('img/Screenshot_2018-04-17-15-11-50-68_05.png') no-repeat;background-size:1.14rem 1.14rem;background-position:left}
+.self_content{width:2.02rem;height:1.14rem;float:left;margin-left:1.29rem}
+h4{font-size:0.23rem;line-height:0.5rem;color:#333;float:left}
+.juli{width:0.83rem;height:0.2rem;background-color:#FFD161;float:left;font-size:0.15rem;line-height:0.2rem;text-align:center}
+.juli1{width:1.11rem;height:0.2rem;line-height:0.2rem;font-size:0.15rem;float:left;text-align:center;margin-left:0.08rem;background-color:#FFF6DF;color:#FF9F00}
+.jian{width:0.23rem;height:0.23rem;background-color:#FF625A;color:#fff;text-align:center;line-height:0.23rem;float:left;margin-right:0.08rem;font-size:0.16rem;margin-top:0.12rem}
+.jian1{background-color:#C581E6}
+.jian2{background-color:#FF7299}
+.jian3{background-color:#F94547}
+.jian4{background-color:#FFA621}
+.fujin{width:100%;height:auto;overflow:hidden}
+h5{color:#333;padding:0 0.16rem;font-size:0.28rem;margin-top:0.35rem}
+.fujin_title{width:100%;height:0.66rem;padding:0 0.26rem;position:relative}
+#fujin_list{color:#000}
+.fujin_title li{height:0.66rem;float:left;color:#999;margin-right:0.5rem}
+.fujin_title li span{font-size:0.2rem;line-height:0.66rem;float:left}
+.fujin_title li em{font-family:'iconfont';color:#999;font-size:0.2rem;line-height:0.66rem;float:left;margin-left:0.04rem}
+.fujin_title li:nth-child(3){margin-right:0.3rem}
+.fujin_title li:nth-child(4){margin-right:0;padding-left:0.3rem}
+.fujin_title:after{content:"";width:0.01rem;height:0.24rem;background-color:#ccc;position:absolute;top:0.22rem;right:1.25rem}
+.fujin_bottom{padding:0 0.16rem}
+.fujin_bottom li{overflow:hidden;margin-top:0.36rem}
+.fujin_bottom li img{width:1.14rem;height:0.86rem;float:left}
+.fujin_right{width:3.9rem;height:100%;float:right}
+.fujin_right h4{font-size:0.22rem;float:left;color:#333;margin-top:-0.11rem}
+.more{float:right;font-family:'iconfont';font-size:0.22rem;color:#ccc;line-height:0.3rem;margin-left:0.37rem}
+.star{font-size:0.14rem;color:#FFD161;font-family:'iconfont';float:left}
+.star_leavel{width:100%;height:auto;overflow:hidden}
+.yue{font-size:0.17rem;color:#999;float:left;margin-left:0.12rem}
+.lu{font-size:0.17rem;color:#999;float:right}
+.peisong{width:100%;font-size:0.17rem;color:#999;float:left}
+.tian{width:100%;float:left;font-size:0.17rem;line-height:0.45rem;color:#333}
+.tian em{float:left;font-family:'iconfont';font-size:0.16rem;color:#999}
+.count{width:100%;height:0.22rem;float:left}
+.zhe{width:0.67rem;height:0.2rem;border:0.02rem solid #FDE0DF;color:#FB4E44;text-align:center;line-height:0.15rem;font-size:0.12rem;float:left;margin-right:0.07rem}
+.bar{width:100%;height:0.74rem;position:fixed;bottom:0;left:0;background-color:#fff;border-top:0.02rem solid #ccc}
+.bar li{width:1.78rem;height:100%;float:left;padding-top:0.12rem}
+#em_active{color:#FFC43F}
+#span_active{color:#333}
+.bar li em{font-family:'iconfont';font-size:0.32rem;float:left;margin-left:0.74rem;color:#ccc}
+.bar li span{font-size:0.15rem;text-align:center;color:#ccc;float:left;margin-left:0.74rem}
+.shop{width:0.58rem;height:0.58rem;border-radius:50%;border:0.01rem solid #ccc;position:fixed;right:0.21rem;bottom:1.05rem;font-size:0.27rem;color:#333;line-height:0.58rem;text-align:center;font-family:'iconfont';background-color:#fff}
