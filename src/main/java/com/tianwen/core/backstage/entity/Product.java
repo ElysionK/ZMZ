@@ -14,7 +14,11 @@ public class Product {
 	
 	private Double discountPrice;
 	
-	private String breif;
+	private String brief;
+	
+	private String createTime;
+	
+	private String categoryName;
 
 	public Integer getId() {
 		return id;
@@ -64,12 +68,28 @@ public class Product {
 		this.discountPrice = discountPrice;
 	}
 
-	public String getBreif() {
-		return breif;
+	public String getBrief() {
+		return brief;
 	}
 
-	public void setBreif(String breif) {
-		this.breif = breif;
+	public void setBrief(String brief) {
+		this.brief = brief;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	
 }

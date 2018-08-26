@@ -23,7 +23,7 @@
 					<span class="title">分类管理</span>
 					<span class="arrowicon"></span>
 				</a>
-				<a class="sideblk blk" href="javascript:void(0);">
+				<a class="sideblk blk" href="/backstage/product/list">
 					<i class="record"><img src="/images/back_goods.png"/></i>
 					<span class="title">商品管理</span>
 					<span class="arrowicon"></span>

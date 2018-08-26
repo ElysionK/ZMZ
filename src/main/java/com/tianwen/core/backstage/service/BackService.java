@@ -2,12 +2,11 @@ package com.tianwen.core.backstage.service;
 
 import java.util.List;
 
+import com.tianwen.base.util.Pager;
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.backstage.dto.CategoryDto;
-<<<<<<< HEAD
+import com.tianwen.core.backstage.dto.ProductCondition;
 import com.tianwen.core.backstage.entity.Banner;
-=======
->>>>>>> f803b43d402831835b6cf7a762839d4cceee0543
 import com.tianwen.core.backstage.entity.Product;
 
 public interface BackService {
@@ -16,13 +15,10 @@ public interface BackService {
 	
 	List<CategoryDto> findAllCategories();
 	
-	List<Product> findAllProducts();
-
+	Pager findAllProducts(ProductCondition condition, String pageNo);
+	
 	JsonResponseResult addNewProduct(Product product);
 	
-<<<<<<< HEAD
 	List<Banner> findAllBanners();
-	
-=======
->>>>>>> f803b43d402831835b6cf7a762839d4cceee0543
+
 }

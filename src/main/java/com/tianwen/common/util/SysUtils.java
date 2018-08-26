@@ -1,10 +1,14 @@
 package com.tianwen.common.util;
 
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.MessageDigest;
@@ -13,13 +17,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
-
 
 /**
  * 工具集合类.<br/>
@@ -95,7 +99,7 @@ public class SysUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String retMd5Pwd(String pwd)  {
+	public static String retMd5Pwd(String pwd) {
 		String s = pwd;
 		byte[] strTemp = s.getBytes();
 		MessageDigest mdTemp = null;
@@ -208,7 +212,7 @@ public class SysUtils {
 		String sysDatetime = fmt.format(rightNow.getTime());
 		return sysDatetime;
 	}
-	
+
 	/**
 	 * 获取当前年月日
 	 * 
@@ -229,7 +233,7 @@ public class SysUtils {
 		}
 		return str.trim();
 	}
-	
+
 	/**
 	 * 截取字符串
 	 * 
@@ -348,108 +352,144 @@ public class SysUtils {
 		}
 		return result;
 	}
-	
-//	public static String sendFilePost(String path, File file) throws IOException{
-//		URL urlObj = new URL(path);
-//	    //连接
-//	    HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
-//	    String result = null;
-//	    con.setDoInput(true);
-//	    con.setDoOutput(true);
-//	    con.setUseCaches(false); // post方式不能使用缓存
-//
-//	    // 设置请求头信息
-//	    con.setRequestProperty("Connection", "Keep-Alive");
-//	    con.setRequestProperty("Charset", "UTF-8");
-//	    // 设置边界
-//	    String BOUNDARY = "----------" + System.currentTimeMillis();
-//	    con.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
-//
-//	    // 请求正文信息
-//	    // 第一部分：
-//	    StringBuilder sb = new StringBuilder();
-//	    sb.append("--"); // 必须多两道线
-//	    sb.append(BOUNDARY);
-//	    sb.append("\r\n");
-//	    sb.append("Content-Disposition: form-data;name=\"media\";filelength=\"" + file.length() + "\";filename=\"" + file.getName() + "\"\r\n");
-//	    sb.append("Content-Type:application/octet-stream\r\n\r\n");
-//	    byte[] head = sb.toString().getBytes("utf-8");
-//	    // 获得输出流
-//	    OutputStream out = new DataOutputStream(con.getOutputStream());
-//	    // 输出表头
-//	    out.write(head);
-//
-//	    // 文件正文部分
-//	    // 把文件已流文件的方式 推入到url中
-//	    DataInputStream in = new DataInputStream(new FileInputStream(file));
-//	    int bytes = 0;
-//	    byte[] bufferOut = new byte[1024];
-//	    while ((bytes = in.read(bufferOut)) != -1) {
-//	        out.write(bufferOut, 0, bytes);
-//	    }
-//	    in.close();
-//	    // 结尾部分
-//	    byte[] foot = ("\r\n--" + BOUNDARY + "--\r\n").getBytes("utf-8");// 定义最后数据分隔线
-//	    out.write(foot);
-//	    out.flush();
-//	    out.close();
-//	    StringBuffer buffer = new StringBuffer();
-//	    BufferedReader reader = null;
-//	    try {
-//	        // 定义BufferedReader输入流来读取URL的响应
-//	        reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-//	        String line = null;
-//	        while ((line = reader.readLine()) != null) {
-//	            buffer.append(line);
-//	        }
-//	        if (result == null) {
-//	            result = buffer.toString();
-//	        }
-//	    } catch (IOException e) {
-//	        System.out.println("发送POST请求出现异常！" + e);
-//	        e.printStackTrace();
-//	    } finally {
-//	        if (reader != null) {
-//	            reader.close();
-//	        }
-//	    }
-//	    return result;
-//	}
-	
-//	/**
-//	 * 区域入库单号
-//	 * @param deptId 区域ID
-//	 * @return
-//	 */
-//	public static String getAreaInBatchNo(String deptId) {
-//		return "area_" + deptId + "_in" + getNowTimeStamp();
-//	}
-	
-//	/**
-//	 * 区域出库单号
-//	 * @param deptId 区域 ID
-//	 * @return
-//	 */
-//	public static String getAreaOutBatchNo(String deptId) {
-//		return "area_" + deptId + "_out" + getNowTimeStamp();
-//	}
-//	
-//	/**
-//	 * 门诊出库单号
-//	 * @param deptId 门诊 ID
-//	 * @return
-//	 */
-//	public static String getEsOutBatchNo(String deptId) {
-//		return "es_" + deptId + "_out" + getNowTimeStamp();
-//	}
-	
-//	/**
-//	 * 获得当前时间戳 year+month+day+hour+minute+second+millis
-//	 * @return
-//	 */
-//	public static String getNowTimeStamp() {
-//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
-//		return LocalDateTime.now().format(formatter);
-//	}
-	 
+
+	// Bean --> Map 1: 利用Introspector和PropertyDescriptor 将Bean --> Map
+	public static HashMap<String, Object> transBean2Map(Object obj) {
+
+		if (obj == null) {
+			return null;
+		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		try {
+			BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
+			PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+			for (PropertyDescriptor property : propertyDescriptors) {
+				String key = property.getName();
+
+				// 过滤class属性
+				if (!key.equals("class")) {
+					// 得到property对应的getter方法
+					Method getter = property.getReadMethod();
+					Object value = getter.invoke(obj);
+
+					map.put(key, value);
+				}
+
+			}
+		} catch (Exception e) {
+			System.out.println("transBean2Map Error " + e);
+		}
+
+		return map;
+
+	}
+
+	// public static String sendFilePost(String path, File file) throws
+	// IOException{
+	// URL urlObj = new URL(path);
+	// //连接
+	// HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
+	// String result = null;
+	// con.setDoInput(true);
+	// con.setDoOutput(true);
+	// con.setUseCaches(false); // post方式不能使用缓存
+	//
+	// // 设置请求头信息
+	// con.setRequestProperty("Connection", "Keep-Alive");
+	// con.setRequestProperty("Charset", "UTF-8");
+	// // 设置边界
+	// String BOUNDARY = "----------" + System.currentTimeMillis();
+	// con.setRequestProperty("Content-Type", "multipart/form-data; boundary=" +
+	// BOUNDARY);
+	//
+	// // 请求正文信息
+	// // 第一部分：
+	// StringBuilder sb = new StringBuilder();
+	// sb.append("--"); // 必须多两道线
+	// sb.append(BOUNDARY);
+	// sb.append("\r\n");
+	// sb.append("Content-Disposition: form-data;name=\"media\";filelength=\"" +
+	// file.length() + "\";filename=\"" + file.getName() + "\"\r\n");
+	// sb.append("Content-Type:application/octet-stream\r\n\r\n");
+	// byte[] head = sb.toString().getBytes("utf-8");
+	// // 获得输出流
+	// OutputStream out = new DataOutputStream(con.getOutputStream());
+	// // 输出表头
+	// out.write(head);
+	//
+	// // 文件正文部分
+	// // 把文件已流文件的方式 推入到url中
+	// DataInputStream in = new DataInputStream(new FileInputStream(file));
+	// int bytes = 0;
+	// byte[] bufferOut = new byte[1024];
+	// while ((bytes = in.read(bufferOut)) != -1) {
+	// out.write(bufferOut, 0, bytes);
+	// }
+	// in.close();
+	// // 结尾部分
+	// byte[] foot = ("\r\n--" + BOUNDARY + "--\r\n").getBytes("utf-8");//
+	// 定义最后数据分隔线
+	// out.write(foot);
+	// out.flush();
+	// out.close();
+	// StringBuffer buffer = new StringBuffer();
+	// BufferedReader reader = null;
+	// try {
+	// // 定义BufferedReader输入流来读取URL的响应
+	// reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	// String line = null;
+	// while ((line = reader.readLine()) != null) {
+	// buffer.append(line);
+	// }
+	// if (result == null) {
+	// result = buffer.toString();
+	// }
+	// } catch (IOException e) {
+	// System.out.println("发送POST请求出现异常！" + e);
+	// e.printStackTrace();
+	// } finally {
+	// if (reader != null) {
+	// reader.close();
+	// }
+	// }
+	// return result;
+	// }
+
+	// /**
+	// * 区域入库单号
+	// * @param deptId 区域ID
+	// * @return
+	// */
+	// public static String getAreaInBatchNo(String deptId) {
+	// return "area_" + deptId + "_in" + getNowTimeStamp();
+	// }
+
+	// /**
+	// * 区域出库单号
+	// * @param deptId 区域 ID
+	// * @return
+	// */
+	// public static String getAreaOutBatchNo(String deptId) {
+	// return "area_" + deptId + "_out" + getNowTimeStamp();
+	// }
+	//
+	// /**
+	// * 门诊出库单号
+	// * @param deptId 门诊 ID
+	// * @return
+	// */
+	// public static String getEsOutBatchNo(String deptId) {
+	// return "es_" + deptId + "_out" + getNowTimeStamp();
+	// }
+
+	// /**
+	// * 获得当前时间戳 year+month+day+hour+minute+second+millis
+	// * @return
+	// */
+	// public static String getNowTimeStamp() {
+	// DateTimeFormatter formatter =
+	// DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+	// return LocalDateTime.now().format(formatter);
+	// }
+
 }

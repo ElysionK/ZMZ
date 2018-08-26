@@ -8,16 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianwen.base.controller.BaseController;
+import com.tianwen.base.util.Pager;
 import com.tianwen.common.util.ImageUtil;
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.backstage.dto.CategoryDto;
+import com.tianwen.core.backstage.dto.ProductCondition;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.service.BackService;
 
@@ -29,7 +33,6 @@ public class BackContrller extends BaseController {
 	@Autowired
 	private BackService backService;
 	
-<<<<<<< HEAD
 	/************************************** banner ***********************************************/
 
 	
@@ -47,9 +50,7 @@ public class BackContrller extends BaseController {
 	
 	
 	/************************************* category *******************************************/
-	
-=======
->>>>>>> f803b43d402831835b6cf7a762839d4cceee0543
+
 
 	@GetMapping(value = "/index")
 	public ModelAndView toBackIndex(){
@@ -80,13 +81,27 @@ public class BackContrller extends BaseController {
 	
 	@GetMapping(value = "/product/list")
 	public ModelAndView toProductList(){
-		List<Product> list = backService.findAllProducts();
-		return new ModelAndView("/product/list", "list", list);
+		//List<Product> list = backService.findAllProducts();
+		return new ModelAndView("/product/list");
+	}
+	
+	@PostMapping(value = "/product/ajaxLoadProduct/{pageNo}", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult ajaxLoadProduct(@PathVariable String pageNo, ProductCondition condition){
+		JsonResponseResult result = null;
+		//List<Product> list = backService.findAllProducts();
+		Pager pager = backService.findAllProducts(condition, pageNo);
+		String ajaxPage = pager.getSiAjaxPageHtml();
+		result = JsonResponseResult.createSuccess();
+		result.addData(pager);
+		result.addData(ajaxPage);
+		return result;
 	}
 	
 	@GetMapping(value = "/product/add")
 	public ModelAndView toAddProduct(){
-		return new ModelAndView("/product/add");
+		List<CategoryDto> list = backService.findAllCategories();
+		return new ModelAndView("/product/add", "list", list);
 	}
 	
 	@PostMapping(value = "/product/addNew", produces = { "application/json;charset=UTF-8" })
