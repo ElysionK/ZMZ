@@ -82,6 +82,8 @@ public class BackContrller extends BaseController {
 	}
 	
 	
+	
+	
 	/********************************** product ******************************************/
 	
 	@GetMapping(value = "/product/list")
