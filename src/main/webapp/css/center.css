@@ -1,0 +1,31 @@
+body{background-color:#EFEFEF}
+header{width:100%;height:1.8rem;background-color:#FFC945}
+.head_top{width:100%;height:0.42rem}
+.set{font-size:0.3rem;line-height:0.72rem;font-family:'iconfont';float:right;color:#333;margin-right:0.3rem}
+.letter{font-size:0.3rem;line-height:0.72rem;font-family:'iconfont';float:right;color:#333;margin-right:0.15rem}
+header img{width:0.84rem;height:0.84rem;display:block;border-radius:50%;margin-left:0.23rem;float:left}
+header h1{width:4.1rem;font-size:0.18rem;color:#333;float:left;margin-left:0.22rem;margin-top:0.17rem}
+header p{font-size:0.18rem;color:#333;margin-left:0.22rem;margin-top:0.05rem;float:left}
+.server{width:100%;height:2.11rem;background-color:#fff;margin-top:0.15rem;padding:0 0.15rem}
+.server li{width:1.25rem;height:0.94rem;float:left}
+.server li em{font-family:'iconfont';font-size:0.4rem;color:#FFDF94;float:left;margin-top:0.24rem;margin-left:0.5rem}
+.server li span{font-size:0.2rem;margin-left:0.27rem;float:left;color:#333;margin-top:0.14rem}
+.middle{display:block;width:100%;height:0.9rem;margin-top:0.15rem}
+.zichan{width:100%;height:2.05rem;background-color:#fff;margin-top:0.15rem;padding-left:0.23rem}
+.zichan h1,.more h1{width:100%;float:left;font-size:0.23rem;color:#999;line-height:0.64rem;border-bottom:0.01rem solid #ccc}
+.zichan_bottom,.more_bottom{width:1.29rem;height:auto;overflow:hidden;float:left}
+.zichan_bottom em,.more_bottom em{font-family:'iconfont';font-size:0.32rem;color:#333;margin-left:0.41rem;margin-top:0.26rem;float:left}
+.zichan_bottom span,.more_bottom span{font-size:0.16rem;color:#333;margin-left:0.4rem;margin-top:0.1rem;float:left}
+.more_bottom span{margin-left:0.3rem}
+#zichan_span1{margin-left:0.34rem}
+.zichan_bottom p{font-size:0.16rem;color:#ccc;margin-left:0.18rem;margin-top:0.1rem;float:left}
+#zichan_span2{margin-left:0.28rem}
+#zichan_p2{margin-left:0.28rem}
+#zichan_p3{margin-left:0.28rem}
+.more{width:100%;height:auto;overflow:hidden;margin-top:0.15rem;padding-left:0.23rem;background-color:#fff;padding-bottom:1rem}
+.bar{width:100%;height:0.74rem;position:fixed;bottom:0;left:0;background-color:#fff;border-top:0.02rem solid #ccc}
+.bar li{width:1.78rem;height:100%;float:left;padding-top:0.12rem}
+#em_active{color:#FFC43F}
+#span_active{color:#333}
+.bar li em{font-family:'iconfont';font-size:0.32rem;float:left;margin-left:0.74rem;color:#ccc}
+.bar li span{font-size:0.15rem;text-align:center;color:#ccc;float:left;margin-left:0.74rem}

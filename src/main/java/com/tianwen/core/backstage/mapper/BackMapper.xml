@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tianwen.core.backstage.dao.BackDao">
+
+	<select id="findCategoryMaxSort" resultType="int">
+		SELECT IFNULL(MAX(SORT),0) SORT FROM T_CATEGORY
+	</select>
+  	
+  	<insert id="addNewCategory" parameterType="category">
+  		INSERT INTO T_CATEGORY (
+  			NAME,
+  			IMG,
+  			CREATETIME,
+  			SORT
+  		) VALUES (
+  			#{category.name},
+  			#{category.img},
+  			#{category.createtime},
+  			#{category.sort}
+  		)
+  	</insert>
+  	
+  	<select id="findAllCategories" resultType="category">
+  		SELECT * FROM T_CATEGORY
+  	</select>
+  	
+</mapper>

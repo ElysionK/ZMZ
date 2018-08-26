@@ -1,0 +1,66 @@
+ tr>td.tableleft {line-height: 30px;} input[type='text'] { width: 450px;}.modal {margin: 0 0 0 -500px;}
+ .page-content{color: #666; padding: 20px 30px 0; margin-left: 270px; height: 700px; overflow: auto; border-bottom: 1px solid #E3E3E3; font-size: 14px; position: relative;}
+.title1{line-height: 40px; border-bottom: 1px solid #E3E3E3; padding: 0 0 0 30px; color: #00afc7;}
+
+.info{overflow: hidden; padding: 0 0 0 30px;}
+.list{overflow: hidden; width: 100%;}
+.info p{color: #666; float: left; margin: 0 50px 0 0; line-height: 40px;}
+.info span{display: block; float: left; color: #00AFC7; cursor: pointer; line-height: 40px;}
+.info p input[type='text']{border: none; line-height: 40px; min-width: 300px; width: auto; overflow: visible; background: #fff; border-radius: 0;}
+.info p input:focus{border-bottom: 1px solid #E3E3E3; color: #999; border-radius: 0; }
+
+.imgBox{overflow: hidden; width: 198px; height: 148px; border: 1px solid #E3E3E3; border-radius: 5px; float: left; position: relative; margin: 20px 0;}
+.imgUp{width: 178px; height: 128px; position: absolute; top: 10px; left: 10px; cursor: pointer; border-radius: 5px;  background:#f7f7f7 url("../../images/addImg1.png") no-repeat center center; background-size: 48px auto;}
+.size{float: left; margin: 150px 0 0 10px;}
+
+.toplist{background:#e7e7e7;padding:10px 0;height:40px;color:#333}
+.tcxmtitle{height:30px;line-height:30px;font-size:16px;margin:20px 0 5px 0;overflow:hidden;clear:both}
+.xiangmuleibie{text-align:left;color:#00afc7;font-size:16px;line-height:35px}
+.ishas{width:25px;height:30px;display:inline-block;background:url(../../images/kexuanduigou.png) center center no-repeat}
+
+td .addtaocanlx{width:450px; overflow:hidden; line-height:30px; background:#FFF; border:1px #ddd solid; top:26px; left:110px; z-index:9999; display:none;}
+td .addtaocanlx p{height:30px; cursor:pointer; margin:-1px 0 0 0; border-top:1px #ddd solid; padding:0 0 0 30px; background:url(../../images/fxanztbg3.png) 10px 8px no-repeat;}
+td .addtaocanlx p.active{background:url(../../images/fxanztbg4.png) 10px 8px no-repeat;}
+
+label.single {display: inline-block; }
+table tr td{line-height:22px;font-size:12x;color:#7b7b7b;padding:5px;text-align:center;}
+tr td.textleft{ border:1px solid #ddd;}
+input.save{width:80px;height:30px;border-radius:8px;display:block;float:left;background:#00afc7;border:1px solid #00afc7;color:#fff;text-align:center}
+input.undo{width: 80px;height: 30px;border-radius: 8px; background: #fff; border: 1px solid #999;color: #666;text-align: center;}
+
+div.tcaddcontent table tr td{border:1px #ccc solid;line-height:22px;font-size:12x;color:#7b7b7b;padding:5px;text-align:center}
+.tcaddcontent{width:744px;height:498px;float:left;overflow:hidden;margin:0 0 0 10px;border:1px #ddd solid;border-radius:3px;}
+.tcaddscdiv{width:17px;padding:220px 10px 0 10px;float:left;overflow:hidden}
+.tcaddscdiv .newaddan1{width:17px;height:20px;display:inline-block;background:url(../../images/newaddtcan2.png) center center no-repeat;cursor:pointer}
+.tcaddscdiv .newaddan2{width:17px;height:20px;display:inline-block;background:url(../../images/newaddtcan1.png) center center no-repeat;cursor:pointer}
+.tcaddcontent .leftxmlist th,.tcaddcontent .leftxmlist tr,.tcaddcontent .leftxmlist tr td{border:1px #ddd solid;line-height:20px;font-size:12px;font-weight:normal}
+
+.tcxzlist p{height:20px;line-height:20px;margin:0 0 5px 0;overflow:hidden;clear:both}.tcxzlist p input{margin-bottom:5px}
+.tcxzlist{width:182px;padding:5px;height:488px;border:1px #ddd solid;border-radius:3px;float:left;overflow:hidden;overflow-y:auto;font-size:12px}
+
+.scmdxxt{width:260px;height:160px;overflow:hidden;background:url(../../images/addtaocanimg.jpg) center center no-repeat;position:relative}
+.scmdxxt a{width:260px;height:160px;display:block}
+.scwjanys{width:260px;height:190px;display:block;cursor:pointer;overflow:hidden;position:absolute;top:-30px;left:0;text-indent:-999999999em;font-size:0;background:0;border:0;outline:0}
+
+.tcaddorremdiv{clear:both;height:550px;overflow:hidden}
+.tcaddorremdiv .tcaddcontent .leftxmlist{height:430px;overflow:hidden;overflow-y:auto;color:#323233;font-size:12px}
+div.tctoptjsx{height:35px;line-height:35px;padding:0 15px;border-bottom:1px #ddd solid;margin:0 0 10px 0;clear:both;position:relative;overflow:hidden}
+.tctoptjsx .rigsxtj em{height:20px;line-height:20px;float:left;display:inline-block;margin:0 10px 0 0}
+.tctoptjsx .rigsxtj .rigsxxlys{height:30px;line-height:30px;float:left;display:inline-block;border:1px #ddd solid;overflow:hidden;color:#999;font-family:"Microsoft YaHei"}
+.tctoptjsx .rigsxtj select{width:150px}
+.tctoptjsx .rigsxtj .rigsxinputk{width:150px;height:30px;line-height:30px;text-align:center;float:left;display:inline-block;border:1px #ddd solid;overflow:hidden;color:#999;font-family:"Microsoft YaHei";background:#fff;outline:0;margin:0 10px}
+.tctoptjsx .rigsxtj .rigsxan{width:50px;text-align:center;height:28px;line-height:28px;float:left;display:inline-block;border:none;overflow:hidden;color:#fff;font-family:"Microsoft YaHei";background:#f90;outline:0;cursor:pointer;border-radius:3px}
+
+.yxtcxiang{height:360px;font-size:14px;line-height:22px;overflow:hidden;overflow-y:auto}
+.mdconbig{width:760px;overflow:hidden}
+.mdconbig .mdcondiv{clear:both;overflow:hidden}
+.mdconbig .mdcondiv .mdxzan{height:35px;padding:0 40px 0 0;line-height:25px;border-bottom:1px #ddd solid;font-size:14px;position:relative;clear:both;overflow:hidden}
+.mdconbig .mdcondiv .mdxzan a{height:25px;line-height:25px;display:inline-block;margin:0 10px 5px 0;float:left;padding:0 10px;color:#7b7b7b;border-radius:2px}
+.mdconbig .mdcondiv .mdxzan a.active,.mdconbig .mdcondiv .mdxzan a:hover{background:#FF8F00;color:#fff}
+.mdconbig .mdcondiv .mdxzan .more{width:40px;height:20px;line-height:20px;display:inline-block;position:absolute;bottom:12px;right:0;font-size:16px;color:#00AFC7;cursor:pointer}
+.mdconbig .mdcondiv .mdlist{clear:both;overflow:hidden}
+.mdconbig .mdcondiv .mdlist .list{clear:both;height:50px;padding:5px;margin:5px 0 0 0;line-height:20px;font-size:12px;position:relative;overflow:hidden;color:#7b7b7b;border-bottom:1px #ddd dashed}
+.modal-body.watchShop{max-height:420px}
+.scwjanys{width:260px;height:190px;display:block;cursor:pointer;overflow:hidden;position:absolute;top:-30px;left:0;text-indent:-999999999em;font-size:0;background:0;border:0;outline:0}
+.doubi{width:80px;height:30px;border-radius:8px;display:block;float:left;background:#00afc7;border:1px solid #00afc7;color:#fff;text-align:center}
+.frs{width:80px;height:30px;border-radius:8px;background:#fff;border:1px solid #999;color:#666;text-align:center}
