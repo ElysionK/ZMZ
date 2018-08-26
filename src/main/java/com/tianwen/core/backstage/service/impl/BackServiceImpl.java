@@ -9,6 +9,7 @@ import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.common.util.SysUtil;
 import com.tianwen.core.backstage.dao.BackDao;
 import com.tianwen.core.backstage.dto.CategoryDto;
+import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.service.BackService;
 
@@ -54,6 +55,12 @@ public class BackServiceImpl implements BackService{
 
 	@Override
 	public List<Product> findAllProducts() {
+		return null;
+	}
+
+	@Override
+	public List<Banner> findAllBanners() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
