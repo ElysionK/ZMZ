@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.tianwen.core.backstage.dto.CategoryDto;
+import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 
 @Repository
@@ -23,5 +24,11 @@ public interface BackDao {
 	Integer countAllProducts(HashMap<String, Object> map);
 	
 	List<Product> findAllProducts(HashMap<String, Object> map);
+
+	List<Banner> findAllBanners();
+
+	int findBannerMaxSort();
+
+	int addNewBanner(@Param("banner") Banner banner);
 	
 }

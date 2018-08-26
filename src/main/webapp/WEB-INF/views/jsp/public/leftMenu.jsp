@@ -13,7 +13,7 @@
 			</a>
 		</li>
 			<li>
-				<a class="sideblk blk" href="javascript:void(0);">
+				<a class="sideblk blk" href="/backstage/banner/list">
 					<i class="record"><img src="/images/back_banner.png"/></i>
 					<span class="title">banner设置</span>
 					<span class="arrowicon"></span>

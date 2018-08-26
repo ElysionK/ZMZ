@@ -80,4 +80,24 @@
   		SELECT COUNT(T.ID) FROM (SELECT P.ID FROM T_PRODUCT P WHERE 1 = 1
   		<include refid="productCondition" />) T
   	</select>
+  	
+  	<select id="findAllBanners" resultType="banner">
+  		SELECT * FROM T_BANNER ORDER BY SORT ASC
+  	</select>
+  	
+  	<select id="findBannerMaxSort" resultType="int">
+		SELECT IFNULL(MAX(SORT),0) SORT FROM T_BANNER
+	</select>
+	
+	<insert id="addNewBanner" parameterType="category">
+  		INSERT INTO T_BANNER (
+  			BRIEF,
+  			IMG,
+  			SORT
+  		) VALUES (
+  			#{category.brief},
+  			#{category.img},
+  			#{category.sort}
+  		)
+  	</insert>
 </mapper>

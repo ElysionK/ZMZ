@@ -22,6 +22,7 @@ import com.tianwen.common.util.ImageUtil;
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.backstage.dto.CategoryDto;
 import com.tianwen.core.backstage.dto.ProductCondition;
+import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.service.BackService;
 
@@ -36,13 +37,21 @@ public class BackContrller extends BaseController {
 	/************************************** banner ***********************************************/
 	@GetMapping(value = "/banner/list")
 	public ModelAndView toBannerList(){
-		List<CategoryDto> list = backService.findAllCategories();
+		List<Banner> list = backService.findAllBanners();
 		return new ModelAndView("/banner/list", "list", list);
 	}
 	
 	@GetMapping(value = "/banner/add")
 	public ModelAndView toAddBanner(){
 		return new ModelAndView("/banner/add");
+	}
+	
+	@PostMapping(value = "/banner/addNew", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult addNew(Banner banner, MultipartFile mainFile, HttpServletRequest request){
+		String path = ImageUtil.saveFile(mainFile, request, "banner");
+		banner.setImg(path);
+		return backService.addNewBanner(banner);
 	}
 	
 	

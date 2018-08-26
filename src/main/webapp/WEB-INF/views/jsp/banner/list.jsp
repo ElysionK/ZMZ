@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>个人体检套餐列表</title>
+	<title>banner 列表</title>
 	<%@include file="../public/head.jsp" %>
 	<link href="/css/back/category.css" rel="stylesheet" type="text/css" />
 </head>
@@ -11,7 +11,7 @@
 	<%@include file="../public/leftMenu.jsp" %>
 	<div class="page-content">
 		<div class="contenttop">
-			<div class="tit">个人体检套餐列表</div>
+			<div class="tit">banner 列表</div>
 		</div>
 		
 		<div class="portlet-body">
@@ -20,9 +20,8 @@
 					<tr>
 						<th><input type="checkbox" class="checkAll" disabled/></th>
 						<th>序号</th>
-						<th>分类名称</th>
                        	<th>图片</th>
-                        <th>创建时间</th>
+                        <th>简述</th>
                         <th>操作</th>
 					</tr>
 				</thead>
@@ -31,18 +30,16 @@
 						<tr>
 							<td><input type="checkbox" class="pids" value=""  data=""/></td>
 							<td>${list.sort}</td>
-							<td>${list.name}</td>
-							<td><img alt="" src="${pageContext.request.contextPath}/upload/images/${list.img}"></td>
-							<td>${list.createtime}</td>
+							<td>${list.brief}</td>
+							<td><img alt="" src="${pageContext.request.contextPath}/upload/${list.img}"></td>
 							<td><a class="cek detail" href="javascript:void(0)">修改</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 			<div class="new-add">
-				<span class="add-btn" onclick="window.location.href='/backstage/category/add'">新增个人套餐</span>
+				<span class="add-btn" onclick="window.location.href='/backstage/banner/add'">新增</span>
 			</div>
-			<%@include file="../public/pagination.jsp" %>
 		</div>
 	</div>
 	<%@include file="../public/footer.jsp" %>

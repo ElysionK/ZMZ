@@ -21,4 +21,6 @@ public interface BackService {
 	
 	List<Banner> findAllBanners();
 
+	JsonResponseResult addNewBanner(Banner banner);
+
 }

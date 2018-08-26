@@ -22,6 +22,7 @@
 		<!-- <typeAlias type="com.tianwen.core.user.entity.HisInnerUser" alias="user"/> -->
 		<typeAlias type="com.tianwen.core.backstage.dto.CategoryDto" alias="category"/>
 		<typeAlias type="com.tianwen.core.backstage.entity.Product" alias="product"/>
+		<typeAlias type="com.tianwen.core.backstage.entity.Banner" alias="banner"/>
 	</typeAliases>
 	
 	<mappers>

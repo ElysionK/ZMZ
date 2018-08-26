@@ -47,8 +47,6 @@ public class BackServiceImpl implements BackService{
 	}
 	
 	
-	
-
 	@Override
 	public JsonResponseResult addNewProduct(Product product) {
 		product.setCreateTime(SysUtil.getTime());
@@ -69,8 +67,25 @@ public class BackServiceImpl implements BackService{
 	}
 
 	public List<Banner> findAllBanners() {
-		// TODO Auto-generated method stub
-		return null;
+		return backDao.findAllBanners();
 	}
+	
+	@Override
+	public JsonResponseResult addNewBanner(Banner banner) {
+		
+		int maxSort = backDao.findBannerMaxSort();
+		
+		if(SysUtil.isEmpty(maxSort)) {
+			maxSort = 1; 
+		}else{
+			if(banner.getSort() <= maxSort) return JsonResponseResult.createFalied("排序序号必须大于现有的最大序号");
+		}
+		
+		
+		backDao.addNewBanner(banner);
+		
+		return JsonResponseResult.createSuccess();
+	}
+
 
 }
