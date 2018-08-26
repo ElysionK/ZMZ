@@ -29,7 +29,24 @@ public class BackContrller extends BaseController {
 	@Autowired
 	private BackService backService;
 	
+	/************************************** banner ***********************************************/
 
+	
+	@GetMapping(value = "/banner/list")
+	public ModelAndView toBannerList(){
+		List<CategoryDto> list = backService.findAllCategories();
+		return new ModelAndView("/banner/list", "list", list);
+	}
+	
+	@GetMapping(value = "/banner/add")
+	public ModelAndView toAddBanner(){
+		return new ModelAndView("/banner/add");
+	}
+	
+	
+	
+	/************************************* category *******************************************/
+	
 	@GetMapping(value = "/index")
 	public ModelAndView toBackIndex(){
 		return new ModelAndView("/back_index");

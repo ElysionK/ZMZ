@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.backstage.dto.CategoryDto;
+import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 
 public interface BackService {
@@ -16,4 +17,7 @@ public interface BackService {
 
 	JsonResponseResult addNewProduct(Product product);
 	
+	List<Banner> findAllBanners();
+	
+
 }
