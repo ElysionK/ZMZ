@@ -32,7 +32,7 @@
 							<td><input type="checkbox" class="pids" value=""  data=""/></td>
 							<td>${list.sort}</td>
 							<td>${list.name}</td>
-							<td><img alt="" src="${pageContext.request.contextPath}/upload/images/${list.img}"></td>
+							<td><img alt="" src="${pageContext.request.contextPath}/upload/${list.img}"></td>
 							<td>${list.createtime}</td>
 							<td><a class="cek detail" href="javascript:void(0)">修改</a></td>
 						</tr>
@@ -40,7 +40,7 @@
 				</tbody>
 			</table>
 			<div class="new-add">
-				<span class="add-btn" onclick="window.location.href='/backstage/category/add'">新增个人套餐</span>
+				<span class="add-btn" onclick="window.location.href='/backstage/category/add'">新增</span>
 			</div>
 			<%@include file="../public/pagination.jsp" %>
 		</div>

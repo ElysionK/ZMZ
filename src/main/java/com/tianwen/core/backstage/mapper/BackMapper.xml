@@ -4,6 +4,18 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tianwen.core.backstage.dao.BackDao">
 
+	<resultMap type="product" id="productMap">
+		<id column="ID" property="id" jdbcType="INTEGER"/>
+		<result column="NAME" property="name" jdbcType="VARCHAR"/>
+		<result column="ORIGNAL_PRICE" property="orignalPrice" jdbcType="DOUBLE"/>
+		<result column="DISCOUNT_PRICE" property="discountPrice" jdbcType="DOUBLE"/>
+		<result column="IMG" property="img" jdbcType="VARCHAR"/>
+		<result column="CATEOGRY_NAME" property="categoryName" jdbcType="VARCHAR"/>
+		<result column="CATEOGRY" property="category" jdbcType="VARCHAR"/>
+		<result column="BRIEF" property="brief" jdbcType="VARCHAR"/>
+		<result column="CREATETIME" property="createTime" jdbcType="VARCHAR"/>
+	</resultMap>
+
 	<select id="findCategoryMaxSort" resultType="int">
 		SELECT IFNULL(MAX(SORT),0) SORT FROM T_CATEGORY
 	</select>
@@ -26,4 +38,46 @@
   		SELECT * FROM T_CATEGORY
   	</select>
   	
+  	<insert id="addNewProduct" parameterType="product">
+  		INSERT INTO T_PRODUCT (
+  			NAME,
+  			CATEGORY,
+  			IMG,
+  			ORIGNAL_PRICE,
+  			DISCOUNT_PRICE,
+  			BRIEF,
+  			CREATETIME
+  		) VALUES (
+  			#{product.name},
+  			#{product.category},
+  			#{product.img},
+  			#{product.orignalPrice},
+  			#{product.discountPrice},
+  			#{product.brief},
+  			#{product.createTime}
+  		)
+  	</insert>
+  	
+  	<sql id="productCondition">
+  		<if test="name != null and name != ''">AND P.NAME LIKE '%'||#{name}||'%' </if>
+  		<if test="category != null and category != ''">AND P.CATEGORY = #{category} </if>
+  		<if test="minPrice != null and minPrice != ''">P.DISCOUNT_PRICE <![CDATA[ >= ]]> #{minPrice} </if>
+  		<if test="maxPrice != null and maxPrice != ''">P.DISCOUNT_PRICE <![CDATA[ <= ]]> #{maxPrice} </if>
+  	</sql>
+  	
+  	<select id="findAllProducts" resultMap="productMap">
+  		SELECT 
+  				P.*, C.NAME CATEGORY_NAME 
+		FROM T_PRODUCT P
+		LEFT JOIN
+			T_CATEGORY C
+		ON P.CATEGORY = C.ID WHERE 1 = 1
+		<include refid="productCondition" />
+		<include refid="BaseMap.mysqlPageSqlSuffix" />
+  	</select>
+  	
+  	<select id="countAllProducts" resultType="int">
+  		SELECT COUNT(T.ID) FROM (SELECT P.ID FROM T_PRODUCT P WHERE 1 = 1
+  		<include refid="productCondition" />) T
+  	</select>
 </mapper>

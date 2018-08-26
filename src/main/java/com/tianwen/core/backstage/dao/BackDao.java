@@ -1,5 +1,6 @@
 package com.tianwen.core.backstage.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -17,6 +18,10 @@ public interface BackDao {
 	
 	List<CategoryDto> findAllCategories();
 	
-	Integer addNewProduct(Product product);
+	Integer addNewProduct(@Param("product") Product product);
+
+	Integer countAllProducts(HashMap<String, Object> map);
+	
+	List<Product> findAllProducts(HashMap<String, Object> map);
 	
 }
