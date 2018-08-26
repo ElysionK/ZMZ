@@ -31,48 +31,12 @@
 		<!-- <img src="../../../../images/Screenshot_2018-04-17-15-11-33-84_02.png" alt=""> -->
 	</main>
 	<ul class="list">
-		<li>
-			<img src="../../../../images/Screenshot_2018-04-10-09-16-05-19_03.png" alt="">
-			<span class="list_word">美食</span>
-		</li>
-		<li>
-			<img src="../../../../images/Screenshot_2018-04-17-15-11-33-84_05.png" alt="">
-			<span class="list_word">美团超市</span>
-		</li>
-		<li>
-			<img src="../../../../images/Screenshot_2018-04-17-15-11-33-84_07.png" alt="">
-			<span class="list_word">生鲜果蔬</span>
-		</li>
-		<li>
-			<img src="../../../../images/Screenshot_2018-04-17-15-11-33-84_09.png" alt="">
-			<span class="list_word">美团专送</span>
-		</li>
-		<li>
-			<img src="../../../../images/Screenshot_2018-04-17-15-11-33-84_11.png" alt="">
-			<span class="list_word">跑腿代购</span>
-		</li>
-		<li>
-			<img src="../../../../images/Screenshot_2018-04-17-15-11-33-84_18.png" alt="">
-			<span class="list_word">下午茶</span>
-		</li>
-		<li>
-			<img src="../../../../images/Screenshot_2018-04-17-15-11-33-84_20.png" alt="">
-			<span class="list_word">汉堡披萨</span>
-		</li>
-		<li>
-			<img src="../../../../images/Screenshot_2018-04-17-15-11-33-84_21.png" alt="">
-			<span class="list_word">快食简餐</span>
-		</li>
-		<li>
-			<img src="../../../../images/Screenshot_2018-04-17-15-11-33-84_22.png" alt="">
-			<span class="list_word">家常菜</span>
-		</li>
-		<a href="list.html">
+		<#list categories as category>
 			<li>
-				<img src="../../../../images/Screenshot_2018-04-17-22-25-07-38_03.png" alt="">
-				<span class="list_word">全部分类</span>
+				<img src="${pageContext.request.contextPath}/upload/${category.img}" alt="">
+				<span class="list_word">${category.name}</span>
 			</li>
-		</a>
+		</#list>
 	</ul>
 	<section class="youxuan">
 		<h1 class="youxuan_title">为你优选</h1>
