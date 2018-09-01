@@ -64,7 +64,7 @@
 <script src="/plugin/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 <script>
 $(document).ready(function(){
-	$("#savBanner").on("click", function(){
+	$("#saveBanner").on("click", function(){
     	$("#addBanner").ajaxSubmit({
     	    url: "/backstage/banner/addNew",
     	    type: "post",

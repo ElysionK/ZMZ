@@ -35,7 +35,7 @@
   	</insert>
   	
   	<select id="findAllCategories" resultType="category">
-  		SELECT * FROM T_CATEGORY
+  		SELECT * FROM T_CATEGORY ORDER BY SORT ASC
   	</select>
   	
   	<insert id="addNewProduct" parameterType="product">
@@ -86,7 +86,7 @@
   	</select>
   	
   	<select id="findBannerMaxSort" resultType="int">
-		SELECT IFNULL(MAX(SORT),0) SORT FROM T_BANNER
+		SELECT IFNULL(MAX(SORT),0) SORT FROM T_BANNER ORDER BY SORT ASC
 	</select>
 	
 	<insert id="addNewBanner" parameterType="category">
@@ -95,9 +95,69 @@
   			IMG,
   			SORT
   		) VALUES (
-  			#{category.brief},
-  			#{category.img},
-  			#{category.sort}
+  			#{banner.brief},
+  			#{banner.img},
+  			#{banner.sort}
   		)
   	</insert>
+  	
+  	<update id="updCategorySort">
+  		UPDATE
+  			T_CATEGORY
+  		<trim prefix="set" suffixOverrides=",">
+            <trim prefix="sort =case" suffix="end,">
+                <foreach collection="categories" item="c" index="index">
+                     when id=#{c.id} then #{c.sort}
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach collection="categories" index="index" item="c" separator="," open="(" close=")">
+            #{c.id,jdbcType=INTEGER}
+        </foreach>
+  	</update>
+  	
+  	<update id="updCategory">
+  		UPDATE
+  			T_CATEGORY
+  		<trim prefix="set" suffixOverrides=",">
+  			<if test="category.img != null and category.img != ''">
+  				img = #{category.img, jdbcType=VARCHAR},
+  			</if>
+  			<if test="category.name != null and category.name != ''">
+  				name = #{category.name, jdbcType=VARCHAR},
+  			</if>
+  		</trim>
+        WHERE id = #{category.id,jdbcType=INTEGER}
+  	</update>
+  	
+  	<update id="updBannerSort">
+  		UPDATE
+  			T_BANNER
+  		<trim prefix="set" suffixOverrides=",">
+            <trim prefix="sort =case" suffix="end,">
+                <foreach collection="banners" item="b" index="index">
+                     when id=#{b.id} then #{b.sort}
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach collection="banners" index="index" item="b" separator="," open="(" close=")">
+            #{b.id,jdbcType=INTEGER}
+        </foreach>
+  	</update>
+  	
+  	<update id="updBanner">
+  		UPDATE
+  			T_BANNER
+  		<trim prefix="set" suffixOverrides=",">
+  			<if test="banner.img != null and banner.img != ''">
+  				img = #{banner.img, jdbcType=VARCHAR},
+  			</if>
+  			<if test="banner.brief != null and banner.brief != ''">
+  				brief = #{banner.brief, jdbcType=VARCHAR},
+  			</if>
+  		</trim>
+        WHERE id = #{banner.id,jdbcType=INTEGER}
+  	</update>
 </mapper>

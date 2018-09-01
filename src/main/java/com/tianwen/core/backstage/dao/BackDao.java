@@ -30,5 +30,13 @@ public interface BackDao {
 	int findBannerMaxSort();
 
 	int addNewBanner(@Param("banner") Banner banner);
+
+	int updCategorySort(@Param("categories") List<CategoryDto> categories);
+
+	Integer updCategory(@Param("category") CategoryDto dto);
+
+	void updBannerSort(@Param("banners") List<Banner> banners);
+
+	void updBanner(@Param("banner") Banner banner);
 	
 }
