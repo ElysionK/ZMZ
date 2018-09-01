@@ -23,4 +23,12 @@ public interface BackService {
 
 	JsonResponseResult addNewBanner(Banner banner);
 
+	JsonResponseResult updCategorySort(List<CategoryDto> categories);
+
+	JsonResponseResult updCategory(CategoryDto dto);
+
+	JsonResponseResult updBannerSort(List<Banner> banners);
+
+	JsonResponseResult updBanner(Banner banner);
+
 }

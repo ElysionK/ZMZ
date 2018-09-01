@@ -84,22 +84,6 @@ $(document).ready(function(){
     	    }
     	});
     });
-	/*
-	$('#addCategory').sgfmform({
-		btnSubmit:"#saveCategory",
-		ajaxurl : '/backstage/category/addNew',
-		tiptype : 2,
-		submittype: 2,
-		postonce : true,
-		callback : function(data, url){
-			if (data.returncode == 0){
-				alertMsg({"type" : 1, "content" : data.errmsg, "close" : true, "timeout" : 1500});
-				setTimeout("window.location.href='${ctx}/core/checkupProduct.toProductList.do'",1800);
-			} else {
-				alertMsg({"type":2, "content" : data.errmsg, "close" : true, "timeout" : 2000});
-			}
-		}
-	})*/
 });
 	
 </script>

@@ -17,21 +17,18 @@
 	<main class="banner">
 		<div class="swiper-container" >
 			<div class="swiper-wrapper">
-				<div class="swiper-slide"><img class="swiper-lazy" src="../../../../images/Screenshot_2018-04-17-15-11-33-84_02.png"/></div>
-				<div class="swiper-slide"><img src="../../../../images/Screenshot_2018-04-17-15-11-33-84_02.png" /></div>
-				<div class="swiper-slide"><img src="../../../../images/Screenshot_2018-04-17-15-11-33-84_02.png"/></div>
-				<!-- <div class="swiper-slide"><a href="http://p.51towin.com/core/tooth.toothProductList.do"><img src="/img/yiyuangou.jpg" style="width:100%;height:165px;"/></a></div>
-				
-				<div class="swiper-slide"><a href="http://p.51towin.com/core/product.toProductDetail.do?cgVariable.pid=1748&isCard=1"><img class="swiper-lazy" src="img/499.jpg" style="width:100%;" height="165"/></a></div>
-				<div class="swiper-slide"><a href="http://p.51towin.com/core/product.toProductDetail.do?cgVariable.pid=2265&isCard=1"><img class="swiper-lazy" src="img/lekangka.jpg" style="width:100%;" height="165"/></a></div>
-				<div class="swiper-slide"><a href="http://p.51towin.com/core/product.toProductDetail.do?cgVariable.pid=2267&isCard=1"><img class="swiper-lazy" src="img/yuekangka.jpg" style="width:100%;" height="165"/></a></div> -->
+				<#list data.banners as banner>
+					<div class="swiper-slide">
+						<img class="swiper-lazy" src="${pageContext.request.contextPath}/upload/${banner.img}" alt="">
+					</div>
+				</#list>
 			</div>
 			<div class="swiper-pagination"></div>
 		</div>
 		<!-- <img src="../../../../images/Screenshot_2018-04-17-15-11-33-84_02.png" alt=""> -->
 	</main>
 	<ul class="list">
-		<#list categories as category>
+		<#list data.categories as category>
 			<li>
 				<img src="${pageContext.request.contextPath}/upload/${category.img}" alt="">
 				<span class="list_word">${category.name}</span>
@@ -84,7 +81,7 @@ var swiper = new Swiper('.swiper-container', {
     nextButton: '.swiper-button-next',
     prevButton: '.swiper-button-prev',
     preventLinksPropagation : false,
-    autoplayDisableOnInteraction: false
+    autoplayDisableOnInteraction: true
 });
 </script>
 </html>

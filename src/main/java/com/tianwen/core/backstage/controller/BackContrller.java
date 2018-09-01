@@ -30,73 +30,106 @@ import com.tianwen.core.backstage.service.BackService;
 @Controller
 @RequestMapping(value = "/backstage")
 public class BackContrller extends BaseController {
-	
+
 	@Autowired
 	private BackService backService;
-	
-	/************************************** banner ***********************************************/
+
+	/**************************************
+	 * banner
+	 ***********************************************/
 	@GetMapping(value = "/banner/list")
-	public ModelAndView toBannerList(){
+	public ModelAndView toBannerList() {
 		List<Banner> list = backService.findAllBanners();
 		return new ModelAndView("/banner/list", "list", list);
 	}
-	
+
 	@GetMapping(value = "/banner/add")
-	public ModelAndView toAddBanner(){
+	public ModelAndView toAddBanner() {
 		return new ModelAndView("/banner/add");
 	}
-	
+
 	@PostMapping(value = "/banner/addNew", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public JsonResponseResult addNew(Banner banner, MultipartFile mainFile, HttpServletRequest request){
+	public JsonResponseResult addNew(Banner banner, MultipartFile mainFile, HttpServletRequest request) {
 		String path = ImageUtil.saveFile(mainFile, request, "banner");
 		banner.setImg(path);
 		return backService.addNewBanner(banner);
 	}
 	
-	
-	
-	/************************************* category *******************************************/
+	@PostMapping(value = "/banner/sort/update", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult updBannerSort(@RequestBody List<Banner> banners) {
+		return backService.updBannerSort(banners);
+	}
+
+	@PostMapping(value = "/banner/update", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult updBanner(Banner banner, MultipartFile mainFile, HttpServletRequest request) {
+		if (mainFile != null && !mainFile.isEmpty()) {
+			String path = ImageUtil.saveFile(mainFile, request, "banner");
+			banner.setImg(path);
+		}
+		return backService.updBanner(banner);
+	}
+
+	/*************************************
+	 * category
+	 *******************************************/
 	@GetMapping(value = "/index")
-	public ModelAndView toBackIndex(){
+	public ModelAndView toBackIndex() {
 		return new ModelAndView("/back_index");
 	}
-	
+
 	@GetMapping(value = "/category/list")
-	public ModelAndView toCategoryList(){
+	public ModelAndView toCategoryList() {
 		List<CategoryDto> list = backService.findAllCategories();
 		return new ModelAndView("/category/list", "list", list);
 	}
-	
+
 	@GetMapping(value = "/category/add")
-	public ModelAndView toAddCategory(){
+	public ModelAndView toAddCategory() {
 		return new ModelAndView("/category/add");
 	}
-	
+
 	@PostMapping(value = "/category/addNew", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public JsonResponseResult addNew(CategoryDto dto, MultipartFile mainFile, HttpServletRequest request){
+	public JsonResponseResult addNew(CategoryDto dto, MultipartFile mainFile, HttpServletRequest request) {
 		String path = ImageUtil.saveFile(mainFile, request, "category");
 		dto.setImg(path);
 		return backService.addNewCategory(dto);
 	}
-	
-	
-	
-	
-	/********************************** product ******************************************/
-	
+
+	@PostMapping(value = "/category/sort/update", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult updCategorySort(@RequestBody List<CategoryDto> categories) {
+		return backService.updCategorySort(categories);
+	}
+
+	@PostMapping(value = "/category/update", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult updCategory(CategoryDto dto, MultipartFile mainFile, HttpServletRequest request) {
+		if (mainFile != null && !mainFile.isEmpty()) {
+			String path = ImageUtil.saveFile(mainFile, request, "category");
+			dto.setImg(path);
+		}
+		return backService.updCategory(dto);
+	}
+
+	/**********************************
+	 * product
+	 ******************************************/
+
 	@GetMapping(value = "/product/list")
-	public ModelAndView toProductList(){
-		//List<Product> list = backService.findAllProducts();
+	public ModelAndView toProductList() {
+		// List<Product> list = backService.findAllProducts();
 		return new ModelAndView("/product/list");
 	}
-	
+
 	@PostMapping(value = "/product/ajaxLoadProduct/{pageNo}", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public JsonResponseResult ajaxLoadProduct(@PathVariable String pageNo, ProductCondition condition){
+	public JsonResponseResult ajaxLoadProduct(@PathVariable String pageNo, ProductCondition condition) {
 		JsonResponseResult result = null;
-		//List<Product> list = backService.findAllProducts();
+		// List<Product> list = backService.findAllProducts();
 		Pager pager = backService.findAllProducts(condition, pageNo);
 		String ajaxPage = pager.getSiAjaxPageHtml();
 		result = JsonResponseResult.createSuccess();
@@ -104,19 +137,19 @@ public class BackContrller extends BaseController {
 		result.addData(ajaxPage);
 		return result;
 	}
-	
+
 	@GetMapping(value = "/product/add")
-	public ModelAndView toAddProduct(){
+	public ModelAndView toAddProduct() {
 		List<CategoryDto> list = backService.findAllCategories();
 		return new ModelAndView("/product/add", "list", list);
 	}
-	
+
 	@PostMapping(value = "/product/addNew", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public JsonResponseResult addNew(Product product, MultipartFile mainFile, HttpServletRequest request){
+	public JsonResponseResult addNew(Product product, MultipartFile mainFile, HttpServletRequest request) {
 		String path = ImageUtil.saveFile(mainFile, request, "product");
 		product.setImg(path);
 		return backService.addNewProduct(product);
 	}
-	
+
 }

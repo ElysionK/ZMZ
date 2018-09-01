@@ -87,5 +87,29 @@ public class BackServiceImpl implements BackService{
 		return JsonResponseResult.createSuccess();
 	}
 
+	@Override
+	public JsonResponseResult updCategorySort(List<CategoryDto> categories) {
+		backDao.updCategorySort(categories);
+		return JsonResponseResult.createSuccess();
+	}
+
+	@Override
+	public JsonResponseResult updCategory(CategoryDto dto) {
+		backDao.updCategory(dto);
+		return JsonResponseResult.createSuccess();
+	}
+
+	@Override
+	public JsonResponseResult updBannerSort(List<Banner> banners) {
+		backDao.updBannerSort(banners);
+		return JsonResponseResult.createSuccess();
+	}
+
+	@Override
+	public JsonResponseResult updBanner(Banner banner) {
+		backDao.updBanner(banner);
+		return JsonResponseResult.createSuccess();
+	}
+
 
 }
