@@ -2,7 +2,7 @@
 <%@ include file="./tags.jsp" %>
 <link href="/css/back/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/css/back/style.css" rel="stylesheet"><!--公共导航部分--->
-<link rel="stylesheet" type="text/css" href="/plugin/layer/css/layui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layer.css" />
 <div class="top">
     <div class="left"><img src="/images/back_index.png" alt="logo" style="width: 35px;"/>商家后台<span class="wel">欢迎登录！</span></div>
     <div class="right"> 
@@ -14,4 +14,4 @@
 <script type="text/javascript" src="/js/commonLib.js"></script>
 <script type="text/javascript" src="/js/flavr/flavr.js"></script>
 <script type="text/javascript" src="/js/globalMsg.js"></script>
-<script src="/plugin/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/js/layer/layer.js"></script>

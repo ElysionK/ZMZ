@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tianwen.core.order.dao.OrderDao">
+
+	<resultMap type="product" id="productMap">
+		<id column="ID" property="id" jdbcType="INTEGER"/>
+		<result column="NAME" property="name" jdbcType="VARCHAR"/>
+		<result column="ORIGNAL_PRICE" property="orignalPrice" jdbcType="DOUBLE"/>
+		<result column="DISCOUNT_PRICE" property="discountPrice" jdbcType="DOUBLE"/>
+		<result column="IMG" property="img" jdbcType="VARCHAR"/>
+		<result column="CATEOGRY_NAME" property="categoryName" jdbcType="VARCHAR"/>
+		<result column="CATEOGRY" property="category" jdbcType="VARCHAR"/>
+		<result column="BRIEF" property="brief" jdbcType="VARCHAR"/>
+		<result column="CREATETIME" property="createTime" jdbcType="VARCHAR"/>
+	</resultMap>
+
+  	<sql id="productCondition">
+  		<if test="name != null and name != ''">AND P.NAME LIKE '%'||#{name}||'%' </if>
+  		<if test="category != null and category != ''">AND P.CATEGORY = #{category} </if>
+  		<if test="minPrice != null and minPrice != ''">P.DISCOUNT_PRICE <![CDATA[ >= ]]> #{minPrice} </if>
+  		<if test="maxPrice != null and maxPrice != ''">P.DISCOUNT_PRICE <![CDATA[ <= ]]> #{maxPrice} </if>
+  	</sql>
+  	
+  	<select id="findAllProducts" resultMap="productMap">
+  		SELECT 
+  				P.*, C.NAME CATEGORY_NAME 
+		FROM T_PRODUCT P
+		LEFT JOIN
+			T_CATEGORY C
+		ON P.CATEGORY = C.ID WHERE 1 = 1 ORDER BY C.SORT ASC
+		<include refid="productCondition" />
+  	</select>
+  	
+  	<select id="findProductByPid" parameterType="int" resultType="product">
+  		SELECT * FROM T_PRODUCT WHERE ID = #{pid}
+  	</select>
+  	
+  	<insert id="addNewOrder" parameterType="order">
+  		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="oid">  
+			SELECT LAST_INSERT_ID() AS oid  
+		</selectKey> 
+  		INSERT INTO T_ORDER (
+  			MID,
+  			SUM,
+  			NORMAL_PRICE,
+  			MEMBER_PRICE,
+  			ORDER_TIME
+  		) VALUES (
+  			#{mid},
+  			#{sum},
+  			#{normalPrice},
+  			#{memberPrice},
+  			#{orderTime}
+  		)
+  	</insert>
+  	
+  	<insert id="addNewOrderSub" parameterType="orderSub">
+  		INSERT INTO T_ORDER_SUB (
+  			OID,
+  			PID,
+  			PRO_NORMAL_PRICE,
+  			PRO_MEMBER_PRICE,
+  			SUM
+  		) VALUES 
+  		<foreach collection="list" item="item" index= "index" separator =",">
+  			(
+	  			#{item.oid},
+	  			#{item.pid},
+	  			#{item.proNormalPrice},
+	  			#{item.proMemberPrice},
+	  			#{item.sum}
+  			)
+		</foreach >
+  	</insert>
+  	
+</mapper>

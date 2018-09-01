@@ -15,6 +15,22 @@
 		});
 	};
 	
+	//异步请求方法
+	$.getMyContentJSON = function(url,data,callback){
+		$.ajax({
+			"url": url,
+			"context": this,
+			"data": data,
+			"type": "post",
+			"cache":false,
+			"dataType": "json",
+			"contentType": "application/json; charset=utf-8",
+			"success": function(html){
+				callback.call(this,html);
+			}
+		});
+	};
+	
 	//同步请求方法
 	$.getMyJSON2 = function(url,data,callback){
 		$.ajax({

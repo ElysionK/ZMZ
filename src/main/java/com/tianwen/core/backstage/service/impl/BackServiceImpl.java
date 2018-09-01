@@ -60,6 +60,7 @@ public class BackServiceImpl implements BackService{
 		Pager pager = new Pager();
 		HashMap<String, Object> param = SysUtils.transBean2Map(condition);
 		pager.setPageNo(pageNo);
+		pager.setPageSize(8);
 		pager.setTotalRows(param, backDao.countAllProducts(param));
 		List<Product> list = backDao.findAllProducts(param);
 		pager.setList(list);

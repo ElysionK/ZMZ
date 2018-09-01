@@ -7,7 +7,7 @@
     <%@include file="../public/head.jsp" %>
     <link href="/css/back/addCategory.css" rel="stylesheet" type="text/css"/>
     <link href="/css/flavr/flavr.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="/plugin/layer/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="/css/layer.css" />
 </head>
 <body>
 <div class="page-container">
@@ -61,7 +61,7 @@
 <script type="text/javascript" src="/js/pagination.js"></script>
 <script src="/js/function.js" type="text/javascript"></script>
 <script src="/js/jquery.hisform.js" type="text/javascript" charset="utf-8"></script>
-<script src="/plugin/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 <script>
 $(document).ready(function(){
 	$("#saveCategory").on("click", function(){

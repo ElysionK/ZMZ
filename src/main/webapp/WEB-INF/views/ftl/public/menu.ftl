@@ -7,7 +7,7 @@
 	</a>
 	<li>
 		<em>&#xe897;</em>
-		<span>订单</span>
+		<span onclick="window.location.href='/order/index'">订单</span>
 	</li>
 	<li>
 		<em>&#xe603;</em>
