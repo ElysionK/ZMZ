@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.tianwen.core.backstage.dto.CategoryDto;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
+import com.tianwen.core.backstage.entity.RegistCode;
 
 @Repository
 public interface BackDao {
@@ -38,5 +39,15 @@ public interface BackDao {
 	void updBannerSort(@Param("banners") List<Banner> banners);
 
 	void updBanner(@Param("banner") Banner banner);
+
+	int countAllRegistCode(HashMap<String, Object> param);
+	
+	int addRegistCode(@Param("codes") List<RegistCode> codes);
+
+	List<RegistCode> findAllRegistCode(HashMap<String, Object> param);
+
+	RegistCode findByCodeAndStatus(@Param("code") String registCode, @Param("status") int status);
+
+	Integer updRegistCode(@Param("code") RegistCode updRegistCode);
 	
 }

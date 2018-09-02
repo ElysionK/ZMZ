@@ -6,6 +6,7 @@ import com.tianwen.base.util.Pager;
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.backstage.dto.CategoryDto;
 import com.tianwen.core.backstage.dto.ProductCondition;
+import com.tianwen.core.backstage.dto.RegistCodeCondition;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 
@@ -30,5 +31,9 @@ public interface BackService {
 	JsonResponseResult updBannerSort(List<Banner> banners);
 
 	JsonResponseResult updBanner(Banner banner);
+
+	JsonResponseResult findAllRegistCode(String pageNo, RegistCodeCondition condition);
+
+	JsonResponseResult addRegistCode(Integer codeCount);
 
 }

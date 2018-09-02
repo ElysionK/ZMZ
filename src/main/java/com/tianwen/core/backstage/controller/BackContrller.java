@@ -22,6 +22,7 @@ import com.tianwen.common.util.ImageUtil;
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.backstage.dto.CategoryDto;
 import com.tianwen.core.backstage.dto.ProductCondition;
+import com.tianwen.core.backstage.dto.RegistCodeCondition;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.service.BackService;
@@ -33,6 +34,26 @@ public class BackContrller extends BaseController {
 
 	@Autowired
 	private BackService backService;
+	
+	/**************************************
+	 * registCode
+	 ***********************************************/
+	@GetMapping(value = "/registCode/list")
+	public ModelAndView toRegistCodeList() {
+		return new ModelAndView("/code/list");
+	}
+
+	@PostMapping(value = "/registCode/ajaxLoadRegistCode/{pageNo}", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult ajaxLoadRegistCode(@PathVariable String pageNo, RegistCodeCondition condition) {
+		return backService.findAllRegistCode(pageNo, condition);
+	}
+	
+	@PostMapping(value = "/registCode/add/{codeCount}", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult addReigstCode(@PathVariable Integer codeCount) {
+		return backService.addRegistCode(codeCount);
+	}
 
 	/**************************************
 	 * banner
