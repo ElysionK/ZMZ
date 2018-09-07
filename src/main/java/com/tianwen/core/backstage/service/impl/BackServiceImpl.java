@@ -8,13 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.tianwen.base.util.Pager;
 import com.tianwen.common.util.JsonResponseResult;
+import com.tianwen.common.util.RegistCodeUtil;
 import com.tianwen.common.util.SysUtil;
 import com.tianwen.common.util.SysUtils;
 import com.tianwen.core.backstage.dao.BackDao;
 import com.tianwen.core.backstage.dto.CategoryDto;
 import com.tianwen.core.backstage.dto.ProductCondition;
+import com.tianwen.core.backstage.dto.RegistCodeCondition;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
+import com.tianwen.core.backstage.entity.RegistCode;
 import com.tianwen.core.backstage.service.BackService;
 
 @Service
@@ -109,6 +112,31 @@ public class BackServiceImpl implements BackService{
 	@Override
 	public JsonResponseResult updBanner(Banner banner) {
 		backDao.updBanner(banner);
+		return JsonResponseResult.createSuccess();
+	}
+
+	@Override
+	public JsonResponseResult findAllRegistCode(String pageNo, RegistCodeCondition condition) {
+		Pager pager = new Pager();
+		HashMap<String, Object> param = SysUtils.transBean2Map(condition);
+		pager.setPageNo(pageNo);
+		pager.setPageSize(8);
+		pager.setTotalRows(param, backDao.countAllRegistCode(param));
+		List<RegistCode> list = backDao.findAllRegistCode(param);
+		pager.setList(list);
+		
+		String ajaxPage = pager.getSiAjaxPageHtml();
+		JsonResponseResult result = JsonResponseResult.createSuccess();
+		result.addData(pager);
+		result.addData(ajaxPage);
+		
+		return result;
+	}
+
+	@Override
+	public JsonResponseResult addRegistCode(Integer codeCount) {
+		List<RegistCode> registCodes = RegistCodeUtil.genRegistCode(codeCount);
+		backDao.addRegistCode(registCodes);
 		return JsonResponseResult.createSuccess();
 	}
 

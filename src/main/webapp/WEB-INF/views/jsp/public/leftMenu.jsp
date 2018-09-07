@@ -28,6 +28,11 @@
 					<span class="title">商品管理</span>
 					<span class="arrowicon"></span>
 				</a>
+				<a class="sideblk blk" href="/backstage/registCode/list">
+					<i class="record"><img src="/images/back_category.png"/></i>
+					<span class="title">注册码管理</span>
+					<span class="arrowicon"></span>
+				</a>
 			</li>
 		</ul>
 	</div>

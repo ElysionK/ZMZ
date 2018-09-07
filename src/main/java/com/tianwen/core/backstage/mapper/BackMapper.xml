@@ -15,6 +15,13 @@
 		<result column="BRIEF" property="brief" jdbcType="VARCHAR"/>
 		<result column="CREATETIME" property="createTime" jdbcType="VARCHAR"/>
 	</resultMap>
+	
+	<resultMap type="registCode" id="registCodeMap">
+		<id column="ID" property="id" jdbcType="INTEGER"/>
+		<result column="REGIST_CODE" property="registCode" jdbcType="VARCHAR"/>
+		<result column="USER_PHONE" property="userPhone" jdbcType="VARCHAR"/>
+		<result column="STATUS" property="status" jdbcType="INTEGER"/>
+	</resultMap>
 
 	<select id="findCategoryMaxSort" resultType="int">
 		SELECT IFNULL(MAX(SORT),0) SORT FROM T_CATEGORY
@@ -159,5 +166,59 @@
   			</if>
   		</trim>
         WHERE id = #{banner.id,jdbcType=INTEGER}
+  	</update>
+  	
+  	<insert id="addRegistCode">
+  		INSERT INTO T_REGIST_CODE (
+  			REGIST_CODE,
+  			STATUS
+  		) VALUES 
+  		<foreach collection="codes" item="item" index= "index" separator =",">
+  			(
+	  			#{item.registCode},
+	  			#{item.status}
+  			)
+		</foreach >
+  	</insert>
+  	
+  	
+  	<sql id="registCodeCondition">
+  		<if test="registCode != null and registCode != ''">AND C.REGIST_CODE LIKE '%'||#{registCode}||'%' </if>
+  		<if test="status != null">AND C.STATUS = #{status} </if>
+  	</sql>
+  	
+  	<select id="findAllRegistCode" resultMap="registCodeMap">
+  		SELECT 
+  				C.*
+		FROM T_REGIST_CODE C
+		WHERE 1 = 1
+		<include refid="registCodeCondition" />
+		ORDER BY C.STATUS DESC, C.ID DESC
+		<include refid="BaseMap.mysqlPageSqlSuffix" />
+  	</select>
+  	
+  	<select id="countAllRegistCode" resultType="int">
+  		SELECT COUNT(T.ID) FROM (SELECT C.ID FROM T_REGIST_CODE C WHERE 1 = 1 ORDER BY C.ID
+  		<include refid="registCodeCondition" />) T
+  	</select>
+  	
+  	<select id="findByCodeAndStatus" resultMap="registCodeMap">
+  		SELECT *
+  		FROM
+  			T_REGIST_CODE
+  		WHERE
+  			REGIST_CODE = #{code, jdbcType=VARCHAR}
+  		AND
+  			STATUS = #{status, jdbcType=INTEGER}
+  	</select>
+  	
+  	<update id="updRegistCode">
+  		UPDATE
+			T_REGIST_CODE
+		SET
+			USER_PHONE = #{code.userPhone, jdbcType=VARCHAR},
+			STATUS = #{code.status, jdbcType=INTEGER}
+		WHERE
+			REGIST_CODE = #{code.registCode, jdbcType=VARCHAR}
   	</update>
 </mapper>

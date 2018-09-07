@@ -3,5 +3,51 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tianwen.core.user.dao.UserDao">
+
+	<resultMap type="user" id="userMap">
+		<id column="ID" property="id" jdbcType="INTEGER"/>
+		<result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+		<result column="PASSWORD" property="password" jdbcType="VARCHAR"/>
+		<result column="REGIST_TIME" property="registTime" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="addUser" parameterType="user">
+  		INSERT INTO T_USER (
+  			PHONE,
+  			PASSWORD,
+  			REGIST_TIME
+  		) VALUES (
+  			#{user.phone},
+  			#{user.password},
+  			#{user.registTime}
+  		)
+  	</insert>
+  	
+  	<select id="findUserByPhone" resultMap="userMap">
+  		SELECT * 
+  		FROM 
+  			T_USER
+  		WHERE
+  			PHONE = #{phone, jdbcType=VARCHAR}
+  	</select>
+  	
+  	<select id="findUserByPhoneAndPassword" resultMap="userMap">
+  		SELECT * 
+  		FROM	
+  			T_USER
+  		WHERE
+  			PHONE = #{phone, jdbcType=VARCHAR}
+  		AND 
+  			PASSWORD = #{password, jdbcType=VARCHAR}
+  	</select>
+  	
+  	
+  	<select id="findUserById" resultMap="userMap">
+  		SELECT * 
+  		FROM 
+  			T_USER
+  		WHERE
+  			ID = #{userId, jdbcType=INTEGER}
+  	</select>
   	
 </mapper>
