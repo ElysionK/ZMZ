@@ -58,9 +58,9 @@ public class OrderServiceImpl implements OrderService {
 		order.setMid(0);
 		order.setOrderTime(SysUtils.getTime());
 		
-		Integer oid = orderDao.addNewOrder(order);
+		orderDao.addNewOrder(order);
 		List<OrderSub> fullOrder = orderSubs.stream().map(ordersub -> {
-			ordersub.setOid(oid);
+			ordersub.setOid(order.getOid());
 			return ordersub;
 		}).collect(Collectors.toList());
 		
