@@ -9,7 +9,23 @@ public class Order {
 	private double memberPrice;
 	private String orderTime;
 	private String deliverTime;
+	private Integer aid;
+	private Integer status;
 	
+	
+	
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	public Integer getAid() {
+		return aid;
+	}
+	public void setAid(Integer aid) {
+		this.aid = aid;
+	}
 	public Integer getOid() {
 		return oid;
 	}

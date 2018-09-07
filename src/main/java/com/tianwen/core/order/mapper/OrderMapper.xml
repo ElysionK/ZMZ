@@ -75,4 +75,27 @@
 		</foreach >
   	</insert>
   	
+  	<select id="findOrderInfoByOid" parameterType="int" resultType="orderdto">
+  		SELECT P.ID PID, P.NAME, O.OID,O.SUM TOTAL,O.NORMAL_PRICE,O.MEMBER_PRICE,OS.PRO_NORMAL_PRICE,OS.PRO_MEMBER_PRICE,OS.SUM,
+  		(SELECT ID FROM T_ADDRESS WHERE MID = O.MID AND IS_DEFAULT = 1) AID FROM T_ORDER_SUB OS LEFT JOIN T_ORDER O ON OS.OID = O.OID LEFT JOIN T_PRODUCT P ON OS.PID = P.ID WHERE O.OID = #{oid}
+  	</select>
+  	
+  	<select id="findAddressById" parameterType="int" resultType="addressdto">
+  		SELECT A.*,(SELECT TITLE FROM T_AREA WHERE ID = A.PROVINCE) PROVINCE_NAME,
+		(SELECT TITLE FROM T_AREA WHERE ID = A.CITY) CITY_NAME,(SELECT TITLE FROM T_AREA WHERE ID = A.AREA) AREA_NAME,A.EXACTLY FROM T_ADDRESS A WHERE A.ID = #{id}
+  	</select>
+  	
+  	<update id="updateOrder" parameterType="order">
+  		UPDATE T_ORDER
+  		<trim prefix="set" suffixOverrides=",">
+  			<if test="aid != null">
+  				AID = #{aid},
+  			</if>
+  			<if test="status != null">
+  				STATUS = #{status},
+  			</if>
+  		</trim>
+        WHERE OID = #{oid}
+  	</update>
+  	
 </mapper>

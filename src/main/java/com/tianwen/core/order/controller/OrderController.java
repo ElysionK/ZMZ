@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianwen.base.controller.BaseController;
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.backstage.entity.Product;
+import com.tianwen.core.order.dto.OrderDetailDto;
+import com.tianwen.core.order.entity.Order;
 import com.tianwen.core.order.service.OrderService;
 
 @Scope("prototype")
@@ -73,9 +76,24 @@ public class OrderController extends BaseController{
 	public JsonResponseResult addNewOrder(@RequestBody HashMap<String, Object> map){
 		JsonResponseResult result = JsonResponseResult.createSuccess();
 		
-		orderService.addNewOrder(map);
+		Integer oid = orderService.addNewOrder(map);
+		result.addData(oid);
 		
 		return result;
+	}
+	
+	@GetMapping(value = "/confirm/{oid}")
+	public ModelAndView toConfirm(@PathVariable(name = "oid") Integer oid){
+		OrderDetailDto dto = orderService.findOrderDetail(oid);
+		return new ModelAndView("/order/confirm", "data", dto);
+	}
+	
+	@PostMapping(value = "/confirmOrder")
+	@ResponseBody
+	public JsonResponseResult confirmOrder(Order order){
+		order.setStatus(2);
+		orderService.confirmOrder(order);
+		return JsonResponseResult.createSuccess();
 	}
 	
 }

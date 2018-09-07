@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import com.tianwen.common.util.SysUtils;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.order.dao.OrderDao;
+import com.tianwen.core.order.dto.AddressDto;
+import com.tianwen.core.order.dto.OrderDetailDto;
+import com.tianwen.core.order.dto.OrderDto;
 import com.tianwen.core.order.entity.Order;
 import com.tianwen.core.order.entity.OrderSub;
 import com.tianwen.core.order.service.OrderService;
@@ -29,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void addNewOrder(HashMap<String, Object> map) {
+	public Integer addNewOrder(HashMap<String, Object> map) {
 		Order order = new Order();
 		List<OrderSub> orderSubs = new ArrayList<>();
 		double totalNormal = 0;
@@ -65,6 +68,25 @@ public class OrderServiceImpl implements OrderService {
 		}).collect(Collectors.toList());
 		
 		orderDao.addNewOrderSub(fullOrder);
+		
+		return order.getOid();
 	}
 
+	@Override
+	public OrderDetailDto findOrderDetail(Integer oid) {
+		List<OrderDto> orderDto = orderDao.findOrderInfoByOid(oid);
+		AddressDto addressDto = orderDao.findAddressById(orderDto.get(0).getAid());
+		OrderDetailDto orderDetailDto = new OrderDetailDto();
+		orderDetailDto.setOrder(orderDto);
+		orderDetailDto.setAddress(addressDto);
+		return orderDetailDto;
+	}
+
+	@Override
+	public void confirmOrder(Order order) {
+		orderDao.updateOrder(order);
+	}
+
+	
+	
 }

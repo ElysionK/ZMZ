@@ -98,7 +98,11 @@ var setting = {
 				return;
 			}
 			$.getMyContentJSON(setting.URL.addNewOrder(), JSON.stringify(setting.orderInfo), function(data){
-				layer.alert("下单成功", {icon:"1"});
+				if(data.returncode == 0){
+					window.location.href="/order/confirm/" + data.data[0];
+				}else{
+					layer.alert("系统错误", {icon:"2"});
+				}
 			});
 		}
 }
