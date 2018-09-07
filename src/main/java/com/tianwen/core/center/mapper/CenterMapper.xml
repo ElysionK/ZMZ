@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tianwen.core.center.dao.CenterDao">
+
+	<resultMap type="order" id="orderMap">
+		<id column="oid" property="oid" jdbcType="INTEGER"/>
+		<result column="mid" property="mid" jdbcType="INTEGER"/>
+		<result column="sum" property="sum" jdbcType="INTEGER"/>
+		<result column="normal_price" property="normalPrice" jdbcType="DOUBLE"/>
+		<result column="member_price" property="memberPrice" jdbcType="DOUBLE"/>
+		<result column="order_time" property="orderTime" jdbcType="VARCHAR"/>
+		<result column="deliver_time" property="deliverTime" jdbcType="VARCHAR"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+	</resultMap>
+  
+  	<select id="listRecentOnlineOrder" resultMap="orderMap">
+  		SELECT *
+  		FROM	
+  			T_ORDER
+  		WHERE 
+  			MID = #{mid, jdbcType=INTEGER}
+  		AND
+  			TO_DAYS(STR_TO_DATE(ORDER_TIME, '%m.%d.%Y %h:%i:%s')) > (TO_DAYS(NOW()) - #{recentDay, jdbcType=INTEGER})
+  	</select>
+  	
+  	<select id="listOnlineOrders" resultMap="orderMap">
+  		SELECT *
+  		FROM	
+  			T_ORDER
+  		WHERE 
+  			MID = #{mid, jdbcType=INTEGER}
+  	</select>
+  	
+</mapper>

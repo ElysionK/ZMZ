@@ -9,6 +9,7 @@ public class Order {
 	private double memberPrice;
 	private String orderTime;
 	private String deliverTime;
+	private int status;
 	
 	public Integer getOid() {
 		return oid;
@@ -51,6 +52,12 @@ public class Order {
 	}
 	public void setDeliverTime(String deliverTime) {
 		this.deliverTime = deliverTime;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 	

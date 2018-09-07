@@ -36,5 +36,6 @@
 		<mapper resource="com/tianwen/core/user/mapper/UserMapper.xml"/>
 		<mapper resource="com/tianwen/core/order/mapper/OrderMapper.xml"/>
 		<mapper resource="com/tianwen/core/backstage/mapper/BackMapper.xml"/>
+		<mapper resource="com/tianwen/core/center/mapper/CenterMapper.xml"/>
 	</mappers>
 </configuration>

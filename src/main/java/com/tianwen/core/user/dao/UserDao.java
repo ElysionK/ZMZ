@@ -13,6 +13,8 @@ public interface UserDao {
 	Integer addUser(@Param("user") User user);
 
 	User findUserByPhoneAndPassword(@Param("phone") String phone, @Param("password") String password);
+
+	User findUserById(@Param("userId") Integer userId);
 	
 	
 }

@@ -41,4 +41,13 @@
   			PASSWORD = #{password, jdbcType=VARCHAR}
   	</select>
   	
+  	
+  	<select id="findUserById" resultMap="userMap">
+  		SELECT * 
+  		FROM 
+  			T_USER
+  		WHERE
+  			ID = #{userId, jdbcType=INTEGER}
+  	</select>
+  	
 </mapper>

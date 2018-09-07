@@ -11,7 +11,7 @@ header p{font-size:0.18rem;color:#333;margin-left:0.22rem;margin-top:0.05rem;flo
 .server li em{font-family:'iconfont';font-size:0.4rem;color:#FFDF94;float:left;margin-top:0.24rem;margin-left:0.5rem}
 .server li span{font-size:0.2rem;margin-left:0.27rem;float:left;color:#333;margin-top:0.14rem}
 .middle{display:block;width:100%;height:0.9rem;margin-top:0.15rem}
-.zichan{width:100%;height:2.05rem;background-color:#fff;margin-top:0.15rem;padding-left:0.23rem}
+.zichan{width:100%;background-color:#fff;margin-top:0.15rem;padding-left:0.23rem}
 .zichan h1,.more h1{width:100%;float:left;font-size:0.23rem;color:#999;line-height:0.64rem;border-bottom:0.01rem solid #ccc}
 .zichan_bottom,.more_bottom{width:1.29rem;height:auto;overflow:hidden;float:left}
 .zichan_bottom em,.more_bottom em{font-family:'iconfont';font-size:0.32rem;color:#333;margin-left:0.41rem;margin-top:0.26rem;float:left}
