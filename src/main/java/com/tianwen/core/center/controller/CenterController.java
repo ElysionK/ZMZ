@@ -42,7 +42,7 @@ public class CenterController extends BaseController {
 	@GetMapping(value = "/onlineOrderDetail/{oid}")
 	public ModelAndView toOnlineOrder(@PathVariable Integer oid) {
 		
-		List<Order> onlineOrders = centerService.listOnlineOrders(userId);
+		List<Order> onlineOrders = centerService.listOnlineOrders(oid);
 		return new ModelAndView("/center/order_detail");
 	}
 }

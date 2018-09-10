@@ -21,10 +21,12 @@ import com.tianwen.base.util.Pager;
 import com.tianwen.common.util.ImageUtil;
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.backstage.dto.CategoryDto;
+import com.tianwen.core.backstage.dto.OfflineOrderCondition;
 import com.tianwen.core.backstage.dto.ProductCondition;
 import com.tianwen.core.backstage.dto.RegistCodeCondition;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
+import com.tianwen.core.backstage.entity.TOfflineOrder;
 import com.tianwen.core.backstage.service.BackService;
 
 @Scope("prototype")
@@ -171,6 +173,32 @@ public class BackContrller extends BaseController {
 		String path = ImageUtil.saveFile(mainFile, request, "product");
 		product.setImg(path);
 		return backService.addNewProduct(product);
+	}
+	
+	/**************************************
+	 * offlineOrder
+	 ***********************************************/
+	@GetMapping(value = "/offlineOrder/list")
+	public ModelAndView toOfflineOrderList() {
+		return new ModelAndView("/offlineOrder/list");
+	}
+
+	@PostMapping(value = "/offlineOrder/ajaxLoadOfflineOrder/{pageNo}", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult ajaxLoadOfflineOrder(@PathVariable String pageNo, OfflineOrderCondition condition) {
+		return backService.listOfflineOrder(pageNo, condition);
+	}
+	
+	@PostMapping(value = "/offlineOrder/upload", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult addReigstCode(MultipartFile mainFile, HttpServletRequest request) {
+		return backService.addOfflineOrderList(mainFile, request);
+	}
+	
+	@PostMapping(value = "/offlineOrder/update", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult updOfflineOrder(TOfflineOrder order) {
+		return backService.updOfflineOrder(order);
 	}
 
 }

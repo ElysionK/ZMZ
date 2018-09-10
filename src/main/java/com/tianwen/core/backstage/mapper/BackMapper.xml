@@ -18,6 +18,17 @@
 	
 	<resultMap type="registCode" id="registCodeMap">
 		<id column="ID" property="id" jdbcType="INTEGER"/>
+		<result column="member_no" property="memberNo" jdbcType="VARCHAR"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="orignal_price" property="orignalPrice" jdbcType="DOUBLE"/>
+		<result column="member_price" property="memberPrice" jdbcType="DOUBLE"/>
+		<result column="preferential_price" property="preferentialPrice" jdbcType="DOUBLE"/>
+		<result column="num" property="num" jdbcType="DOUBLE"/>
+		<result column="date" property="date" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<resultMap type="offlineOrder" id="offlineOrderMap">
+		<id column="ID" property="id" jdbcType="INTEGER"/>
 		<result column="REGIST_CODE" property="registCode" jdbcType="VARCHAR"/>
 		<result column="USER_PHONE" property="userPhone" jdbcType="VARCHAR"/>
 		<result column="STATUS" property="status" jdbcType="INTEGER"/>
@@ -220,5 +231,65 @@
 			STATUS = #{code.status, jdbcType=INTEGER}
 		WHERE
 			REGIST_CODE = #{code.registCode, jdbcType=VARCHAR}
+  	</update>
+  	
+  	
+  	<sql id="offlineOrderCondition">
+  		<if test="productName != null and productName != ''">AND C.PRODUCT_NAME LIKE '%'||#{productName}||'%' </if>
+  		<if test="memberNo != null and memberNo != ''">AND C.MEMBER_NO = #{memberNo} </if>
+  		<if test="date != null and date != ''">AND C.DATE = #{date} </if>
+  	</sql>
+  	
+  	<select id="listOfflineOrder" resultMap="registCodeMap">
+  		SELECT 
+  				C.*
+		FROM T_OFFLINE_ORDER C
+		WHERE 1 = 1
+		<include refid="offlineOrderCondition" />
+		ORDER BY C.DATE DESC
+		<include refid="BaseMap.mysqlPageSqlSuffix" />
+  	</select>
+  	
+  	<select id="countOfflineOrder" resultType="int">
+  		SELECT COUNT(T.ID) FROM (SELECT C.ID FROM T_OFFLINE_ORDER C WHERE 1 = 1 ORDER BY C.ID
+  		<include refid="offlineOrderCondition" />) T
+  	</select>
+
+	<insert id="addOfflineOrderList">
+  		INSERT INTO T_OFFLINE_ORDER (
+  			MEMBER_NO,
+			PRODUCT_NAME,
+			ORIGNAL_PRICE,
+			MEMBER_PRICE,
+			PREFERENTIAL_PRICE,
+			NUM,
+			DATE
+  		) VALUES 
+  		<foreach collection="orders" item="item" index= "index" separator =",">
+  			(
+	  			#{item.memberNo},
+				#{item.productName},
+				#{item.orignalPrice},
+				#{item.memberPrice},
+				#{item.preferentialPrice},
+				#{item.num},
+				#{item.date},
+  			)
+		</foreach >
+  	</insert>
+  	
+  	<update id="updOfflineOrder">
+  		UPDATE
+			T_OFFLINE_ORDER
+		SET
+			MEMBER_NO = #{order.memberNo, jdbcType=VARCHAR},
+			PRODUCT_NAME = #{order.productName, jdbcType=VARCHAR},
+			ORIGNAL_PRICE = #{order.orignalPrice, jdbcType=DOUBLE},
+			MEMBER_PRICE = #{order.memberPrice, jdbcType=DOUBLE},
+			PREFERENTIAL_PRICE = #{order.preferentialPrice, jdbcType=DOUBLE},
+			NUM = #{order.num, jdbcType=DOUBLE},
+			DATE = #{order.date, jdbcType=VARCHAR},
+		WHERE
+			ID = #{order.id, jdbcType=INTEGER}
   	</update>
 </mapper>

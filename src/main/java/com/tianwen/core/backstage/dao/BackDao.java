@@ -10,6 +10,7 @@ import com.tianwen.core.backstage.dto.CategoryDto;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.entity.RegistCode;
+import com.tianwen.core.backstage.entity.TOfflineOrder;
 
 @Repository
 public interface BackDao {
@@ -49,5 +50,13 @@ public interface BackDao {
 	RegistCode findByCodeAndStatus(@Param("code") String registCode, @Param("status") int status);
 
 	Integer updRegistCode(@Param("code") RegistCode updRegistCode);
+
+	int countOfflineOrder(HashMap<String, Object> param);
+
+	List<TOfflineOrder> listOfflineOrder(HashMap<String, Object> param);
+
+	void addOfflineOrderList(@Param("orders") List<TOfflineOrder> orders);
+
+	void updOfflineOrder(@Param("order") TOfflineOrder order);
 	
 }
