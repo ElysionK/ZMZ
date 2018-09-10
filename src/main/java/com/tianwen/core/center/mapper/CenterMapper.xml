@@ -15,6 +15,14 @@
 		<result column="status" property="status" jdbcType="INTEGER"/>
 	</resultMap>
   
+	<resultMap type="orderSubDetailDto" id="orderSubDetailDtoMap">
+		<id column="olid" property="olid" jdbcType="INTEGER"/>
+		<result column="name" property="productName" jdbcType="VARCHAR"/>
+		<result column="pro_normal_price" property="proNormalPrice" jdbcType="DOUBLE"/>
+		<result column="pro_member_price" property="proMemberPrice" jdbcType="DOUBLE"/>
+		<result column="sum" property="sum" jdbcType="INTEGER"/>
+	</resultMap>
+	
   	<select id="listRecentOnlineOrder" resultMap="orderMap">
   		SELECT *
   		FROM	
@@ -31,6 +39,31 @@
   			T_ORDER
   		WHERE 
   			MID = #{mid, jdbcType=INTEGER}
+  	</select>
+  	
+  	<select id="listOrderSubDetailByOid" resultMap="orderSubDetailDtoMap">
+  		SELECT
+  			TOS.OLID OLID,
+  			TP.NAME NAME, 
+  			TOS.PRO_NORMAL_PRICE PRO_NORMAL_PRICE, 
+  			TOS.PRO_MEMBER_PRICE PRO_MEMBER_PRICE, 
+  			TOS.SUM SUM
+  		FROM 
+  			T_ORDER_SUB TOS
+  		LEFT JOIN
+  			T_PRODUCT TP
+  		ON 
+  			TOS.PID = TP.ID
+  		AND
+  			TOS.OID = #{oid, jdbcType=INTEGER}
+  	</select>
+  	
+  	<select id="findOrderByOid" resultMap="orderMap">
+  		SELECT *
+  		FROM	
+  			T_ORDER
+  		WHERE 
+  			OID = #{oid, jdbcType=INTEGER}
   	</select>
   	
 </mapper>

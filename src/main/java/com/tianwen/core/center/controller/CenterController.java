@@ -7,13 +7,19 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianwen.base.controller.BaseController;
+import com.tianwen.common.util.JsonResponseResult;
+import com.tianwen.core.backstage.dto.RegistCodeCondition;
 import com.tianwen.core.center.dto.CenterDto;
+import com.tianwen.core.center.dto.OrderSubDetailDto;
 import com.tianwen.core.center.service.CenterService;
 import com.tianwen.core.order.entity.Order;
+import com.tianwen.core.order.entity.OrderSub;
 
 @Scope("prototype")
 @Controller
@@ -39,10 +45,18 @@ public class CenterController extends BaseController {
 		return new ModelAndView("/center/online_order");
 	}
 	
-	@GetMapping(value = "/onlineOrderDetail/{oid}")
+	@GetMapping(value = "/toDetail/onlineOrder/{oid}")
 	public ModelAndView toOnlineOrder(@PathVariable Integer oid) {
-		
-		List<Order> onlineOrders = centerService.listOnlineOrders(userId);
-		return new ModelAndView("/center/order_detail");
+		Order order = centerService.findOrderByOid(oid);
+		return new ModelAndView("/center/order_detail", "order", order);
 	}
+	
+	@PostMapping(value = "/onlineOrderDetail/{oid}", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult ajaxLoadRegistCode(@PathVariable Integer oid) {
+		return centerService.listOrderSubDetailByOid(oid);
+	}
+	
+	
+	
 }
