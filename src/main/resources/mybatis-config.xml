@@ -31,6 +31,8 @@
 		<typeAlias type="com.tianwen.core.order.dto.OrderDto" alias="orderdto"/>
 		<typeAlias type="com.tianwen.core.order.dto.AddressDto" alias="addressdto"/>
 		<typeAlias type="com.tianwen.core.user.entity.User" alias="user"/>
+		
+		<typeAlias type="com.tianwen.core.center.dto.OrderSubDetailDto" alias="orderSubDetailDto"/>
 	</typeAliases>
 	
 	<mappers>
