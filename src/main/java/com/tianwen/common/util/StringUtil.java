@@ -416,7 +416,6 @@ public class StringUtil {
 	 *            原字符串，如果有子字符串则用空格隔开以表示子字符串
 	 * @return String 返回去掉重复子字符串后的字符串
 	 */
-	@SuppressWarnings("unused")
 	private static String removeSameString(String str) {
 		Set<String> mLinkedSet = new LinkedHashSet<String>();// set集合的特征：其子集不可以重复
 		String[] strArray = str.split(" ");// 根据空格(正则表达式)分割字符串

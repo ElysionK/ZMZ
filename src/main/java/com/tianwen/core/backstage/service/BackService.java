@@ -1,5 +1,6 @@
 package com.tianwen.core.backstage.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,11 +11,14 @@ import com.tianwen.base.util.Pager;
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.backstage.dto.CategoryDto;
 import com.tianwen.core.backstage.dto.OfflineOrderCondition;
+import com.tianwen.core.backstage.dto.OnlineOrderCondition;
+import com.tianwen.core.backstage.dto.OnlineOrderDto;
 import com.tianwen.core.backstage.dto.ProductCondition;
 import com.tianwen.core.backstage.dto.RegistCodeCondition;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.entity.TOfflineOrder;
+import com.tianwen.core.order.entity.Order;
 
 public interface BackService {
 
@@ -44,8 +48,15 @@ public interface BackService {
 
 	JsonResponseResult listOfflineOrder(String pageNo, OfflineOrderCondition condition);
 
-	JsonResponseResult addOfflineOrderList(MultipartFile mainFile, HttpServletRequest request);
+	JsonResponseResult addOfflineOrderList(MultipartFile mainFile) throws IOException;
 
 	JsonResponseResult updOfflineOrder(TOfflineOrder order);
+
+	JsonResponseResult listOnlineOrder(String pageNo, OnlineOrderCondition condition);
+
+	OnlineOrderDto findOrderDtoByOid(Integer oid);
+
+	JsonResponseResult delOfflineOrderById(Integer id);
+
 
 }

@@ -1,5 +1,8 @@
 package com.tianwen.core.backstage.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,12 +25,15 @@ import com.tianwen.common.util.ImageUtil;
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.backstage.dto.CategoryDto;
 import com.tianwen.core.backstage.dto.OfflineOrderCondition;
+import com.tianwen.core.backstage.dto.OnlineOrderCondition;
+import com.tianwen.core.backstage.dto.OnlineOrderDto;
 import com.tianwen.core.backstage.dto.ProductCondition;
 import com.tianwen.core.backstage.dto.RegistCodeCondition;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.entity.TOfflineOrder;
 import com.tianwen.core.backstage.service.BackService;
+import com.tianwen.core.center.service.CenterService;
 
 @Scope("prototype")
 @Controller
@@ -36,6 +42,9 @@ public class BackContrller extends BaseController {
 
 	@Autowired
 	private BackService backService;
+	
+	@Autowired
+	private CenterService centerService;
 	
 	/**************************************
 	 * registCode
@@ -178,6 +187,32 @@ public class BackContrller extends BaseController {
 	/**************************************
 	 * offlineOrder
 	 ***********************************************/
+	@GetMapping(value = "/onlineOrder/list")
+	public ModelAndView toOnlineOrderList() {
+		return new ModelAndView("/olineOrder/list");
+	}
+
+	@PostMapping(value = "/onlineOrder/ajaxLoadOnlineOrder/{pageNo}", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult ajaxLoadOnineOrder(@PathVariable String pageNo, OnlineOrderCondition condition) {
+		return backService.listOnlineOrder(pageNo, condition);
+	}
+	
+	@GetMapping(value = "/toDetail/onlineOrder/{oid}")
+	public ModelAndView toOnlineOrder(@PathVariable Integer oid) {
+		OnlineOrderDto order = backService.findOrderDtoByOid(oid);
+		return new ModelAndView("/onlineOrder/order_detail", "order", order);
+	}
+	
+	@PostMapping(value = "/onlineOrderDetail/{oid}", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult ajaxLoadRegistCode(@PathVariable Integer oid) {
+		return centerService.listOrderSubDetailByOid(oid);
+	}
+	
+	/**************************************
+	 * offlineOrder
+	 ***********************************************/
 	@GetMapping(value = "/offlineOrder/list")
 	public ModelAndView toOfflineOrderList() {
 		return new ModelAndView("/offlineOrder/list");
@@ -191,14 +226,20 @@ public class BackContrller extends BaseController {
 	
 	@PostMapping(value = "/offlineOrder/upload", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public JsonResponseResult addReigstCode(MultipartFile mainFile, HttpServletRequest request) {
-		return backService.addOfflineOrderList(mainFile, request);
+	public JsonResponseResult addOfflineOrder(MultipartFile excel) throws IOException {
+		return backService.addOfflineOrderList(excel);
 	}
 	
 	@PostMapping(value = "/offlineOrder/update", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public JsonResponseResult updOfflineOrder(TOfflineOrder order) {
 		return backService.updOfflineOrder(order);
+	}
+	
+	@PostMapping(value = "/offlineOrder/del/{id}", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult updOfflineOrder(@PathVariable String id) {
+		return backService.delOfflineOrderById(Integer.valueOf(id));
 	}
 
 }

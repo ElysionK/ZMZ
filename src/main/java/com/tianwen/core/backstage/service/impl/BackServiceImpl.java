@@ -1,11 +1,26 @@
 package com.tianwen.core.backstage.service.impl;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +33,8 @@ import com.tianwen.common.util.SysUtils;
 import com.tianwen.core.backstage.dao.BackDao;
 import com.tianwen.core.backstage.dto.CategoryDto;
 import com.tianwen.core.backstage.dto.OfflineOrderCondition;
+import com.tianwen.core.backstage.dto.OnlineOrderCondition;
+import com.tianwen.core.backstage.dto.OnlineOrderDto;
 import com.tianwen.core.backstage.dto.ProductCondition;
 import com.tianwen.core.backstage.dto.RegistCodeCondition;
 import com.tianwen.core.backstage.entity.Banner;
@@ -165,16 +182,101 @@ public class BackServiceImpl implements BackService{
 	}
 
 	@Override
-	public JsonResponseResult addOfflineOrderList(MultipartFile mainFile, HttpServletRequest request) {
-		List<TOfflineOrder> orders = new ArrayList<>();
+	public JsonResponseResult addOfflineOrderList(MultipartFile excel) throws IOException {
+		List<TOfflineOrder> orders = getOfflineOrdersFromExcel(excel);
+		if (orders == null || orders.size() == 0) {
+			return JsonResponseResult.createFalied("数据为空");
+		}
 		backDao.addOfflineOrderList(orders);
-		JsonResponseResult result = JsonResponseResult.createSuccess();
-		return result;
+		return JsonResponseResult.createSuccess();
+	}
+
+	@SuppressWarnings("resource")
+	private List<TOfflineOrder> getOfflineOrdersFromExcel(MultipartFile excel) throws IOException {
+		File orderExcel = getOrderExcel(excel);
+		Workbook wb = null;
+		Sheet sheet = null;
+		if (orderExcel.getName().endsWith(".xls")) {
+			wb = new HSSFWorkbook(new FileInputStream(orderExcel));
+		} else {
+			wb = new XSSFWorkbook(new FileInputStream(orderExcel));
+		}
+		sheet = wb.getSheetAt(0);
+		
+		List<TOfflineOrder> orders = new ArrayList<>();
+		Iterator<Row> rowIt = sheet.rowIterator();
+
+		while (rowIt.hasNext()) {
+			Row row = rowIt.next();
+			if (row.getRowNum() < 1) {
+				continue;
+			}
+			boolean overFlag = true;
+			for (int i = 0; i <= 6; i++) {
+				Cell cell = row.getCell(i);
+				if (cell != null && cell.getCellType() != CellType.BLANK) {
+					overFlag = false;
+				}
+			}
+			if (overFlag) {
+				break;
+			}
+			TOfflineOrder order = new TOfflineOrder();
+			order.setDate(row.getCell(0).getStringCellValue());
+			row.getCell(1).setCellType(CellType.STRING); 
+			order.setMemberNo(row.getCell(1).getStringCellValue());
+			order.setProductName(row.getCell(2).getStringCellValue());
+			order.setOrignalPrice(row.getCell(3).getNumericCellValue());
+			order.setMemberPrice(row.getCell(4).getNumericCellValue());
+			order.setPreferentialPrice(row.getCell(5).getNumericCellValue());
+			order.setNum(row.getCell(6).getNumericCellValue());
+			orders.add(order);
+		}
+		
+		return orders;
+	}
+
+	private File getOrderExcel(MultipartFile excel) throws IOException {
+		File orderExcel = new File(excel.getOriginalFilename());
+		orderExcel.createNewFile(); 
+	    FileOutputStream fos = new FileOutputStream(orderExcel); 
+	    fos.write(excel.getBytes());
+	    fos.close(); 
+		return orderExcel;
 	}
 
 	@Override
 	public JsonResponseResult updOfflineOrder(TOfflineOrder order) {
 		backDao.updOfflineOrder(order);
+		return JsonResponseResult.createSuccess();
+	}
+
+	@Override
+	public JsonResponseResult listOnlineOrder(String pageNo, OnlineOrderCondition condition) {
+		Pager pager = new Pager();
+		HashMap<String, Object> param = SysUtils.transBean2Map(condition);
+		pager.setPageNo(pageNo);
+		pager.setPageSize(8);
+		pager.setTotalRows(param, backDao.countOnlineOrder(param));
+		List<OnlineOrderDto> list = backDao.listOnlineOrder(param);
+		pager.setList(list);
+		
+		String ajaxPage = pager.getSiAjaxPageHtml();
+		JsonResponseResult result = JsonResponseResult.createSuccess();
+		result.addData(pager);
+		result.addData(ajaxPage);
+		
+		return result;
+	}
+
+	@Override
+	public OnlineOrderDto findOrderDtoByOid(Integer oid) {
+		return backDao.findOnlineOrderDtoByOid(oid);
+	}
+
+	@Override
+	public JsonResponseResult delOfflineOrderById(Integer id) {
+		backDao.delOfflineOrderById(id);
 		return JsonResponseResult.createSuccess();
 	}
 

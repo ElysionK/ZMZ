@@ -1,6 +1,6 @@
-package com.tianwen.core.backstage.entity;
+package com.tianwen.core.center.dto;
 
-public class TOfflineOrder {
+public class OfflineOrderDto {
 	
 	private Integer id;
 	private String memberNo;
@@ -8,8 +8,11 @@ public class TOfflineOrder {
 	private Double orignalPrice;
 	private Double memberPrice;
 	private Double preferentialPrice;
-	private Double num;
+	private Integer num;
 	private String date;
+	private Double totalOrignalPrice;
+	private Double totalMemberPrice;
+	private Double totalPreferentialPrice;
 	
 	public Integer getId() {
 		return id;
@@ -47,17 +50,37 @@ public class TOfflineOrder {
 	public void setPreferentialPrice(Double preferentialPrice) {
 		this.preferentialPrice = preferentialPrice;
 	}
+	public Integer getNum() {
+		return num;
+	}
+	public void setNum(Integer num) {
+		this.num = num;
+	}
 	public String getDate() {
 		return date;
 	}
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public Double getNum() {
-		return num;
+	public Double getTotalOrignalPrice() {
+		return totalOrignalPrice;
 	}
-	public void setNum(Double num) {
-		this.num = num;
+	public void setTotalOrignalPrice(Double totalOrignalPrice) {
+		this.totalOrignalPrice = totalOrignalPrice;
 	}
+	public Double getTotalMemberPrice() {
+		return totalMemberPrice;
+	}
+	public void setTotalMemberPrice(Double totalMemberPrice) {
+		this.totalMemberPrice = totalMemberPrice;
+	}
+	public Double getTotalPreferentialPrice() {
+		return totalPreferentialPrice;
+	}
+	public void setTotalPreferentialPrice(Double totalPreferentialPrice) {
+		this.totalPreferentialPrice = totalPreferentialPrice;
+	}
+	
+	
 
 }

@@ -23,6 +23,31 @@
 		<result column="sum" property="sum" jdbcType="INTEGER"/>
 	</resultMap>
 	
+	<resultMap type="offlineOrder" id="offlineOrderMap">
+		<id column="ID" property="id" jdbcType="INTEGER"/>
+		<result column="member_no" property="memberNo" jdbcType="VARCHAR"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="orignal_price" property="orignalPrice" jdbcType="DOUBLE"/>
+		<result column="member_price" property="memberPrice" jdbcType="DOUBLE"/>
+		<result column="preferential_price" property="preferentialPrice" jdbcType="DOUBLE"/>
+		<result column="num" property="num" jdbcType="DOUBLE"/>
+		<result column="date" property="date" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<resultMap type="offlineOrderDto" id="offlineOrderDtoMap">
+		<id column="ID" property="id" jdbcType="INTEGER"/>
+		<result column="member_no" property="memberNo" jdbcType="VARCHAR"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="orignal_price" property="orignalPrice" jdbcType="DOUBLE"/>
+		<result column="member_price" property="memberPrice" jdbcType="DOUBLE"/>
+		<result column="preferential_price" property="preferentialPrice" jdbcType="DOUBLE"/>
+		<result column="num" property="num" jdbcType="DOUBLE"/>
+		<result column="date" property="date" jdbcType="VARCHAR"/>
+		<result column="total_orignal_price" property="totalOrignalPrice" jdbcType="DOUBLE"/>
+		<result column="total_member_price" property="totalMemberPrice" jdbcType="DOUBLE"/>
+		<result column="total_preferential_price" property="totalPreferentialPrice" jdbcType="DOUBLE"/>
+	</resultMap>
+	
   	<select id="listRecentOnlineOrder" resultMap="orderMap">
   		SELECT *
   		FROM	
@@ -64,6 +89,39 @@
   			T_ORDER
   		WHERE 
   			OID = #{oid, jdbcType=INTEGER}
+  	</select>
+  	
+  	
+  	<select id="listRecentOfflineOrder" resultMap="offlineOrderMap">
+  		SELECT *
+  		FROM	
+  			T_OFFLINE_ORDER
+  		WHERE 
+  			MID = #{mid, jdbcType=INTEGER}
+  		AND
+  			TO_DAYS(STR_TO_DATE(DATE, '%m.%d.%Y %h:%i:%s')) > (TO_DAYS(NOW()) - #{recentDay, jdbcType=INTEGER})
+  	</select>
+  	
+  	<select id="listOfflineOrders" resultMap="offlineOrderMap">
+  		SELECT *
+  		FROM	
+  			T_OFFLINE_ORDER T
+  		LEFT JOIN
+  			T_USER U
+  		ON 
+  			T.MEMBER_NO = U.PHONE
+  		WHERE 
+  			MEMBER_NO = #{mid, jdbcType=VARCHAR}
+  	</select>
+  	
+  	<select id="findOfflineOrderDtoById" resultMap="offlineOrderDtoMap">
+  		SELECT
+  			T.*,
+  			 
+  		FROM	
+  			T_OFFLINE_ORDER T
+  		WHERE 
+  			T.ID = #{id, jdbcType=INTEGER}
   	</select>
   	
 </mapper>

@@ -16,7 +16,8 @@
 		<result column="CREATETIME" property="createTime" jdbcType="VARCHAR"/>
 	</resultMap>
 	
-	<resultMap type="registCode" id="registCodeMap">
+	
+	<resultMap type="offlineOrder" id="offlineOrderMap">
 		<id column="ID" property="id" jdbcType="INTEGER"/>
 		<result column="member_no" property="memberNo" jdbcType="VARCHAR"/>
 		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
@@ -27,7 +28,30 @@
 		<result column="date" property="date" jdbcType="VARCHAR"/>
 	</resultMap>
 	
-	<resultMap type="offlineOrder" id="offlineOrderMap">
+	<resultMap type="offlineOrderDto" id="offlineOrderDtoMap">
+		<id column="ID" property="id" jdbcType="INTEGER"/>
+		<result column="member_no" property="memberNo" jdbcType="VARCHAR"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="orignal_price" property="orignalPrice" jdbcType="DOUBLE"/>
+		<result column="member_price" property="memberPrice" jdbcType="DOUBLE"/>
+		<result column="preferential_price" property="preferentialPrice" jdbcType="DOUBLE"/>
+		<result column="num" property="num" jdbcType="DOUBLE"/>
+		<result column="date" property="date" jdbcType="VARCHAR"/>
+		<result column="total_orignal_price" property="totalOrignalPrice" jdbcType="DOUBLE"/>
+		<result column="total_member_price" property="totalMemberPrice" jdbcType="DOUBLE"/>
+		<result column="total_preferential_price" property="totalPreferentialPrice" jdbcType="DOUBLE"/>
+	</resultMap>
+	
+	<resultMap type="onlineOrderDto" id="onlineOrderDtoMap">
+		<id column="oid" property="oid" jdbcType="INTEGER"/>
+		<result column="phone" property="phone" jdbcType="VARCHAR"/>
+		<result column="order_time" property="orderTime" jdbcType="VARCHAR"/>
+		<result column="deliver_time" property="deliverTime" jdbcType="VARCHAR"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+		<result column="address" property="address" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<resultMap type="registCode" id="registCodeMap">
 		<id column="ID" property="id" jdbcType="INTEGER"/>
 		<result column="REGIST_CODE" property="registCode" jdbcType="VARCHAR"/>
 		<result column="USER_PHONE" property="userPhone" jdbcType="VARCHAR"/>
@@ -240,9 +264,19 @@
   		<if test="date != null and date != ''">AND C.DATE = #{date} </if>
   	</sql>
   	
-  	<select id="listOfflineOrder" resultMap="registCodeMap">
-  		SELECT 
-  				C.*
+  	<select id="listOfflineOrder" resultMap="offlineOrderDtoMap">
+  		SELECT
+  			C.ID, 
+  			C.MEMBER_NO,
+			C.PRODUCT_NAME,
+			C.ORIGNAL_PRICE,
+			C.MEMBER_PRICE,
+			C.PREFERENTIAL_PRICE,
+			C.NUM,
+			C.DATE,
+			ROUND(IFNULL(C.ORIGNAL_PRICE, 0) * C.NUM, 2) total_orignal_price,
+			ROUND(IFNULL(C.MEMBER_PRICE, 0) * C.NUM, 2) total_member_price, 
+			ROUND(IFNULL(C.PREFERENTIAL_PRICE, 0) * C.NUM, 2) total_preferential_price
 		FROM T_OFFLINE_ORDER C
 		WHERE 1 = 1
 		<include refid="offlineOrderCondition" />
@@ -273,9 +307,9 @@
 				#{item.memberPrice},
 				#{item.preferentialPrice},
 				#{item.num},
-				#{item.date},
+				#{item.date}
   			)
-		</foreach >
+		</foreach>
   	</insert>
   	
   	<update id="updOfflineOrder">
@@ -292,4 +326,54 @@
 		WHERE
 			ID = #{order.id, jdbcType=INTEGER}
   	</update>
+  	
+  	<sql id="orderCondition">
+  		<if test="phone != null and phone != ''">AND U.PHONE LIKE '%'||#{phone}||'%' </if>
+  	</sql>
+  	
+  	<select id="listOnlineOrder" resultMap="onlineOrderDtoMap">
+  		SELECT
+  			 T.OID OID, T.ORDER_TIME ORDER_TIME, T.DELIVER_TIME DELIVER_TIME, T.STATUS STATUS, U.PHONE, A.EXACTLY ADDRESS
+  		FORM T_ORDER T
+  		LEFT JOIN
+  			T_USER U
+  		ON 
+  			T.MID = U.ID
+  		LEFT JOIN 
+  			T_ADDRESS A
+  		ON 
+  			T.AID = A.ID
+		WHERE 1 = 1
+		<include refid="orderCondition" />
+		ORDER BY C.DATE DESC
+		<include refid="BaseMap.mysqlPageSqlSuffix" />
+  	</select>
+  	
+  	<select id="countOnlineOrder" resultType="int">
+  		SELECT COUNT(T.ID) FROM (SELECT C.ID FROM T_ORDER C WHERE 1 = 1 ORDER BY C.ID
+  		<include refid="orderCondition" />) T
+  	</select>
+  	
+  	<select id="findOnlineOrderDtoByOid" resultMap="onlineOrderDtoMap">
+  		SELECT
+  			 T.OID OID, T.ORDER_TIME ORDER_TIME, T.DELIVER_TIME DELIVER_TIME, T.STATUS STATUS, U.PHONE, A.EXACTLY ADDRESS
+  		FORM T_ORDER T
+  		LEFT JOIN
+  			T_USER U
+  		ON 
+  			T.MID = U.ID
+  		LEFT JOIN 
+  			T_ADDRESS A
+  		ON 
+  			T.AID = A.ID
+  		WHERE 
+  			T.OID = #{oid, jdbcType=INTEGER}
+  	</select>
+  	
+  	<delete id="delOfflineOrderById">
+  		DELETE FROM
+  			T_OFFLINE_ORDER 
+  		WHERE
+  			ID = #{id,jdbcType=INTEGER}
+  	</delete>
 </mapper>

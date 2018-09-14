@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tianwen.common.util.JsonResponseResult;
+import com.tianwen.core.backstage.entity.TOfflineOrder;
 import com.tianwen.core.center.dao.CenterDao;
 import com.tianwen.core.center.dto.CenterDto;
+import com.tianwen.core.center.dto.OfflineOrderDto;
 import com.tianwen.core.center.dto.OrderSubDetailDto;
 import com.tianwen.core.center.service.CenterService;
 import com.tianwen.core.order.entity.Order;
@@ -29,8 +31,9 @@ public class CenterServiceImpl implements CenterService {
 		User user = userDao.findUserById(userId);
 		int recentDay = 3;
 		List<Order> onlineOrders = centerDao.listRecentOnlineOrder(userId, recentDay);
+		List<TOfflineOrder> offlineOrders = centerDao.listRecentOfflineOrder(userId, recentDay);
 		
-		CenterDto dto = new CenterDto(user, onlineOrders);
+		CenterDto dto = new CenterDto(user, onlineOrders, offlineOrders);
 		
 		return dto;
 	}
@@ -51,6 +54,16 @@ public class CenterServiceImpl implements CenterService {
 	@Override
 	public Order findOrderByOid(Integer oid) {
 		return centerDao.findOrderByOid(oid);
+	}
+
+	@Override
+	public List<TOfflineOrder> listOfflineOrders(String memberNo) {
+		return centerDao.listOfflineOrders(memberNo);
+	}
+
+	@Override
+	public OfflineOrderDto findOfflineOrderDtoById(Integer id) {
+		return centerDao.findOfflineOrderDtoById(id);
 	}
 
 }

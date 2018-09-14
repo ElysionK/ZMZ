@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.tianwen.core.backstage.dto.CategoryDto;
+import com.tianwen.core.backstage.dto.OnlineOrderDto;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.entity.RegistCode;
@@ -58,5 +59,13 @@ public interface BackDao {
 	void addOfflineOrderList(@Param("orders") List<TOfflineOrder> orders);
 
 	void updOfflineOrder(@Param("order") TOfflineOrder order);
+
+	int countOnlineOrder(HashMap<String, Object> param);
+
+	List<OnlineOrderDto> listOnlineOrder(HashMap<String, Object> param);
+
+	OnlineOrderDto findOnlineOrderDtoByOid(@Param("oid") Integer oid);
+
+	void delOfflineOrderById(@Param("id") Integer id);
 	
 }
