@@ -42,7 +42,7 @@
 		<td>{{:id}}</td>
 		<td>{{:registCode}}</td>
 		<td>
-			{{if status = 1}} 
+			{{if status == 1}} 
 				有效
 			{{else}}
 				无效

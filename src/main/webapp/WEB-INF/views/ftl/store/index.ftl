@@ -10,9 +10,8 @@
 <body>
 	<header>
 		<div class="header_top">
+			<h3 style="color: white;">XXX商铺</h3>
 		</div>
-		<input type="text" placeholder="炸鸡">
-		<em class="search">&#xe78d;</em>
 	</header>
 	<main class="banner">
 		<div class="swiper-container" >
@@ -29,7 +28,7 @@
 	</main>
 	<ul class="list">
 		<#list data.categories as category>
-			<li>
+			<li onclick="window.location.href='/order/index'">
 				<img src="${pageContext.request.contextPath}/upload/${category.img}" alt="">
 				<span class="list_word">${category.name}</span>
 			</li>

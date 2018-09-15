@@ -354,7 +354,7 @@ nav span {
 }
 
 .m-goodGrid ul li p:last-child {
-	color: #ff7c7c;
+	color: #ffc43d;
 	font-weight: bold;
 	font-size: 0.284rem;
 }
@@ -435,7 +435,7 @@ nav span {
 	margin-top: 0.2rem;
 	color: #fff;
 	font-size: 0.228rem;
-	background: #ff7c7c;
+	background: #ffc43d;
 	border-radius: 25px;
 	width: 1.42rem;
 	height: 0.474rem;
@@ -649,7 +649,7 @@ nav span {
 
 .m-detailBaseInfo .content .info .price {
 	font-size: 0.455rem;
-	color: #ff7c7c;
+	color: #ffc43d;
 }
 
 .m-detailBaseInfo .content .comment {
@@ -680,7 +680,7 @@ nav span {
 
 .m-detailBaseInfo .content .comment .wrap .num {
 	font-size: 0.284rem;
-	color: #ff7c7c;
+	color: #ffc43d;
 	text-align: center;
 }
 
@@ -724,7 +724,7 @@ nav span {
 }
 
 .couponList-wraper .tag span {
-	background: #ff7c7c;
+	background: #ffc43d;
 	padding: 0.02rem 0.02rem;
 }
 
@@ -809,7 +809,7 @@ nav span {
 	font-size: 0.265rem;
 	color: #fff;
 	overflow: hidden;
-	background: #ff7c7c;
+	background: #ffc43d;
 }
 
 .w-button-noRadius,
@@ -858,7 +858,7 @@ nav span {
 }
 
 .m-detailComment>header .dp i {
-	color: #ff7c7c;
+	color: #ffc43d;
 }
 
 .dt-section {
@@ -1106,7 +1106,7 @@ nav span {
 }
 
 .m-goodGrid .list .item .price {
-	color: #ff7c7c;
+	color: #ffc43d;
 	font-size: 0.28rem;
 	text-align: center;
 }
@@ -1351,7 +1351,7 @@ nav span {
 	text-align: center;
 	font-size: 0.265rem;
 	color: #fff;
-	background-color: #ff7c7d;
+	background-color: #ffc43d;
 	overflow: hidden;
 	padding: 0;
 }
@@ -1407,7 +1407,7 @@ nav span {
 }
 
 .u-text-red {
-	color: #ff7c7c;
+	color: #ffc43d;
 }
 
 .u-text-red span {
@@ -1428,7 +1428,7 @@ nav span {
 
 .modalgood .cnt .line2 {
 	margin-bottom: 0.15rem;
-	color: #ff7c7c;
+	color: #ffc43d;
 	font-size: 0.265rem;
 	margin-top: 0.2rem;
 }
@@ -1460,8 +1460,8 @@ nav span {
 }
 
 .guige ul li.active {
-	color: #ff7c7c;
-	border: 1px solid #ff7c7c;
+	color: #ffc43d;
+	border: 1px solid #ffc43d;
 }
 
 .guige .m-selnum {
@@ -1682,7 +1682,7 @@ nav span {
 	height: 0.9292rem;
 	line-height: 0.9292rem;
 	display: block;
-	background: #ff7c7c;
+	background: #ffc43d;
 	color: #FFF;
 	font-size: 0.265rem;
 	text-align: center;
@@ -1876,7 +1876,7 @@ a:not([href]):not([tabindex]) {
 }
 
 .m-mainViewFt .main .actualPrice .value {
-	color: #ff7c7c;
+	color: #ffc43d;
 }
 
 .m-mainViewFt .main .btn {

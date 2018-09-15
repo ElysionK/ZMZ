@@ -73,7 +73,7 @@ h5{color:#333;padding:0 0.16rem;font-size:0.28rem;margin-top:0.35rem}
 .count{width:100%;height:0.22rem;float:left}
 .zhe{width:0.67rem;height:0.2rem;border:0.02rem solid #FDE0DF;color:#FB4E44;text-align:center;line-height:0.15rem;font-size:0.12rem;float:left;margin-right:0.07rem}
 .bar{width:100%;height:0.74rem;position:fixed;bottom:0;left:0;background-color:#fff;border-top:0.02rem solid #ccc}
-.bar li{width:1.78rem;height:100%;float:left;padding-top:0.12rem}
+.bar li{width:1.25rem;height:100%;float:left;padding-top:0.12rem}
 #em_active{color:#FFC43F}
 #span_active{color:#333}
 .bar li em{font-family:'iconfont';font-size:0.32rem;float:left;margin-left:0.74rem;color:#ccc}

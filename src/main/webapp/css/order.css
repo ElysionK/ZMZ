@@ -19,7 +19,7 @@ header {
     color: #fff;
     font-size: 17px;
     text-align: center;
-    background-color: #00a0dc;
+    background-color: #ffc43d;
     position: relative;
 }
 .notice {
@@ -82,7 +82,7 @@ header {
 .good li i {
     font-size: 18px;
     line-height: 80px; 
-    color: #00a0dc;
+    color: #ffc43d;
     padding: 0 4px;
 } 
 /* 点击添加按钮缓慢弹出订单个数以及减少按钮 */
@@ -139,12 +139,12 @@ header {
     line-height: 20px;
     text-align: center;
     border-radius: 10px;
-    background-color: #00a0dc;
+    background-color: #ffc43d;
     font-size: 10px;
 }
 .pay {
     /* background-color: rgb(78, 207, 45); */
-    background-color: #00a0dc;
+    background-color: #ffc43d;
     color: #fff;
     font-size: 18px;
     padding: 0 20px;
@@ -169,7 +169,7 @@ header {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background-color: #00a0dc;
+    background-color: #ffc43d;
     /* 过渡属性名称 过渡时间 过渡曲线 延迟时间 */
     transition: all 1s ease 0s;
     -webkit-transition: all 1s ease 0s;     

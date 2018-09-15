@@ -33,14 +33,11 @@
 					<span class="title">注册码管理</span>
 					<span class="arrowicon"></span>
 				</a>
-<<<<<<< HEAD
 				<a class="sideblk blk" href="/backstage/onlineOrder/list">
 					<i class="record"><img src="/images/back_category.png"/></i>
 					<span class="title">线上订单</span>
 					<span class="arrowicon"></span>
 				</a>
-=======
->>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 				<a class="sideblk blk" href="/backstage/offlineOrder/list">
 					<i class="record"><img src="/images/back_category.png"/></i>
 					<span class="title">线下订单</span>

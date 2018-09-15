@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianwen.base.controller.BaseController;
+import com.tianwen.common.SysConstant;
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.user.entity.User;
 import com.tianwen.core.user.service.UserService;
@@ -52,7 +53,11 @@ public class OpenController extends BaseController{
 	@PostMapping(value = "/login", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public JsonResponseResult login(User user) {
-		return userService.doLogin(user);
+		JsonResponseResult result = userService.doLogin(user);
+		if(result.getReturncode() == 0){
+			super.getSession().setAttribute(SysConstant.SYS_MEMBER_LOG_SUCC_INFO, result.getData().get(0));
+		}
+		return result;
 	}
 	
 

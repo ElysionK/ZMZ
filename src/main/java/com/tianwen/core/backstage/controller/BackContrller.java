@@ -42,10 +42,13 @@ public class BackContrller extends BaseController {
 
 	@Autowired
 	private BackService backService;
-	
+
 	@Autowired
 	private CenterService centerService;
 	
+	@Autowired
+	private ImageUtil imageUtil;
+
 	/**************************************
 	 * registCode
 	 ***********************************************/
@@ -59,7 +62,7 @@ public class BackContrller extends BaseController {
 	public JsonResponseResult ajaxLoadRegistCode(@PathVariable String pageNo, RegistCodeCondition condition) {
 		return backService.findAllRegistCode(pageNo, condition);
 	}
-	
+
 	@PostMapping(value = "/registCode/add/{codeCount}", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public JsonResponseResult addReigstCode(@PathVariable Integer codeCount) {
@@ -83,11 +86,11 @@ public class BackContrller extends BaseController {
 	@PostMapping(value = "/banner/addNew", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public JsonResponseResult addNew(Banner banner, MultipartFile mainFile, HttpServletRequest request) {
-		String path = ImageUtil.saveFile(mainFile, request, "banner");
+		String path = imageUtil.saveFile(mainFile, "banner");
 		banner.setImg(path);
 		return backService.addNewBanner(banner);
 	}
-	
+
 	@PostMapping(value = "/banner/sort/update", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public JsonResponseResult updBannerSort(@RequestBody List<Banner> banners) {
@@ -98,7 +101,7 @@ public class BackContrller extends BaseController {
 	@ResponseBody
 	public JsonResponseResult updBanner(Banner banner, MultipartFile mainFile, HttpServletRequest request) {
 		if (mainFile != null && !mainFile.isEmpty()) {
-			String path = ImageUtil.saveFile(mainFile, request, "banner");
+			String path = imageUtil.saveFile(mainFile, "banner");
 			banner.setImg(path);
 		}
 		return backService.updBanner(banner);
@@ -126,7 +129,7 @@ public class BackContrller extends BaseController {
 	@PostMapping(value = "/category/addNew", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public JsonResponseResult addNew(CategoryDto dto, MultipartFile mainFile, HttpServletRequest request) {
-		String path = ImageUtil.saveFile(mainFile, request, "category");
+		String path = imageUtil.saveFile(mainFile, "category");
 		dto.setImg(path);
 		return backService.addNewCategory(dto);
 	}
@@ -141,7 +144,7 @@ public class BackContrller extends BaseController {
 	@ResponseBody
 	public JsonResponseResult updCategory(CategoryDto dto, MultipartFile mainFile, HttpServletRequest request) {
 		if (mainFile != null && !mainFile.isEmpty()) {
-			String path = ImageUtil.saveFile(mainFile, request, "category");
+			String path = imageUtil.saveFile(mainFile, "category");
 			dto.setImg(path);
 		}
 		return backService.updCategory(dto);
@@ -179,17 +182,17 @@ public class BackContrller extends BaseController {
 	@PostMapping(value = "/product/addNew", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public JsonResponseResult addNew(Product product, MultipartFile mainFile, HttpServletRequest request) {
-		String path = ImageUtil.saveFile(mainFile, request, "product");
+		String path = imageUtil.saveFile(mainFile, "product");
 		product.setImg(path);
 		return backService.addNewProduct(product);
 	}
-	
+
 	/**************************************
 	 * offlineOrder
 	 ***********************************************/
 	@GetMapping(value = "/onlineOrder/list")
 	public ModelAndView toOnlineOrderList() {
-		return new ModelAndView("/olineOrder/list");
+		return new ModelAndView("/onlineOrder/list");
 	}
 
 	@PostMapping(value = "/onlineOrder/ajaxLoadOnlineOrder/{pageNo}", produces = { "application/json;charset=UTF-8" })
@@ -197,19 +200,19 @@ public class BackContrller extends BaseController {
 	public JsonResponseResult ajaxLoadOnineOrder(@PathVariable String pageNo, OnlineOrderCondition condition) {
 		return backService.listOnlineOrder(pageNo, condition);
 	}
-	
+
 	@GetMapping(value = "/toDetail/onlineOrder/{oid}")
 	public ModelAndView toOnlineOrder(@PathVariable Integer oid) {
 		OnlineOrderDto order = backService.findOrderDtoByOid(oid);
 		return new ModelAndView("/onlineOrder/order_detail", "order", order);
 	}
-	
+
 	@PostMapping(value = "/onlineOrderDetail/{oid}", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public JsonResponseResult ajaxLoadRegistCode(@PathVariable Integer oid) {
 		return centerService.listOrderSubDetailByOid(oid);
 	}
-	
+
 	/**************************************
 	 * offlineOrder
 	 ***********************************************/
@@ -223,19 +226,19 @@ public class BackContrller extends BaseController {
 	public JsonResponseResult ajaxLoadOfflineOrder(@PathVariable String pageNo, OfflineOrderCondition condition) {
 		return backService.listOfflineOrder(pageNo, condition);
 	}
-	
+
 	@PostMapping(value = "/offlineOrder/upload", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public JsonResponseResult addOfflineOrder(MultipartFile excel) throws IOException {
 		return backService.addOfflineOrderList(excel);
 	}
-	
+
 	@PostMapping(value = "/offlineOrder/update", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public JsonResponseResult updOfflineOrder(TOfflineOrder order) {
 		return backService.updOfflineOrder(order);
 	}
-	
+
 	@PostMapping(value = "/offlineOrder/del/{id}", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public JsonResponseResult updOfflineOrder(@PathVariable String id) {

@@ -60,10 +60,7 @@
 		<td>{{:date}}</td>
 		<td>
 			<a id="{{:id}}" class="cek detail del-btn">删除</a>
-<<<<<<< HEAD
-=======
 			<a class="cek detail" href="javascript:void(0)">修改</a>
->>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 		</td>
 	</tr>
 </script>

@@ -33,7 +33,7 @@
 							<td><input type="checkbox" class="pids" value=""  data=""/></td>
 							<td id="${list.id}" class="sort-no">${list.sort}</td>
 							<td class="category-name">${list.name}</td>
-							<td><img alt="" src="${pageContext.request.contextPath}/upload/${list.img}"></td>
+							<td><img style="width: 40px;" alt="" src="${pageContext.request.contextPath}/upload/${list.img}"></td>
 							<td>${list.createtime}</td>
 							<td>
 								<a class="cek detail upd-btn">修改</a>

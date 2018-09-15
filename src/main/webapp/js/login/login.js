@@ -65,7 +65,7 @@ $(function(){
 			dataType: "json",
 		    success:function (data) {
 		   	   if(data.returncode==0){
-		   		   window.location.href="/open/loginSuccess"
+		   		   window.location.href="/index"
 		   	   }else{                   	   
 		   		   layerOpen(data.errmsg);
 		   	   }              

@@ -32,12 +32,9 @@
 		<typeAlias type="com.tianwen.core.order.dto.OrderDto" alias="orderdto"/>
 		<typeAlias type="com.tianwen.core.order.dto.AddressDto" alias="addressdto"/>
 		<typeAlias type="com.tianwen.core.user.entity.User" alias="user"/>
-<<<<<<< HEAD
 		<typeAlias type="com.tianwen.core.order.entity.Cart" alias="cart"/>
 		<typeAlias type="com.tianwen.core.order.entity.Address" alias="address"/>
 		<typeAlias type="com.tianwen.core.order.dto.CartDto" alias="cartdto"/>
-=======
->>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 		
 		<typeAlias type="com.tianwen.core.center.dto.OrderSubDetailDto" alias="orderSubDetailDto"/>
 		<typeAlias type="com.tianwen.core.center.dto.OfflineOrderDto" alias="offlineOrderDto"/>
