@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 配置全局属性 -->
+	<settings>
+		<!-- 使用jdbc的getGeneratedKeys获取数据库自增主键值 -->
+		<setting name="useGeneratedKeys" value="true" />
+
+		<!-- 使用列别名替换列名 默认:true -->
+		<setting name="useColumnLabel" value="true" />
+
+		<!-- 开启驼峰命名转换:Table{create_time} -> Entity{createTime} -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+
+		<!-- 打印SQL语句到控制台 -->
+		<setting name="logImpl" value="STDOUT_LOGGING"/>
+	</settings>
+	
+	<typeAliases>
+		<!-- <typeAlias type="com.tianwen.core.user.entity.HisInnerUser" alias="user"/> -->
+		<typeAlias type="com.tianwen.core.backstage.dto.CategoryDto" alias="category"/>
+		<typeAlias type="com.tianwen.core.backstage.entity.Product" alias="product"/>
+		<typeAlias type="com.tianwen.core.backstage.entity.Banner" alias="banner"/>
+		<typeAlias type="com.tianwen.core.backstage.entity.RegistCode" alias="registCode"/>
+		<typeAlias type="com.tianwen.core.backstage.entity.TOfflineOrder" alias="offlineOrder"/>
+		<typeAlias type="com.tianwen.core.backstage.dto.OnlineOrderDto" alias="onlineOrderDto"/>
+		
+		<typeAlias type="com.tianwen.core.order.entity.Order" alias="order"/>
+		<typeAlias type="com.tianwen.core.order.entity.OrderSub" alias="orderSub"/>
+		<typeAlias type="com.tianwen.core.order.dto.OrderDto" alias="orderdto"/>
+		<typeAlias type="com.tianwen.core.order.dto.AddressDto" alias="addressdto"/>
+		<typeAlias type="com.tianwen.core.user.entity.User" alias="user"/>
+		<typeAlias type="com.tianwen.core.order.entity.Cart" alias="cart"/>
+		<typeAlias type="com.tianwen.core.order.entity.Address" alias="address"/>
+		<typeAlias type="com.tianwen.core.order.dto.CartDto" alias="cartdto"/>
+		
+		<typeAlias type="com.tianwen.core.center.dto.OrderSubDetailDto" alias="orderSubDetailDto"/>
+		<typeAlias type="com.tianwen.core.center.dto.OfflineOrderDto" alias="offlineOrderDto"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="com/tianwen/base/mapper/BaseMap.xml"/>
+		<mapper resource="com/tianwen/core/user/mapper/UserMapper.xml"/>
+		<mapper resource="com/tianwen/core/order/mapper/OrderMapper.xml"/>
+		<mapper resource="com/tianwen/core/backstage/mapper/BackMapper.xml"/>
+		<mapper resource="com/tianwen/core/center/mapper/CenterMapper.xml"/>
+	</mappers>
+</configuration>

@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tianwen.core.backstage.dao.BackDao">
+
+	<resultMap type="product" id="productMap">
+		<id column="ID" property="id" jdbcType="INTEGER"/>
+		<result column="NAME" property="name" jdbcType="VARCHAR"/>
+		<result column="ORIGNAL_PRICE" property="orignalPrice" jdbcType="DOUBLE"/>
+		<result column="DISCOUNT_PRICE" property="discountPrice" jdbcType="DOUBLE"/>
+		<result column="IMG" property="img" jdbcType="VARCHAR"/>
+		<result column="CATEOGRY_NAME" property="categoryName" jdbcType="VARCHAR"/>
+		<result column="CATEOGRY" property="category" jdbcType="VARCHAR"/>
+		<result column="BRIEF" property="brief" jdbcType="VARCHAR"/>
+		<result column="CREATETIME" property="createTime" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	
+	<resultMap type="offlineOrder" id="offlineOrderMap">
+		<id column="ID" property="id" jdbcType="INTEGER"/>
+		<result column="member_no" property="memberNo" jdbcType="VARCHAR"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="orignal_price" property="orignalPrice" jdbcType="DOUBLE"/>
+		<result column="member_price" property="memberPrice" jdbcType="DOUBLE"/>
+		<result column="preferential_price" property="preferentialPrice" jdbcType="DOUBLE"/>
+		<result column="num" property="num" jdbcType="DOUBLE"/>
+		<result column="date" property="date" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<resultMap type="offlineOrderDto" id="offlineOrderDtoMap">
+		<id column="ID" property="id" jdbcType="INTEGER"/>
+		<result column="member_no" property="memberNo" jdbcType="VARCHAR"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="orignal_price" property="orignalPrice" jdbcType="DOUBLE"/>
+		<result column="member_price" property="memberPrice" jdbcType="DOUBLE"/>
+		<result column="preferential_price" property="preferentialPrice" jdbcType="DOUBLE"/>
+		<result column="num" property="num" jdbcType="DOUBLE"/>
+		<result column="date" property="date" jdbcType="VARCHAR"/>
+		<result column="total_orignal_price" property="totalOrignalPrice" jdbcType="DOUBLE"/>
+		<result column="total_member_price" property="totalMemberPrice" jdbcType="DOUBLE"/>
+		<result column="total_preferential_price" property="totalPreferentialPrice" jdbcType="DOUBLE"/>
+	</resultMap>
+	
+	<resultMap type="onlineOrderDto" id="onlineOrderDtoMap">
+		<id column="oid" property="oid" jdbcType="INTEGER"/>
+		<result column="phone" property="phone" jdbcType="VARCHAR"/>
+		<result column="order_time" property="orderTime" jdbcType="VARCHAR"/>
+		<result column="deliver_time" property="deliverTime" jdbcType="VARCHAR"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<resultMap type="registCode" id="registCodeMap">
+		<id column="ID" property="id" jdbcType="INTEGER"/>
+		<result column="REGIST_CODE" property="registCode" jdbcType="VARCHAR"/>
+		<result column="USER_PHONE" property="userPhone" jdbcType="VARCHAR"/>
+		<result column="STATUS" property="status" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<select id="findCategoryMaxSort" resultType="int">
+		SELECT IFNULL(MAX(SORT),0) SORT FROM T_CATEGORY
+	</select>
+  	
+  	<insert id="addNewCategory" parameterType="category">
+  		INSERT INTO T_CATEGORY (
+  			NAME,
+  			IMG,
+  			CREATETIME,
+  			SORT
+  		) VALUES (
+  			#{category.name},
+  			#{category.img},
+  			#{category.createtime},
+  			#{category.sort}
+  		)
+  	</insert>
+  	
+  	<select id="findAllCategories" resultType="category">
+  		SELECT * FROM T_CATEGORY ORDER BY SORT ASC
+  	</select>
+  	
+  	<insert id="addNewProduct" parameterType="product">
+  		INSERT INTO T_PRODUCT (
+  			NAME,
+  			CATEGORY,
+  			IMG,
+  			ORIGNAL_PRICE,
+  			DISCOUNT_PRICE,
+  			BRIEF,
+  			CREATETIME
+  		) VALUES (
+  			#{product.name},
+  			#{product.category},
+  			#{product.img},
+  			#{product.orignalPrice},
+  			#{product.discountPrice},
+  			#{product.brief},
+  			#{product.createTime}
+  		)
+  	</insert>
+  	
+  	<sql id="productCondition">
+  		<if test="name != null and name != ''">AND P.NAME LIKE '%'||#{name}||'%' </if>
+  		<if test="category != null and category != ''">AND P.CATEGORY = #{category} </if>
+  		<if test="minPrice != null and minPrice != ''">P.DISCOUNT_PRICE <![CDATA[ >= ]]> #{minPrice} </if>
+  		<if test="maxPrice != null and maxPrice != ''">P.DISCOUNT_PRICE <![CDATA[ <= ]]> #{maxPrice} </if>
+  	</sql>
+  	
+  	<select id="findAllProducts" resultMap="productMap">
+  		SELECT 
+  				P.*, C.NAME CATEGORY_NAME 
+		FROM T_PRODUCT P
+		LEFT JOIN
+			T_CATEGORY C
+		ON P.CATEGORY = C.ID WHERE 1 = 1
+		<include refid="productCondition" />
+		<include refid="BaseMap.mysqlPageSqlSuffix" />
+  	</select>
+  	
+  	<select id="countAllProducts" resultType="int">
+  		SELECT COUNT(T.ID) FROM (SELECT P.ID FROM T_PRODUCT P WHERE 1 = 1
+  		<include refid="productCondition" />) T
+  	</select>
+  	
+  	<select id="findAllBanners" resultType="banner">
+  		SELECT * FROM T_BANNER ORDER BY SORT ASC
+  	</select>
+  	
+  	<select id="findBannerMaxSort" resultType="int">
+		SELECT IFNULL(MAX(SORT),0) SORT FROM T_BANNER ORDER BY SORT ASC
+	</select>
+	
+	<insert id="addNewBanner" parameterType="category">
+  		INSERT INTO T_BANNER (
+  			BRIEF,
+  			IMG,
+  			SORT
+  		) VALUES (
+  			#{banner.brief},
+  			#{banner.img},
+  			#{banner.sort}
+  		)
+  	</insert>
+  	
+  	<update id="updCategorySort">
+  		UPDATE
+  			T_CATEGORY
+  		<trim prefix="set" suffixOverrides=",">
+            <trim prefix="sort =case" suffix="end,">
+                <foreach collection="categories" item="c" index="index">
+                     when id=#{c.id} then #{c.sort}
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach collection="categories" index="index" item="c" separator="," open="(" close=")">
+            #{c.id,jdbcType=INTEGER}
+        </foreach>
+  	</update>
+  	
+  	<update id="updCategory">
+  		UPDATE
+  			T_CATEGORY
+  		<trim prefix="set" suffixOverrides=",">
+  			<if test="category.img != null and category.img != ''">
+  				img = #{category.img, jdbcType=VARCHAR},
+  			</if>
+  			<if test="category.name != null and category.name != ''">
+  				name = #{category.name, jdbcType=VARCHAR},
+  			</if>
+  		</trim>
+        WHERE id = #{category.id,jdbcType=INTEGER}
+  	</update>
+  	
+  	<update id="updBannerSort">
+  		UPDATE
+  			T_BANNER
+  		<trim prefix="set" suffixOverrides=",">
+            <trim prefix="sort =case" suffix="end,">
+                <foreach collection="banners" item="b" index="index">
+                     when id=#{b.id} then #{b.sort}
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach collection="banners" index="index" item="b" separator="," open="(" close=")">
+            #{b.id,jdbcType=INTEGER}
+        </foreach>
+  	</update>
+  	
+  	<update id="updBanner">
+  		UPDATE
+  			T_BANNER
+  		<trim prefix="set" suffixOverrides=",">
+  			<if test="banner.img != null and banner.img != ''">
+  				img = #{banner.img, jdbcType=VARCHAR},
+  			</if>
+  			<if test="banner.brief != null and banner.brief != ''">
+  				brief = #{banner.brief, jdbcType=VARCHAR},
+  			</if>
+  		</trim>
+        WHERE id = #{banner.id,jdbcType=INTEGER}
+  	</update>
+  	
+  	<insert id="addRegistCode">
+  		INSERT INTO T_REGIST_CODE (
+  			REGIST_CODE,
+  			STATUS
+  		) VALUES 
+  		<foreach collection="codes" item="item" index= "index" separator =",">
+  			(
+	  			#{item.registCode},
+	  			#{item.status}
+  			)
+		</foreach >
+  	</insert>
+  	
+  	
+  	<sql id="registCodeCondition">
+  		<if test="registCode != null and registCode != ''">AND C.REGIST_CODE LIKE '%'||#{registCode}||'%' </if>
+  		<if test="status != null">AND C.STATUS = #{status} </if>
+  	</sql>
+  	
+  	<select id="findAllRegistCode" resultMap="registCodeMap">
+  		SELECT 
+  				C.*
+		FROM T_REGIST_CODE C
+		WHERE 1 = 1
+		<include refid="registCodeCondition" />
+		ORDER BY C.STATUS DESC, C.ID DESC
+		<include refid="BaseMap.mysqlPageSqlSuffix" />
+  	</select>
+  	
+  	<select id="countAllRegistCode" resultType="int">
+  		SELECT COUNT(T.ID) FROM (SELECT C.ID FROM T_REGIST_CODE C WHERE 1 = 1 ORDER BY C.ID
+  		<include refid="registCodeCondition" />) T
+  	</select>
+  	
+  	<select id="findByCodeAndStatus" resultMap="registCodeMap">
+  		SELECT *
+  		FROM
+  			T_REGIST_CODE
+  		WHERE
+  			REGIST_CODE = #{code, jdbcType=VARCHAR}
+  		AND
+  			STATUS = #{status, jdbcType=INTEGER}
+  	</select>
+  	
+  	<update id="updRegistCode">
+  		UPDATE
+			T_REGIST_CODE
+		SET
+			USER_PHONE = #{code.userPhone, jdbcType=VARCHAR},
+			STATUS = #{code.status, jdbcType=INTEGER}
+		WHERE
+			REGIST_CODE = #{code.registCode, jdbcType=VARCHAR}
+  	</update>
+  	
+  	
+  	<sql id="offlineOrderCondition">
+  		<if test="productName != null and productName != ''">AND C.PRODUCT_NAME LIKE '%'||#{productName}||'%' </if>
+  		<if test="memberNo != null and memberNo != ''">AND C.MEMBER_NO = #{memberNo} </if>
+  		<if test="date != null and date != ''">AND C.DATE = #{date} </if>
+  	</sql>
+  	
+  	<select id="listOfflineOrder" resultMap="offlineOrderDtoMap">
+  		SELECT
+  			C.ID, 
+  			C.MEMBER_NO,
+			C.PRODUCT_NAME,
+			C.ORIGNAL_PRICE,
+			C.MEMBER_PRICE,
+			C.PREFERENTIAL_PRICE,
+			C.NUM,
+			C.DATE,
+			ROUND(IFNULL(C.ORIGNAL_PRICE, 0) * C.NUM, 2) total_orignal_price,
+			ROUND(IFNULL(C.MEMBER_PRICE, 0) * C.NUM, 2) total_member_price, 
+			ROUND(IFNULL(C.PREFERENTIAL_PRICE, 0) * C.NUM, 2) total_preferential_price
+		FROM T_OFFLINE_ORDER C
+		WHERE 1 = 1
+		<include refid="offlineOrderCondition" />
+		ORDER BY C.DATE DESC
+		<include refid="BaseMap.mysqlPageSqlSuffix" />
+  	</select>
+  	
+  	<select id="countOfflineOrder" resultType="int">
+  		SELECT COUNT(T.ID) FROM (SELECT C.ID FROM T_OFFLINE_ORDER C WHERE 1 = 1 ORDER BY C.ID
+  		<include refid="offlineOrderCondition" />) T
+  	</select>
+
+	<insert id="addOfflineOrderList">
+  		INSERT INTO T_OFFLINE_ORDER (
+  			MEMBER_NO,
+			PRODUCT_NAME,
+			ORIGNAL_PRICE,
+			MEMBER_PRICE,
+			PREFERENTIAL_PRICE,
+			NUM,
+			DATE
+  		) VALUES 
+  		<foreach collection="orders" item="item" index= "index" separator =",">
+  			(
+	  			#{item.memberNo},
+				#{item.productName},
+				#{item.orignalPrice},
+				#{item.memberPrice},
+				#{item.preferentialPrice},
+				#{item.num},
+				#{item.date}
+  			)
+		</foreach>
+  	</insert>
+  	
+  	<update id="updOfflineOrder">
+  		UPDATE
+			T_OFFLINE_ORDER
+		SET
+			MEMBER_NO = #{order.memberNo, jdbcType=VARCHAR},
+			PRODUCT_NAME = #{order.productName, jdbcType=VARCHAR},
+			ORIGNAL_PRICE = #{order.orignalPrice, jdbcType=DOUBLE},
+			MEMBER_PRICE = #{order.memberPrice, jdbcType=DOUBLE},
+			PREFERENTIAL_PRICE = #{order.preferentialPrice, jdbcType=DOUBLE},
+			NUM = #{order.num, jdbcType=DOUBLE},
+			DATE = #{order.date, jdbcType=VARCHAR},
+		WHERE
+			ID = #{order.id, jdbcType=INTEGER}
+  	</update>
+  	
+  	<sql id="orderCondition">
+  		<if test="phone != null and phone != ''">AND U.PHONE LIKE '%'||#{phone}||'%' </if>
+  	</sql>
+  	
+  	<select id="listOnlineOrder" resultMap="onlineOrderDtoMap">
+  		SELECT
+  			 T.OID OID, T.ORDER_TIME ORDER_TIME, T.DELIVER_TIME DELIVER_TIME, T.STATUS STATUS, U.PHONE, A.EXACTLY ADDRESS
+  		FORM T_ORDER T
+  		LEFT JOIN
+  			T_USER U
+  		ON 
+  			T.MID = U.ID
+  		LEFT JOIN 
+  			T_ADDRESS A
+  		ON 
+  			T.AID = A.ID
+		WHERE 1 = 1
+		<include refid="orderCondition" />
+		ORDER BY C.DATE DESC
+		<include refid="BaseMap.mysqlPageSqlSuffix" />
+  	</select>
+  	
+  	<select id="countOnlineOrder" resultType="int">
+  		SELECT COUNT(T.ID) FROM (SELECT C.ID FROM T_ORDER C WHERE 1 = 1 ORDER BY C.ID
+  		<include refid="orderCondition" />) T
+  	</select>
+  	
+  	<select id="findOnlineOrderDtoByOid" resultMap="onlineOrderDtoMap">
+  		SELECT
+  			 T.OID OID, T.ORDER_TIME ORDER_TIME, T.DELIVER_TIME DELIVER_TIME, T.STATUS STATUS, U.PHONE, A.EXACTLY ADDRESS
+  		FORM T_ORDER T
+  		LEFT JOIN
+  			T_USER U
+  		ON 
+  			T.MID = U.ID
+  		LEFT JOIN 
+  			T_ADDRESS A
+  		ON 
+  			T.AID = A.ID
+  		WHERE 
+  			T.OID = #{oid, jdbcType=INTEGER}
+  	</select>
+  	
+  	<delete id="delOfflineOrderById">
+  		DELETE FROM
+  			T_OFFLINE_ORDER 
+  		WHERE
+  			ID = #{id,jdbcType=INTEGER}
+  	</delete>
+</mapper>
