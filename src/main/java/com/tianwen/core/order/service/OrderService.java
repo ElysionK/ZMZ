@@ -4,14 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.tianwen.core.backstage.entity.Product;
-<<<<<<< HEAD
 import com.tianwen.core.order.dto.CartDto;
 import com.tianwen.core.order.dto.OrderDetailDto;
 import com.tianwen.core.order.entity.Address;
 import com.tianwen.core.order.entity.Cart;
-=======
-import com.tianwen.core.order.dto.OrderDetailDto;
->>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 import com.tianwen.core.order.entity.Order;
 
 public interface OrderService {
@@ -20,7 +16,6 @@ public interface OrderService {
 	
 	Integer addNewOrder(HashMap<String, Object> map);
 	
-<<<<<<< HEAD
 	OrderDetailDto findOrderDetail(Integer oid, Integer id, Integer mid);
 	
 	void confirmOrder(Order order);
@@ -46,11 +41,4 @@ public interface OrderService {
 	Address findMemberAddressById(Integer id);
 	
 	void doConfirmOrder(HashMap<String, Object> map);
-	
-=======
-	OrderDetailDto findOrderDetail(Integer oid);
-	
-	void confirmOrder(Order order);
-
->>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 }

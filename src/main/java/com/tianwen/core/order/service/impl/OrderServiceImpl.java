@@ -14,16 +14,13 @@ import com.tianwen.common.util.SysUtils;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.order.dao.OrderDao;
 import com.tianwen.core.order.dto.AddressDto;
-<<<<<<< HEAD
 import com.tianwen.core.order.dto.CartDto;
 import com.tianwen.core.order.dto.OrderDetailDto;
 import com.tianwen.core.order.dto.OrderDto;
 import com.tianwen.core.order.entity.Address;
 import com.tianwen.core.order.entity.Cart;
-=======
 import com.tianwen.core.order.dto.OrderDetailDto;
 import com.tianwen.core.order.dto.OrderDto;
->>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 import com.tianwen.core.order.entity.Order;
 import com.tianwen.core.order.entity.OrderSub;
 import com.tianwen.core.order.service.OrderService;
@@ -46,15 +43,10 @@ public class OrderServiceImpl implements OrderService {
 		double totalNormal = 0;
 		double totalMember = 0;
 		int count = 0;
-<<<<<<< HEAD
 		List<Integer> delCids = new ArrayList<>();
 		for (Entry<String, Object> entry : map.entrySet()) {
 			Integer pid = Integer.parseInt(entry.getKey().split("\\|")[0]);
 			Integer cid = Integer.parseInt(entry.getKey().split("\\|")[1]);
-=======
-		for (Entry<String, Object> entry : map.entrySet()) {
-			Integer pid = Integer.parseInt(entry.getKey());
->>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 			Product product = orderDao.findProductByPid(pid);
 			
 			double normal = product.getOrignalPrice() * Integer.parseInt(entry.getValue().toString());
@@ -69,7 +61,6 @@ public class OrderServiceImpl implements OrderService {
 			totalNormal += normal;
 			totalMember += member;
 			count += Integer.parseInt(entry.getValue().toString());
-<<<<<<< HEAD
 			
 			delCids.add(cid);
 		}
@@ -80,13 +71,6 @@ public class OrderServiceImpl implements OrderService {
 		order.setNormalPrice(totalNormal);
 		order.setMemberPrice(totalMember);
 		order.setMid(1);
-=======
-		}
-		order.setSum(count);
-		order.setNormalPrice(totalNormal);
-		order.setMemberPrice(totalMember);
-		order.setMid(0);
->>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 		order.setOrderTime(SysUtils.getTime());
 		
 		orderDao.addNewOrder(order);
@@ -101,7 +85,6 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public OrderDetailDto findOrderDetail(Integer oid, Integer id, Integer mid) {
 		List<OrderDto> orderDto = orderDao.findOrderInfoByOid(oid);
 		//AddressDto addressDto = orderDao.findAddressById(orderDto.get(0).getAid());
@@ -116,14 +99,6 @@ public class OrderServiceImpl implements OrderService {
 		OrderDetailDto orderDetailDto = new OrderDetailDto();
 		orderDetailDto.setOrder(orderDto);
 		orderDetailDto.setAddress(address);
-=======
-	public OrderDetailDto findOrderDetail(Integer oid) {
-		List<OrderDto> orderDto = orderDao.findOrderInfoByOid(oid);
-		AddressDto addressDto = orderDao.findAddressById(orderDto.get(0).getAid());
-		OrderDetailDto orderDetailDto = new OrderDetailDto();
-		orderDetailDto.setOrder(orderDto);
-		orderDetailDto.setAddress(addressDto);
->>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 		return orderDetailDto;
 	}
 
@@ -132,7 +107,6 @@ public class OrderServiceImpl implements OrderService {
 		orderDao.updateOrder(order);
 	}
 
-<<<<<<< HEAD
 	@Override
 	public void addCart(Integer mid, Integer pid, Integer count) {
 		Cart cart = orderDao.findCartByPid(pid, mid);
@@ -201,9 +175,6 @@ public class OrderServiceImpl implements OrderService {
 	public void doConfirmOrder(HashMap<String, Object> map) {
 		orderDao.doConfirmOrder(map);
 	}
-
-=======
->>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 	
 	
 }
