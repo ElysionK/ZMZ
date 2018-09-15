@@ -52,7 +52,11 @@
         </div>
         
         <div class="footer">
+<<<<<<< HEAD
             <div onclick="window.location.href='/order/toCart'">
+=======
+            <div>
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
                 <i class="fa fa-shopping-cart"></i>
                 <!--记录订单总数  -->
                 <div class="total">0</div>
@@ -75,7 +79,11 @@
 			<h1 class="goodTitle">{{:title}}</h1>
 			<ul class="good">
 				{{for product}}
+<<<<<<< HEAD
 					<li data-index="{{:id}}">
+=======
+					<li>
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 						<div>
 							<img height="57" src="${pageContext.request.contextPath}/upload/{{:img}}">
 							<span>{{:name}}</span>

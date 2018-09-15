@@ -19,10 +19,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianwen.base.controller.BaseController;
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.backstage.entity.Product;
+<<<<<<< HEAD
 import com.tianwen.core.order.dto.CartDto;
 import com.tianwen.core.order.dto.OrderDetailDto;
 import com.tianwen.core.order.entity.Address;
 import com.tianwen.core.order.entity.Cart;
+=======
+import com.tianwen.core.order.dto.OrderDetailDto;
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 import com.tianwen.core.order.entity.Order;
 import com.tianwen.core.order.service.OrderService;
 
@@ -43,9 +47,13 @@ public class OrderController extends BaseController{
 	@ResponseBody
 	public JsonResponseResult ajaxLoadData(){
 		JsonResponseResult result = JsonResponseResult.createSuccess();
+<<<<<<< HEAD
 		Integer mid = 1;
 		List<Product> products = orderService.findAllProducts();
 		List<Cart> carts = orderService.findMembersCarts(mid);
+=======
+		List<Product> products = orderService.findAllProducts();
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 		
 		List<HashMap<String, Object>> categories = products.stream().map(product -> {
 			HashMap<String, Object> map = new HashMap<>();
@@ -72,7 +80,10 @@ public class OrderController extends BaseController{
 		
 		result.addData(list);
 		result.addData(categories);
+<<<<<<< HEAD
 		result.addData(carts);
+=======
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 		
 		return result;
 	}
@@ -88,6 +99,7 @@ public class OrderController extends BaseController{
 		return result;
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * id是地址ID, 直接过来是0选默认地址 从地址选过来带地址主键
 	 * @param oid
@@ -102,6 +114,12 @@ public class OrderController extends BaseController{
 		mView.addObject("oid", oid);
 		mView.setViewName("/order/confirm");
 		return mView;
+=======
+	@GetMapping(value = "/confirm/{oid}")
+	public ModelAndView toConfirm(@PathVariable(name = "oid") Integer oid){
+		OrderDetailDto dto = orderService.findOrderDetail(oid);
+		return new ModelAndView("/order/confirm", "data", dto);
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 	}
 	
 	@PostMapping(value = "/confirmOrder")
@@ -112,6 +130,7 @@ public class OrderController extends BaseController{
 		return JsonResponseResult.createSuccess();
 	}
 	
+<<<<<<< HEAD
 	@PostMapping(value = "/addCart")
 	@ResponseBody
 	public JsonResponseResult addCart(@RequestBody HashMap<String, Object> map){
@@ -207,4 +226,6 @@ public class OrderController extends BaseController{
 		orderService.doConfirmOrder(map);
 		return JsonResponseResult.createSuccess();
 	}
+=======
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 }

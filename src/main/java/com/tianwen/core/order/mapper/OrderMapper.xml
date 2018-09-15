@@ -98,6 +98,7 @@
         WHERE OID = #{oid}
   	</update>
   	
+<<<<<<< HEAD
   	<select id="findCartByPid" resultType="cart" parameterType="int">
   		SELECT * FROM T_CART WHERE PID = #{pid} AND MID = #{mid} AND STATUS = 0
   	</select>
@@ -217,4 +218,6 @@
   		UPDATE T_ORDER SET STATUS = 1, AID = #{aid} WHERE OID = #{oid}
   	</update>
   	
+=======
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 </mapper>

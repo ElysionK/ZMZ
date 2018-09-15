@@ -3,6 +3,7 @@ var setting = {
 		orderInfo:{},
 		init : function(){
 			this.ajaxLoadData();
+<<<<<<< HEAD
 			//var totalCount = 0;
 			$(document).on("click", ".fa.fa-plus-circle", function(){
 				var totalCount = 0;
@@ -10,16 +11,28 @@ var setting = {
 					totalCount += Number($(this).find("e").html());
 				});
 				++totalCount;
+=======
+			var totalCount = 0;
+			$(document).on("click", ".fa.fa-plus-circle", function(){
+				totalCount++
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 	            //this.goods[index1].items[index2].num++;
 				
 				$(this).prev().addClass("mov");
 				var count = $(this).prev().find("e").html();
 				$(this).prev().find("e").html(Number(count) + 1);
+<<<<<<< HEAD
 				setting.addCart($(this).attr("data"), Number(count) + 1)
 				
 				$(".total").html(totalCount);
 				
 				setting.calculate();
+=======
+				
+				$(".total").html(totalCount);
+				
+				setting.calculate($(this).attr("data"), Number(count) + 1, totalCount);
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 
 	            // 小球动画 
 	            var top = event.clientY, // 小球降落起点
@@ -46,6 +59,7 @@ var setting = {
 	                }, 1000);  //这里的延迟值和小球的运动时间相关
 	            }, 1);
 			}).on("click", ".fa.fa-minus-circle", function(){
+<<<<<<< HEAD
 				var totalCount = 0;
 				$(".pop.mov").each(function(){
 					totalCount += Number($(this).find("e").html());
@@ -59,6 +73,16 @@ var setting = {
 	            }
 	            $(".total").html(totalCount);
 	            setting.calculate();
+=======
+				totalCount--;
+	            var count = $(this).next().html();
+	            $(this).next().html(--count);
+	            if(count <= 0){
+	            	$(this).parent().removeClass("mov");
+	            }
+	            $(".total").html(count);
+	            setting.calculate($(this).attr("data"), totalCount, totalCount);
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 			}).on("click", ".right-click li", function(){
 				var index = $(this).attr("index")
 				this.selector = index;
@@ -66,6 +90,7 @@ var setting = {
 				$(this).addClass("click").siblings().removeClass("click");
 				$(this).parents(".left").scrollTop = (index > 7 ? index-7 : 0)*54;
 			}).on("click", ".pay", function(){
+<<<<<<< HEAD
 				var totalCount = 0;
 				$(".pop.mov").each(function(){
 					totalCount += Number($(this).find("e").html());
@@ -79,6 +104,18 @@ var setting = {
 				totalCount += Number($(this).find("e").html());
 			});
 			if(totalCount > 0){
+=======
+				setting.addNewOrder(totalCount);
+			});
+		},
+		calculate : function(id, count, total){
+			if(count > 0){
+				this.orderInfo[id] = count;
+			}else{
+				delete this.orderInfo[id];
+			}
+			if(total > 0){
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 				$(".pay").removeClass("notPay");
 			}else{
 				$(".pay").addClass("notPay");
@@ -93,9 +130,12 @@ var setting = {
 	        },
 	        addNewOrder : function(){
 	        	return setting.URL.basePath() + "order/addNewOrder";
+<<<<<<< HEAD
 	        },
 	        addCart : function(){
 	        	return setting.URL.basePath() + "order/addCart";
+=======
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 	        }
 	    },
 		ajaxLoadData : function(){
@@ -106,6 +146,7 @@ var setting = {
 				
 				var products = $("#products").render(data.data[0]);
 				$("#order-product").append(products);
+<<<<<<< HEAD
 				
 				var carts = data.data[2];
 				var count = 0;
@@ -116,6 +157,8 @@ var setting = {
 				}
 				$(".total").html(count);
 				setting.calculate();
+=======
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 			});
 		},
 		addNewOrder : function(count){
@@ -123,12 +166,18 @@ var setting = {
 				layer.alert("购物车是空的哦", {icon:"2"});
 				return;
 			}
+<<<<<<< HEAD
 			window.location.href='/order/toCart'
 		},
 		addCart : function(pid, count){
 			$.getMyContentJSON(setting.URL.addCart(), JSON.stringify({"pid":pid,"count":count}), function(data){
 				if(data.returncode == 0){
 					//layer.msg("已加入购物车");
+=======
+			$.getMyContentJSON(setting.URL.addNewOrder(), JSON.stringify(setting.orderInfo), function(data){
+				if(data.returncode == 0){
+					window.location.href="/order/confirm/" + data.data[0];
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 				}else{
 					layer.alert("系统错误", {icon:"2"});
 				}

@@ -1,6 +1,9 @@
 package com.tianwen.core.order.dao;
 
+<<<<<<< HEAD
 import java.util.HashMap;
+=======
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -8,10 +11,14 @@ import org.springframework.stereotype.Repository;
 
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.order.dto.AddressDto;
+<<<<<<< HEAD
 import com.tianwen.core.order.dto.CartDto;
 import com.tianwen.core.order.dto.OrderDto;
 import com.tianwen.core.order.entity.Address;
 import com.tianwen.core.order.entity.Cart;
+=======
+import com.tianwen.core.order.dto.OrderDto;
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 import com.tianwen.core.order.entity.Order;
 import com.tianwen.core.order.entity.OrderSub;
 
@@ -32,6 +39,7 @@ public interface OrderDao {
 	
 	void updateOrder(Order order);
 	
+<<<<<<< HEAD
 	Cart findCartByPid(@Param("pid") Integer pid, @Param("mid") Integer mid);
 	
 	List<Cart> findMembersCarts(Integer mid);
@@ -60,4 +68,6 @@ public interface OrderDao {
 	
 	void doConfirmOrder(HashMap<String, Object> map);
 	
+=======
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 }

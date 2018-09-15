@@ -7,6 +7,10 @@ public class OnlineOrderDto {
 	private String orderTime;
 	private String deliverTime;
 	private Integer status;
+<<<<<<< HEAD
+=======
+	private String address;
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 	
 	public Integer getOid() {
 		return oid;
@@ -38,6 +42,15 @@ public class OnlineOrderDto {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+<<<<<<< HEAD
+=======
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 	
 
 
