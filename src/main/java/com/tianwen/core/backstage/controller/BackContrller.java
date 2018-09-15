@@ -185,11 +185,11 @@ public class BackContrller extends BaseController {
 	}
 	
 	/**************************************
-	 * offlineOrder
+	 * onlineOrder
 	 ***********************************************/
 	@GetMapping(value = "/onlineOrder/list")
 	public ModelAndView toOnlineOrderList() {
-		return new ModelAndView("/olineOrder/list");
+		return new ModelAndView("/onlineOrder/list");
 	}
 
 	@PostMapping(value = "/onlineOrder/ajaxLoadOnlineOrder/{pageNo}", produces = { "application/json;charset=UTF-8" })
@@ -198,16 +198,10 @@ public class BackContrller extends BaseController {
 		return backService.listOnlineOrder(pageNo, condition);
 	}
 	
-	@GetMapping(value = "/toDetail/onlineOrder/{oid}")
-	public ModelAndView toOnlineOrder(@PathVariable Integer oid) {
-		OnlineOrderDto order = backService.findOrderDtoByOid(oid);
-		return new ModelAndView("/onlineOrder/order_detail", "order", order);
-	}
-	
-	@PostMapping(value = "/onlineOrderDetail/{oid}", produces = { "application/json;charset=UTF-8" })
+	@PostMapping(value = "/onlineOrder/ajaxLoadDetail/{oid}", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public JsonResponseResult ajaxLoadRegistCode(@PathVariable Integer oid) {
-		return centerService.listOrderSubDetailByOid(oid);
+	public JsonResponseResult ajaxLoadOnineOrderDetail(@PathVariable Integer oid) {
+		return backService.listOnlineOrderDetailByOid(oid);
 	}
 	
 	/**************************************

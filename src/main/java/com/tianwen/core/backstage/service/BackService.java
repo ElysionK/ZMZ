@@ -54,9 +54,9 @@ public interface BackService {
 
 	JsonResponseResult listOnlineOrder(String pageNo, OnlineOrderCondition condition);
 
-	OnlineOrderDto findOrderDtoByOid(Integer oid);
-
 	JsonResponseResult delOfflineOrderById(Integer id);
+
+	JsonResponseResult listOnlineOrderDetailByOid(Integer oid);
 
 
 }
