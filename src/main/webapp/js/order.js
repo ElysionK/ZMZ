@@ -3,18 +3,23 @@ var setting = {
 		orderInfo:{},
 		init : function(){
 			this.ajaxLoadData();
-			var totalCount = 0;
+			//var totalCount = 0;
 			$(document).on("click", ".fa.fa-plus-circle", function(){
-				totalCount++
+				var totalCount = 0;
+				$(".pop.mov").each(function(){
+					totalCount += Number($(this).find("e").html());
+				});
+				++totalCount;
 	            //this.goods[index1].items[index2].num++;
 				
 				$(this).prev().addClass("mov");
 				var count = $(this).prev().find("e").html();
 				$(this).prev().find("e").html(Number(count) + 1);
+				setting.addCart($(this).attr("data"), Number(count) + 1)
 				
 				$(".total").html(totalCount);
 				
-				setting.calculate($(this).attr("data"), Number(count) + 1, totalCount);
+				setting.calculate();
 
 	            // 小球动画 
 	            var top = event.clientY, // 小球降落起点
@@ -41,14 +46,19 @@ var setting = {
 	                }, 1000);  //这里的延迟值和小球的运动时间相关
 	            }, 1);
 			}).on("click", ".fa.fa-minus-circle", function(){
-				totalCount--;
+				var totalCount = 0;
+				$(".pop.mov").each(function(){
+					totalCount += Number($(this).find("e").html());
+				});
+				--totalCount;
 	            var count = $(this).next().html();
 	            $(this).next().html(--count);
+	            setting.addCart($(this).attr("data"), count)
 	            if(count <= 0){
 	            	$(this).parent().removeClass("mov");
 	            }
-	            $(".total").html(count);
-	            setting.calculate($(this).attr("data"), totalCount, totalCount);
+	            $(".total").html(totalCount);
+	            setting.calculate();
 			}).on("click", ".right-click li", function(){
 				var index = $(this).attr("index")
 				this.selector = index;
@@ -56,16 +66,19 @@ var setting = {
 				$(this).addClass("click").siblings().removeClass("click");
 				$(this).parents(".left").scrollTop = (index > 7 ? index-7 : 0)*54;
 			}).on("click", ".pay", function(){
+				var totalCount = 0;
+				$(".pop.mov").each(function(){
+					totalCount += Number($(this).find("e").html());
+				});
 				setting.addNewOrder(totalCount);
 			});
 		},
-		calculate : function(id, count, total){
-			if(count > 0){
-				this.orderInfo[id] = count;
-			}else{
-				delete this.orderInfo[id];
-			}
-			if(total > 0){
+		calculate : function(){
+			var totalCount = 0;
+			$(".pop.mov").each(function(){
+				totalCount += Number($(this).find("e").html());
+			});
+			if(totalCount > 0){
 				$(".pay").removeClass("notPay");
 			}else{
 				$(".pay").addClass("notPay");
@@ -80,6 +93,9 @@ var setting = {
 	        },
 	        addNewOrder : function(){
 	        	return setting.URL.basePath() + "order/addNewOrder";
+	        },
+	        addCart : function(){
+	        	return setting.URL.basePath() + "order/addCart";
 	        }
 	    },
 		ajaxLoadData : function(){
@@ -90,6 +106,16 @@ var setting = {
 				
 				var products = $("#products").render(data.data[0]);
 				$("#order-product").append(products);
+				
+				var carts = data.data[2];
+				var count = 0;
+				for (var i = 0; i < carts.length; i++) {
+					$("#order-product li[data-index="+carts[i].pid+"] .pop").addClass("mov");
+					$("#order-product li[data-index="+carts[i].pid+"] e").html(carts[i].quantity);
+					count += carts[i].quantity;
+				}
+				$(".total").html(count);
+				setting.calculate();
 			});
 		},
 		addNewOrder : function(count){
@@ -97,9 +123,12 @@ var setting = {
 				layer.alert("购物车是空的哦", {icon:"2"});
 				return;
 			}
-			$.getMyContentJSON(setting.URL.addNewOrder(), JSON.stringify(setting.orderInfo), function(data){
+			window.location.href='/order/toCart'
+		},
+		addCart : function(pid, count){
+			$.getMyContentJSON(setting.URL.addCart(), JSON.stringify({"pid":pid,"count":count}), function(data){
 				if(data.returncode == 0){
-					window.location.href="/order/confirm/" + data.data[0];
+					//layer.msg("已加入购物车");
 				}else{
 					layer.alert("系统错误", {icon:"2"});
 				}

@@ -48,6 +48,7 @@
 		<result column="order_time" property="orderTime" jdbcType="VARCHAR"/>
 		<result column="deliver_time" property="deliverTime" jdbcType="VARCHAR"/>
 		<result column="status" property="status" jdbcType="INTEGER"/>
+		<result column="address" property="address" jdbcType="VARCHAR"/>
 	</resultMap>
 	
 	<resultMap type="registCode" id="registCodeMap">

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLConnection;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
@@ -383,6 +385,21 @@ public class SysUtils {
 		return map;
 
 	}
+	
+	 public static <T> T map2Bean(Map<String, Object> map, Class<T> class1) {  
+	        T bean = null;  
+	        try {  
+	            bean = class1.newInstance();  
+	            BeanUtils.populate(bean, map);  
+	        } catch (InstantiationException e) {  
+	            e.printStackTrace();  
+	        } catch (IllegalAccessException e) {  
+	            e.printStackTrace();  
+	        } catch (InvocationTargetException e) {  
+	            e.printStackTrace();  
+	        }  
+	        return bean;  
+	    }  
 
 	// public static String sendFilePost(String path, File file) throws
 	// IOException{

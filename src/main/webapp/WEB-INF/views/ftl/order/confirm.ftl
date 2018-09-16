@@ -10,13 +10,21 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/css/layer.css" />
 </head>
 <body>
+<<<<<<< HEAD
+    <ul class="list-detail" onclick="window.location.href='/order/toAddress/${oid}'">
+=======
     <ul class="list-detail">
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
     	<li class="time">
     		<span>配送信息：</span><input id="endTime" class="kbtn" placeholder="${data.address.name} ${data.address.mobile}">
     		<i class="am-icon-angle-right"></i>
     	</li>
     	<li class="time">
+<<<<<<< HEAD
+    		<span>配送地址：</span><input id="endTime" class="kbtn" placeholder="${data.address.province} ${data.address.city} ${data.address.area} ${data.address.exactly}">
+=======
     		<span>配送地址：</span><input id="endTime" class="kbtn" placeholder="${data.address.provinceName} ${data.address.cityName} ${data.address.areaName} ${data.address.exactly}">
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
     		<i class="am-icon-angle-right"></i>
     	</li>
     	<input type="hidden" id="aid" value="${data.address.id}" />
@@ -48,11 +56,15 @@
     
     <div class="footer">
 		<div class="pay" id="check">确认</div>
+<<<<<<< HEAD
+			<input type="hidden" id="oid" value="${oid}" />
+=======
 			<#list data.order as c>
 			     <#if c_index == 0>
 			      	<input type="hidden" id="oid" value="${c.oid}" />
 			     </#if>
 			</#list>
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
      </div>
 
 <script type="text/javascript" src="/js/jquery.min.js"></script>
@@ -61,12 +73,24 @@
 <script>
 $(document).ready(function(){
 	$("#check").on("click", function(){
+<<<<<<< HEAD
+		if($("#aid").val() == undefined || $("#aid").val() == ''){
+			layer.msg("请选择收货地址");
+			return;
+		}
+		var url = "/order/doConfirmOrder"
+		$.getMyContentJSON(url,JSON.stringify({"oid":$("#oid").val(),"aid":$("#aid").val()}),function(data){
+			if(data.returncode == 0){
+				layer.msg("已确认订单");
+				setTimeout("window.location.href='/'", 1500)
+=======
 		$.getMyJSON("/order/confirmOrder", {"aid" : $("#aid").val(), "oid" : $("#oid").val()}, function(data){
 			if(data.returncode == 0){
 				layer.alert('提交成功！', {icon: 6});
 	   	   		setTimeout(function(){
 	    			window.location.href="/"
 	    		},1000);
+>>>>>>> a656f0fd398429cbc4355a9fb2981e1567f7f9a3
 			}
 		});
 	});

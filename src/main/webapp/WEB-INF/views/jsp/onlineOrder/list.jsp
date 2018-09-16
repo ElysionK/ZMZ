@@ -177,6 +177,5 @@ $(document).on('click', '.detail-btn', function() {
 });
 
 
-	
 </script>
 </html>

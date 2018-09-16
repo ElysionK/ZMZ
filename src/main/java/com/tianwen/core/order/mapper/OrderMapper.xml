@@ -98,4 +98,123 @@
         WHERE OID = #{oid}
   	</update>
   	
+  	<select id="findCartByPid" resultType="cart" parameterType="int">
+  		SELECT * FROM T_CART WHERE PID = #{pid} AND MID = #{mid} AND STATUS = 0
+  	</select>
+  	
+  	<select id="findMembersCarts" resultType="cart" parameterType="int">
+  		SELECT * FROM T_CART WHERE MID = #{mid} AND STATUS = 0 AND QUANTITY > 0
+  	</select>
+  	
+  	<select id="findMembersCartsDetail" resultType="cartdto" parameterType="int">
+  		SELECT C.*,P.NAME,P.IMG,P.ORIGNAL_PRICE, P.DISCOUNT_PRICE FROM T_CART C LEFT JOIN T_PRODUCT P ON C.PID = P.ID WHERE C.MID = #{mid} AND C.STATUS = 0 AND C.QUANTITY > 0
+  	</select>
+  	
+  	<insert id="addCart" parameterType="cart">
+  		INSERT INTO T_CART (
+  			MID,
+  			PID,
+  			QUANTITY,
+  			CHECKED,
+  			STATUS
+  		) VALUES (
+  			#{mid},
+  			#{pid},
+  			#{quantity},
+  			#{checked},
+  			#{status}
+  		)
+  	</insert>
+  	
+  	<update id="updCartByCid" parameterType="cart">
+  		UPDATE T_CART
+  		<trim prefix="set" suffixOverrides=",">
+  			<if test="quantity != null">
+  				QUANTITY = #{quantity},
+  			</if>
+  			<if test="checked != null">
+  				CHECKED = #{checked},
+  			</if>
+  			<if test="status != null">
+  				STATUS = #{status},
+  			</if>
+  		</trim>
+        WHERE CID = #{cid}
+  	</update>
+  	
+  	<update id="updCartChecked" parameterType="java.util.HashMap">
+  		UPDATE T_CART SET CHECKED = #{checked} WHERE MID = #{mid} AND PID = #{pid}
+  	</update>
+  	
+  	<delete id="delCartByCid" parameterType="int">
+  		DELETE FROM T_CART WHERE CID IN 
+  		<foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item,jdbcType=INTEGER}
+        </foreach>
+  	</delete>
+  	
+  	<select id="findMembersAddress" parameterType="int" resultType="address">
+  		SELECT * FROM T_ADDRESS WHERE MID = #{mid}
+  	</select>
+  	
+  	<select id="findMemberAddressById" parameterType="int" resultType="address">
+  		SELECT * FROM T_ADDRESS WHERE ID = #{id}
+  	</select>
+  	
+  	<insert id="addNewAddress" parameterType="java.util.HashMap">
+  		INSERT INTO T_ADDRESS (
+  			MID,
+  			PROVINCE,
+  			CITY,
+  			AREA,
+  			EXACTLY,
+  			IS_DEFAULT,
+  			NAME,
+  			MOBILE
+  		) VALUES (
+  			#{mid},
+  			#{province},
+  			#{city},
+  			#{area},
+  			#{exactly},
+  			#{isDefault},
+  			#{name},
+  			#{mobile}
+  		)
+  	</insert>
+  	
+  	<delete id="delAddress" parameterType="int">
+  		DELETE FROM T_ADDRESS WHERE ID = #{id}
+  	</delete>
+  	
+  	<update id="updAddress" parameterType="address">
+  		UPDATE T_ADDRESS 
+  		<trim prefix="set" suffixOverrides=",">
+  			<if test="province != null">
+  				PROVINCE = #{province},
+  			</if>
+  			<if test="city != null">
+  				CITY = #{city},
+  			</if>
+  			<if test="area != null">
+  				AREA = #{area},
+  			</if>
+  			<if test="exactly != null">
+  				EXACTLY = #{exactly},
+  			</if>
+  			<if test="isDefault != null">
+  				IS_DEFAULT = #{isDefault},
+  			</if>
+  		</trim>
+  		WHERE ID = #{id}
+  	</update>
+  	
+  	<update id="updDefaultAdd" parameterType="int">
+  		UPDATE T_ADDRESS SET IS_DEFAULT = 0 WHERE MID = #{mid}
+  	</update>
+  	
+  	<update id="doConfirmOrder" parameterType="java.util.HashMap">
+  		UPDATE T_ORDER SET STATUS = 1, AID = #{aid} WHERE OID = #{oid}
+  	</update>
+  	
 </mapper>
