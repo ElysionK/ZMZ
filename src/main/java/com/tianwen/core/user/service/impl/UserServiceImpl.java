@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Autowired
 	private BackDao backDao;
 
@@ -30,14 +30,14 @@ public class UserServiceImpl implements UserService {
 		if (existUser != null) {
 			return JsonResponseResult.createFalied("手机号已被注册");
 		}
-		
+
 		user.setPassword(SysUtils.retMd5Pwd(user.getPassword()));
 		user.setRegistTime(SysUtils.getTime());
 		userDao.addUser(user);
-		
+
 		RegistCode updRegistCode = new RegistCode(user.getRegistCode(), RegistCode.UN_VALIDE, user.getPhone());
 		backDao.updRegistCode(updRegistCode);
-		
+
 		return JsonResponseResult.createSuccess();
 	}
 
@@ -47,9 +47,10 @@ public class UserServiceImpl implements UserService {
 		if (existUser == null) {
 			return JsonResponseResult.createFalied("用户名或密码错误");
 		} else {
-			return JsonResponseResult.createSuccess();
+			JsonResponseResult result = JsonResponseResult.createSuccess();
+			result.addData(existUser);
+			return result;
 		}
 	}
-
 
 }

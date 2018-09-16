@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianwen.base.controller.BaseController;
+import com.tianwen.common.SysConstant;
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.order.dto.CartDto;
@@ -25,6 +26,7 @@ import com.tianwen.core.order.entity.Address;
 import com.tianwen.core.order.entity.Cart;
 import com.tianwen.core.order.entity.Order;
 import com.tianwen.core.order.service.OrderService;
+import com.tianwen.core.user.entity.User;
 
 @Scope("prototype")
 @Controller
@@ -43,7 +45,8 @@ public class OrderController extends BaseController{
 	@ResponseBody
 	public JsonResponseResult ajaxLoadData(){
 		JsonResponseResult result = JsonResponseResult.createSuccess();
-		Integer mid = 1;
+		User user = (User) super.getSession().getAttribute(SysConstant.SYS_MEMBER_LOG_SUCC_INFO);
+		Integer mid = user.getId();
 		List<Product> products = orderService.findAllProducts();
 		List<Cart> carts = orderService.findMembersCarts(mid);
 		
@@ -95,7 +98,8 @@ public class OrderController extends BaseController{
 	 */
 	@GetMapping(value = "/confirm/{oid}/{id}")
 	public ModelAndView toConfirm(@PathVariable(name = "oid") Integer oid, @PathVariable(name = "id") Integer id){
-		Integer mid = 1;
+		User user = (User) super.getSession().getAttribute(SysConstant.SYS_MEMBER_LOG_SUCC_INFO);
+		Integer mid = user.getId();
 		OrderDetailDto dto = orderService.findOrderDetail(oid, id, mid);
 		ModelAndView mView = new ModelAndView();
 		mView.addObject("data", dto);
@@ -115,7 +119,8 @@ public class OrderController extends BaseController{
 	@PostMapping(value = "/addCart")
 	@ResponseBody
 	public JsonResponseResult addCart(@RequestBody HashMap<String, Object> map){
-		Integer mid = 1;
+		User user = (User) super.getSession().getAttribute(SysConstant.SYS_MEMBER_LOG_SUCC_INFO);
+		Integer mid = user.getId();
 		Integer pid = Integer.parseInt(map.get("pid").toString());
 		Integer count = Integer.parseInt(map.get("count").toString());
 		orderService.addCart(mid, pid, count);
@@ -124,7 +129,8 @@ public class OrderController extends BaseController{
 	
 	@GetMapping(value = "/toCart")
 	public ModelAndView toCart(){
-		Integer mid = 1;
+		User user = (User) super.getSession().getAttribute(SysConstant.SYS_MEMBER_LOG_SUCC_INFO);
+		Integer mid = user.getId();
 		List<CartDto> carts = orderService.findMembersCartsDetail(mid);
 		return new ModelAndView("/order/cart", "data", carts);
 	}
@@ -132,7 +138,8 @@ public class OrderController extends BaseController{
 	@PostMapping(value = "/updCartChecked")
 	@ResponseBody
 	public JsonResponseResult updCartChecked(@RequestBody HashMap<String, Object> map){
-		Integer mid = 1;
+		User user = (User) super.getSession().getAttribute(SysConstant.SYS_MEMBER_LOG_SUCC_INFO);
+		Integer mid = user.getId();
 		map.put("mid", mid);
 		orderService.updCartChecked(map);
 		return JsonResponseResult.createSuccess();
@@ -140,7 +147,8 @@ public class OrderController extends BaseController{
 	
 	@GetMapping(value = "/toAddress/{oid}")
 	public ModelAndView toAddress(@PathVariable(name = "oid") Integer oid){
-		Integer mid = 1;
+		User user = (User) super.getSession().getAttribute(SysConstant.SYS_MEMBER_LOG_SUCC_INFO);
+		Integer mid = user.getId();
 		List<Address> addresses = orderService.findMemberAddress(mid);
 		ModelAndView mView = new ModelAndView();
 		mView.addObject("data", addresses);
@@ -157,7 +165,8 @@ public class OrderController extends BaseController{
 	@PostMapping(value = "/addNewAddress")
 	@ResponseBody
 	public JsonResponseResult addNewAddress(@RequestBody HashMap<String, Object> map){
-		Integer mid = 1;
+		User user = (User) super.getSession().getAttribute(SysConstant.SYS_MEMBER_LOG_SUCC_INFO);
+		Integer mid = user.getId();
 		map.put("mid", mid);
 		map.put("isDefault", 0);
 		orderService.addNewAddress(map);
@@ -167,7 +176,8 @@ public class OrderController extends BaseController{
 	@PostMapping(value = "/updDefault")
 	@ResponseBody
 	public JsonResponseResult updDefault(@RequestBody HashMap<String, Object> map){
-		Integer mid = 1;
+		User user = (User) super.getSession().getAttribute(SysConstant.SYS_MEMBER_LOG_SUCC_INFO);
+		Integer mid = user.getId();
 		Integer cid = Integer.parseInt(map.get("id").toString());
 		Address address = new Address();
 		address.setId(cid);

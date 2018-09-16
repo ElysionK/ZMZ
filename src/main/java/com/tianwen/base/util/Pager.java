@@ -275,14 +275,14 @@ public class Pager extends JsonResponseResult {
 		}else{
 			pageHtml.append("<a type='button' class='btn btn-default j_page_prev_btn pull-left' onclick='goPageByAjax("+ (this.currentPage - 1) +")'>");
 		}
-		pageHtml.append("<i class='fa fa-chevron-left'></i></a>");
+		pageHtml.append("<i class='fa fa-chevron-left'>上页</i></a>");
 		pageHtml.append("<button href='' type='button' class='btn btn-default j_page_info base_page_info pull-left' disabled='disabled'>" + this.currentPage + "/" + this.getTotalPages() + "</button>");
 		if(this.currentPage == this.totalPages){
 			pageHtml.append("<a type='button' class='btn btn-default j_page_next_btn pull-left disabled'>");
 		}else{
 			pageHtml.append("<a type='button' class='btn btn-default j_page_next_btn pull-left' onclick='goPageByAjax("+ (this.currentPage + 1) +")'>");
 		}
-		pageHtml.append("<i class='fa fa-chevron-right'></i></a>");
+		pageHtml.append("<i class='fa fa-chevron-right'>下页</i></a>");
 		pageHtml.append("<input class='form-control base_page_search_input pull-left' id='j_madule_page_search_input' type='text' maxentry="+this.totalPages+">");
 		pageHtml.append("<a class='btn btn-default j_madule_page_search_submit pull-left ml5' type='button' onclick='goPageByAjax(this.previousSibling.value)'>Go</a>");
 		return pageHtml.toString();

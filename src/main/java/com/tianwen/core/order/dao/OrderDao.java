@@ -59,5 +59,5 @@ public interface OrderDao {
 	void updDefaultAdd(Integer mid);
 	
 	void doConfirmOrder(HashMap<String, Object> map);
-	
+
 }

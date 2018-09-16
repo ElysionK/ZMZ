@@ -38,7 +38,7 @@
 		<typeAlias type="com.tianwen.core.order.entity.Cart" alias="cart"/>
 		<typeAlias type="com.tianwen.core.order.entity.Address" alias="address"/>
 		<typeAlias type="com.tianwen.core.order.dto.CartDto" alias="cartdto"/>
-	
+
 		<typeAlias type="com.tianwen.core.center.dto.OrderSubDetailDto" alias="orderSubDetailDto"/>
 		<typeAlias type="com.tianwen.core.center.dto.OfflineOrderDto" alias="offlineOrderDto"/>
 	</typeAliases>

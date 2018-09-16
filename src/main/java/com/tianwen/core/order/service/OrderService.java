@@ -41,6 +41,5 @@ public interface OrderService {
 	Address findMemberAddressById(Integer id);
 	
 	void doConfirmOrder(HashMap<String, Object> map);
-	
 
 }

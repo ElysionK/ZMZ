@@ -3,7 +3,6 @@ package com.tianwen.core.order.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.tianwen.common.util.SysUtils;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.order.dao.OrderDao;
-import com.tianwen.core.order.dto.AddressDto;
 import com.tianwen.core.order.dto.CartDto;
 import com.tianwen.core.order.dto.OrderDetailDto;
 import com.tianwen.core.order.dto.OrderDto;
@@ -173,7 +171,4 @@ public class OrderServiceImpl implements OrderService {
 	public void doConfirmOrder(HashMap<String, Object> map) {
 		orderDao.doConfirmOrder(map);
 	}
-
-	
-	
 }
