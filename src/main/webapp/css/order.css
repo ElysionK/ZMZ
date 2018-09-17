@@ -28,7 +28,7 @@ header {
 .goods {
     display: flex;
     position: absolute;
-    top: 105px;
+    top: 65px;
     bottom: 46px;
     width: 100%;
     background-color: #eee;
@@ -48,6 +48,7 @@ header {
     text-align: center;  
     border-bottom: 1px solid #ccc;
     box-sizing: border-box;
+    font-size:0.2rem;
 }    
 .click {
     background-color: #fff;
@@ -63,28 +64,35 @@ header {
     position: sticky;
     top: 0;
     z-index: 10;
+    font-size:0.25rem;
+    padding:0.1rem;
 }
 .good {
-    /*min-height: 300px;*/
     background-color: #fff;
     margin: 0 5%;
 }
 .good li {
-    border-bottom: 1px solid #ccc; 
-    height: 80px;
-    font-size: 21px;
-    line-height: 80px;
-    text-align: right; 
-    display: flex;
-    justify-content: space-between;
-    overflow: hidden;
+    font-size: 0.2rem;
+	padding-top:0.2rem;
+	    padding-bottom: 0.2rem;
 } 
 .good li i {
     font-size: 18px;
-    line-height: 80px; 
+    line-height: 56px; 
     color: #ffc43d;
     padding: 0 4px;
 } 
+.good li p{
+	font-size:0.2rem;
+	width:50%;
+	float:left;
+}
+.good li IMG{
+	width:0.6rem;
+	float:left;
+	margin-right:0.2rem;
+	margin-top:0.2rem;
+}
 /* 点击添加按钮缓慢弹出订单个数以及减少按钮 */
 .pop {
     display: inline-block;

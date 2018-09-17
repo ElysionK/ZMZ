@@ -207,6 +207,7 @@ em ,i{ font-style: normal;}
     color: #fff;
     font-size: 18px;
     padding: 0 20px;
+    text-align:center;
 }
 .notPay {
     background-color: #bbb;

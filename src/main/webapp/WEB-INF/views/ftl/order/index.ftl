@@ -14,7 +14,6 @@
         <header>
             	店铺商品
         </header>
-        <div class="notice"></div>
         <div class="goods">
             <div class="left" ref="left">
                 <ul class="right-click" id="order-category">
@@ -75,10 +74,12 @@
 			<h1 class="goodTitle">{{:title}}</h1>
 			<ul class="good">
 				{{for product}}
-					<li data-index="{{:id}}">
+					<li data-index="{{:id}}" style='border-bottom: 1px dashed #ccc;'>
 						<div>
-							<img height="57" src="${pageContext.request.contextPath}/upload/{{:img}}">
-							<span>{{:name}}</span>
+							<img src="${pageContext.request.contextPath}/upload/{{:img}}">
+							<p>{{:name}}</p>
+							<p>{{:name}}</p>
+							<p>{{:name}}</p>
 						</div>
 						<div class="counter">
 							<div class="pop">
@@ -92,6 +93,7 @@
 		</li>
 	{{/for}}
 </script>
+<script type="text/javascript" src="/js/rem.js"></script>
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/commonLib.js"></script>
 <script type="text/javascript" src="/js/jsrender.js"></script>
