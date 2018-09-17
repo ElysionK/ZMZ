@@ -420,4 +420,14 @@
 		WHERE
   			T.OID = #{oid, jdbcType=INTEGER}
   	</select>
+  	
+  	<select id="findExistAdminByNameAndPwd" resultType="admin">
+  		SELECT *
+  		FROM 
+  			T_ADMIN
+  		WHERE
+  			NAME = #{name, jdbcType=VARCHAR} 
+  		AND
+  			PASSWORD = #{password, jdbcType=VARCHAR}
+  	</select>
 </mapper>

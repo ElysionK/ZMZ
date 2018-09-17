@@ -15,6 +15,7 @@ import com.tianwen.core.backstage.dto.OnlineOrderCondition;
 import com.tianwen.core.backstage.dto.OnlineOrderDto;
 import com.tianwen.core.backstage.dto.ProductCondition;
 import com.tianwen.core.backstage.dto.RegistCodeCondition;
+import com.tianwen.core.backstage.entity.Admin;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.entity.TOfflineOrder;
@@ -57,6 +58,8 @@ public interface BackService {
 	JsonResponseResult delOfflineOrderById(Integer id);
 
 	JsonResponseResult listOnlineOrderDetailByOid(Integer oid);
+
+	JsonResponseResult doLogin(Admin admin);
 
 
 }

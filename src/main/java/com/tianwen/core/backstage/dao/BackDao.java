@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.tianwen.core.backstage.dto.CategoryDto;
 import com.tianwen.core.backstage.dto.OnlineOrderDetail;
 import com.tianwen.core.backstage.dto.OnlineOrderDto;
+import com.tianwen.core.backstage.entity.Admin;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.entity.RegistCode;
@@ -68,5 +69,7 @@ public interface BackDao {
 	void delOfflineOrderById(@Param("id") Integer id);
 
 	OnlineOrderDetail findOnlineOrderDetailByOid(@Param("oid") Integer oid);
+
+	Admin findExistAdminByNameAndPwd(@Param("name") String name, @Param("password") String password);
 	
 }

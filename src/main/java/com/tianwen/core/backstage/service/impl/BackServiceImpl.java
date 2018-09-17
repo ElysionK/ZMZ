@@ -38,6 +38,7 @@ import com.tianwen.core.backstage.dto.OnlineOrderDetail;
 import com.tianwen.core.backstage.dto.OnlineOrderDto;
 import com.tianwen.core.backstage.dto.ProductCondition;
 import com.tianwen.core.backstage.dto.RegistCodeCondition;
+import com.tianwen.core.backstage.entity.Admin;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.entity.RegistCode;
@@ -281,6 +282,18 @@ public class BackServiceImpl implements BackService{
 		OnlineOrderDetail orderDetail = backDao.findOnlineOrderDetailByOid(oid);
 		JsonResponseResult result = JsonResponseResult.createSuccess();
 		result.addData(orderDetail);
+		return result;
+	}
+
+	@Override
+	public JsonResponseResult doLogin(Admin admin) {
+		if (SysUtils.isEmpty(admin.getName()) || SysUtils.isEmpty(admin.getPassword())) {
+			return JsonResponseResult.createFalied("用户名或密码错误");
+		}
+		admin.setPassword(SysUtils.retMd5Pwd(admin.getPassword()));
+		admin = backDao.findExistAdminByNameAndPwd(admin.getName(), admin.getPassword());
+		JsonResponseResult result = JsonResponseResult.createSuccess();
+		result.addData(admin);
 		return result;
 	}
 

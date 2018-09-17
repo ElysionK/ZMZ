@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianwen.base.controller.BaseController;
 import com.tianwen.base.util.Pager;
+import com.tianwen.common.SysConstant;
 import com.tianwen.common.util.ImageUtil;
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.backstage.dto.CategoryDto;
@@ -26,11 +27,11 @@ import com.tianwen.core.backstage.dto.OfflineOrderCondition;
 import com.tianwen.core.backstage.dto.OnlineOrderCondition;
 import com.tianwen.core.backstage.dto.ProductCondition;
 import com.tianwen.core.backstage.dto.RegistCodeCondition;
+import com.tianwen.core.backstage.entity.Admin;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.entity.TOfflineOrder;
 import com.tianwen.core.backstage.service.BackService;
-import com.tianwen.core.center.service.CenterService;
 
 @Scope("prototype")
 @Controller
@@ -39,9 +40,6 @@ public class BackContrller extends BaseController {
 
 	@Autowired
 	private BackService backService;
-
-	@Autowired
-	private CenterService centerService;
 	
 	@Autowired
 	private ImageUtil imageUtil;
@@ -234,6 +232,29 @@ public class BackContrller extends BaseController {
 	@ResponseBody
 	public JsonResponseResult updOfflineOrder(@PathVariable String id) {
 		return backService.delOfflineOrderById(Integer.valueOf(id));
+	}
+	
+	/************ admin login  **********/
+	@GetMapping(value = "/toLogin")
+	public ModelAndView toLogin() {
+		return new ModelAndView("/login");
+	}
+	
+	@PostMapping(value = "/adminLogin", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult login(@RequestBody Admin admin) {
+		JsonResponseResult result = backService.doLogin(admin);
+		if(result.getReturncode() == 0){
+			super.getSession().setAttribute(SysConstant.SYS_ADMIN_LOG_SUCC_INFO, result.getData().get(0));
+		}
+		return result;
+	}
+	
+	@PostMapping(value = "/logout", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult logout() {
+		super.getSession().removeAttribute(SysConstant.SYS_ADMIN_LOG_SUCC_INFO);
+		return JsonResponseResult.createSuccess();
 	}
 
 }

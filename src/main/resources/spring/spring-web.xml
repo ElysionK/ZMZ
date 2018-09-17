@@ -197,7 +197,8 @@
 			<mvc:exclude-mapping path="/plugin/**"/>
 			<mvc:exclude-mapping path="/open/**"/>
 			<mvc:exclude-mapping path="/index/**"/>
-			<mvc:exclude-mapping path="/backstage/**"/>
+			<mvc:exclude-mapping path="/backstage/toLogin"/>
+			<mvc:exclude-mapping path="/backstage/adminLogin"/>
 			<bean class="com.tianwen.common.interceptor.LoginInterceptor">
                 <property name="exceptUrls">
                     <list>

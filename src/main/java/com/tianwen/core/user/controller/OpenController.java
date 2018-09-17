@@ -60,5 +60,11 @@ public class OpenController extends BaseController{
 		return result;
 	}
 	
+	@PostMapping(value = "/logout", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult logout() {
+		super.getSession().removeAttribute(SysConstant.SYS_MEMBER_LOG_SUCC_INFO);
+		return JsonResponseResult.createSuccess();
+	}
 
 }

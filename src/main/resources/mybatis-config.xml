@@ -25,6 +25,7 @@
 		<typeAlias type="com.tianwen.core.backstage.entity.Banner" alias="banner"/>
 		<typeAlias type="com.tianwen.core.backstage.entity.RegistCode" alias="registCode"/>
 		<typeAlias type="com.tianwen.core.backstage.entity.TOfflineOrder" alias="offlineOrder"/>
+		<typeAlias type="com.tianwen.core.backstage.entity.Admin" alias="admin"/>
 		<typeAlias type="com.tianwen.core.backstage.dto.OnlineOrderDto" alias="onlineOrderDto"/>
 		<typeAlias type="com.tianwen.core.backstage.dto.OnlineOrderDetail" alias="onlineOrderDetail"/>
 		<typeAlias type="com.tianwen.core.backstage.dto.OrderSubDetail" alias="orderSubDetail"/>
