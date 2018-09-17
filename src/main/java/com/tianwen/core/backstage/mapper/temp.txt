@@ -1,0 +1,21 @@
+<resultMap type="orderSubDetail" id="orderSubDetailMap">
+		<id column="olid" property="olid" jdbcType="INTEGER"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="orignal_price" property="originPrice" jdbcType="DOUBLE"/>
+		<result column="discount_price" property="discountPrice" jdbcType="DOUBLE"/>
+		<result column="pro_normal_price" property="proNormalPrice" jdbcType="DOUBLE"/>
+		<result column="pro_member_price" property="proMemberPrice" jdbcType="DOUBLE"/>
+		<result column="num" property="num" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<resultMap type="onlineOrderDetail" id="onlineOrderDetailMap">
+		<id column="oid" property="oid" jdbcType="INTEGER"/>
+		<result column="phone" property="phone" jdbcType="VARCHAR"/>
+		<result column="address" property="address" jdbcType="DOUBLE"/>
+		<result column="normal_price" property="normalPrice" jdbcType="DOUBLE"/>
+		<result column="member_price" property="memberPrice" jdbcType="DOUBLE"/>
+		<result column="order_time" property="orderTime" jdbcType="DOUBLE"/>
+		<result column="deliver_time" property="deliverTime" jdbcType="INTEGER"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+		<collection property="orderSubDetails" ofType="orderSubDetailMap" />		
+	</resultMap>

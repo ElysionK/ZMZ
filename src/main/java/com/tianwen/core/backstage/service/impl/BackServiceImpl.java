@@ -34,6 +34,7 @@ import com.tianwen.core.backstage.dao.BackDao;
 import com.tianwen.core.backstage.dto.CategoryDto;
 import com.tianwen.core.backstage.dto.OfflineOrderCondition;
 import com.tianwen.core.backstage.dto.OnlineOrderCondition;
+import com.tianwen.core.backstage.dto.OnlineOrderDetail;
 import com.tianwen.core.backstage.dto.OnlineOrderDto;
 import com.tianwen.core.backstage.dto.ProductCondition;
 import com.tianwen.core.backstage.dto.RegistCodeCondition;
@@ -270,14 +271,17 @@ public class BackServiceImpl implements BackService{
 	}
 
 	@Override
-	public OnlineOrderDto findOrderDtoByOid(Integer oid) {
-		return backDao.findOnlineOrderDtoByOid(oid);
-	}
-
-	@Override
 	public JsonResponseResult delOfflineOrderById(Integer id) {
 		backDao.delOfflineOrderById(id);
 		return JsonResponseResult.createSuccess();
+	}
+
+	@Override
+	public JsonResponseResult listOnlineOrderDetailByOid(Integer oid) {
+		OnlineOrderDetail orderDetail = backDao.findOnlineOrderDetailByOid(oid);
+		JsonResponseResult result = JsonResponseResult.createSuccess();
+		result.addData(orderDetail);
+		return result;
 	}
 
 

@@ -57,6 +57,28 @@
 		<result column="USER_PHONE" property="userPhone" jdbcType="VARCHAR"/>
 		<result column="STATUS" property="status" jdbcType="INTEGER"/>
 	</resultMap>
+	
+	<resultMap type="orderSubDetail" id="orderSubDetailMap">
+		<id column="OLID" property="olid" jdbcType="INTEGER"/>
+		<result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR"/>
+		<result column="orignal_price" property="originPrice" jdbcType="DOUBLE"/>
+		<result column="discount_price" property="discountPrice" jdbcType="DOUBLE"/>
+		<result column="pro_normal_price" property="proNormalPrice" jdbcType="DOUBLE"/>
+		<result column="pro_member_price" property="proMemberPrice" jdbcType="DOUBLE"/>
+		<result column="num" property="num" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<resultMap type="onlineOrderDetail" id="onlineOrderDetailMap">
+		<id column="OID" property="oid" jdbcType="INTEGER"/>
+		<result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+		<result column="ADDRESS" property="address" jdbcType="DOUBLE"/>
+		<result column="normal_price" property="normalPrice" jdbcType="DOUBLE"/>
+		<result column="member_price" property="memberPrice" jdbcType="DOUBLE"/>
+		<result column="order_time" property="orderTime" jdbcType="DOUBLE"/>
+		<result column="deliver_time" property="deliverTime" jdbcType="INTEGER"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+		<collection property="orderSubDetails" resultMap="orderSubDetailMap" />		
+	</resultMap>
 
 	<select id="findCategoryMaxSort" resultType="int">
 		SELECT IFNULL(MAX(SORT),0) SORT FROM T_CATEGORY
@@ -333,41 +355,24 @@
   	
   	<select id="listOnlineOrder" resultMap="onlineOrderDtoMap">
   		SELECT
-  			 T.OID OID, T.ORDER_TIME ORDER_TIME, T.DELIVER_TIME DELIVER_TIME, T.STATUS STATUS, U.PHONE, A.EXACTLY ADDRESS
-  		FORM T_ORDER T
+  			 T.OID OID, T.ORDER_TIME ORDER_TIME, T.DELIVER_TIME DELIVER_TIME, T.STATUS STATUS, U.PHONE
+  		FROM T_ORDER T
   		LEFT JOIN
   			T_USER U
   		ON 
   			T.MID = U.ID
-  		LEFT JOIN 
-  			T_ADDRESS A
-  		ON 
-  			T.AID = A.ID
-		WHERE 1 = 1
+		WHERE 
+			1 = 1
+		AND 
+			T.STATUS != 0
 		<include refid="orderCondition" />
-		ORDER BY C.DATE DESC
+		ORDER BY T.OID DESC, T.DELIVER_TIME DESC, T.ORDER_TIME DESC
 		<include refid="BaseMap.mysqlPageSqlSuffix" />
   	</select>
   	
   	<select id="countOnlineOrder" resultType="int">
-  		SELECT COUNT(T.ID) FROM (SELECT C.ID FROM T_ORDER C WHERE 1 = 1 ORDER BY C.ID
+  		SELECT COUNT(T.OID) FROM (SELECT C.OID FROM T_ORDER C LEFT JOIN T_USER U ON C.MID = U.ID WHERE 1 = 1 ORDER BY C.OID
   		<include refid="orderCondition" />) T
-  	</select>
-  	
-  	<select id="findOnlineOrderDtoByOid" resultMap="onlineOrderDtoMap">
-  		SELECT
-  			 T.OID OID, T.ORDER_TIME ORDER_TIME, T.DELIVER_TIME DELIVER_TIME, T.STATUS STATUS, U.PHONE, A.EXACTLY ADDRESS
-  		FORM T_ORDER T
-  		LEFT JOIN
-  			T_USER U
-  		ON 
-  			T.MID = U.ID
-  		LEFT JOIN 
-  			T_ADDRESS A
-  		ON 
-  			T.AID = A.ID
-  		WHERE 
-  			T.OID = #{oid, jdbcType=INTEGER}
   	</select>
   	
   	<delete id="delOfflineOrderById">
@@ -376,4 +381,43 @@
   		WHERE
   			ID = #{id,jdbcType=INTEGER}
   	</delete>
+  	
+  	<select id="findOnlineOrderDetailByOid" resultMap="onlineOrderDetailMap">
+	  	SELECT
+			T.OID oid,
+			T.NORMAL_PRICE normal_price,
+			T.MEMBER_PRICE member_price,
+			T.ORDER_TIME order_time,
+			T.DELIVER_TIME deliver_time,
+			T. STATUS STATUS,
+			(
+				SELECT
+					PHONE
+				FROM
+					T_USER  U
+				WHERE
+					U.ID = T.MID
+			) phone,
+			(
+				SELECT
+					CONCAT(PROVINCE, CITY, AREA, EXACTLY)
+				FROM
+					T_ADDRESS AD
+				WHERE
+					T.MID = AD.MID
+			) address,
+			S.OLID olid,
+			P.DISCOUNT_PRICE discount_price,
+			P.ORIGNAL_PRICE orignal_price,
+			S.PRO_NORMAL_PRICE pro_normal_price,
+			S.PRO_MEMBER_PRICE pro_number_price,
+			S.SUM num,
+			P. NAME product_name
+		FROM
+			T_ORDER T
+		LEFT OUTER JOIN T_ORDER_SUB S ON T.OID = S.OID
+		LEFT JOIN T_PRODUCT P ON S.PID = P.ID
+		WHERE
+  			T.OID = #{oid, jdbcType=INTEGER}
+  	</select>
 </mapper>

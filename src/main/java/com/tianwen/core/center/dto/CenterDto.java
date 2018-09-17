@@ -8,22 +8,31 @@ import com.tianwen.core.user.entity.User;
 
 public class CenterDto {
 	
-	private User user;
+	private UserDto userDto;
+	private Double totalMemberPriceOneYear;
 	private List<Order> onlineOrders;
 	private List<TOfflineOrder> offlineOrders;
 
-	public CenterDto(User user, List<Order> onlineOrders, List<TOfflineOrder> offlineOrders) {
-		this.user = user;
+	public CenterDto(UserDto userDto, List<Order> onlineOrders, List<TOfflineOrder> offlineOrders) {
+		this.userDto = userDto;
 		this.onlineOrders = onlineOrders;
 		this.offlineOrders = offlineOrders;
 	}
 
-	public User getUser() {
-		return user;
+	public UserDto getUserDto() {
+		return userDto;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserDto(UserDto userDto) {
+		this.userDto = userDto;
+	}
+
+	public Double getTotalMemberPriceOneYear() {
+		return totalMemberPriceOneYear;
+	}
+
+	public void setTotalMemberPriceOneYear(Double totalMemberPriceOneYear) {
+		this.totalMemberPriceOneYear = totalMemberPriceOneYear;
 	}
 
 	public List<Order> getOnlineOrders() {

@@ -33,9 +33,8 @@ public class CenterServiceImpl implements CenterService {
 		List<Order> onlineOrders = centerDao.listRecentOnlineOrder(userId, recentDay);
 		List<TOfflineOrder> offlineOrders = centerDao.listRecentOfflineOrder(userId, recentDay);
 		
-		CenterDto dto = new CenterDto(user, onlineOrders, offlineOrders);
 		
-		return dto;
+		return null;
 	}
 
 	@Override

@@ -24,7 +24,6 @@ import com.tianwen.core.order.dto.CartDto;
 import com.tianwen.core.order.dto.OrderDetailDto;
 import com.tianwen.core.order.entity.Address;
 import com.tianwen.core.order.entity.Cart;
-import com.tianwen.core.order.dto.OrderDetailDto;
 import com.tianwen.core.order.entity.Order;
 import com.tianwen.core.order.service.OrderService;
 import com.tianwen.core.user.entity.User;
