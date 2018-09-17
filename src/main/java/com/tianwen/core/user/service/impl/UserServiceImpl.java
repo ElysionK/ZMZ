@@ -1,5 +1,7 @@
 package com.tianwen.core.user.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +10,7 @@ import com.tianwen.common.util.SysUtils;
 import com.tianwen.core.backstage.dao.BackDao;
 import com.tianwen.core.backstage.entity.RegistCode;
 import com.tianwen.core.user.dao.UserDao;
+import com.tianwen.core.user.entity.Area;
 import com.tianwen.core.user.entity.User;
 import com.tianwen.core.user.service.UserService;
 
