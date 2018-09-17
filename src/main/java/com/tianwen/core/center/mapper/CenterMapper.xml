@@ -54,8 +54,8 @@
   			T_ORDER
   		WHERE 
   			MID = #{mid, jdbcType=INTEGER}
-  		AND
-  			TO_DAYS(STR_TO_DATE(ORDER_TIME, '%m.%d.%Y %h:%i:%s')) > (TO_DAYS(NOW()) - #{recentDay, jdbcType=INTEGER})
+  		ORDER BY ORDER_TIME DESC
+  		LIMIT 0, #{recentLimit, jdbcType=INTEGER}	
   	</select>
   	
   	<select id="listOnlineOrders" resultMap="orderMap">
@@ -64,23 +64,7 @@
   			T_ORDER
   		WHERE 
   			MID = #{mid, jdbcType=INTEGER}
-  	</select>
-  	
-  	<select id="listOrderSubDetailByOid" resultMap="orderSubDetailDtoMap">
-  		SELECT
-  			TOS.OLID OLID,
-  			TP.NAME NAME, 
-  			TOS.PRO_NORMAL_PRICE PRO_NORMAL_PRICE, 
-  			TOS.PRO_MEMBER_PRICE PRO_MEMBER_PRICE, 
-  			TOS.SUM SUM
-  		FROM 
-  			T_ORDER_SUB TOS
-  		LEFT JOIN
-  			T_PRODUCT TP
-  		ON 
-  			TOS.PID = TP.ID
-  		AND
-  			TOS.OID = #{oid, jdbcType=INTEGER}
+  		ORDER BY ORDER_TIME DESC, DELIVER_TIME DESC
   	</select>
   	
   	<select id="findOrderByOid" resultMap="orderMap">
@@ -97,31 +81,54 @@
   		FROM	
   			T_OFFLINE_ORDER
   		WHERE 
-  			MID = #{mid, jdbcType=INTEGER}
-  		AND
-  			TO_DAYS(STR_TO_DATE(DATE, '%m.%d.%Y %h:%i:%s')) > (TO_DAYS(NOW()) - #{recentDay, jdbcType=INTEGER})
+  			MEMBER_NO = #{memberNo, jdbcType=VARCHAR}
+  		ORDER BY DATE DESC
+  		LIMIT 0, #{recentLimit, jdbcType=INTEGER}
   	</select>
   	
   	<select id="listOfflineOrders" resultMap="offlineOrderMap">
   		SELECT *
   		FROM	
   			T_OFFLINE_ORDER T
-  		LEFT JOIN
-  			T_USER U
-  		ON 
-  			T.MEMBER_NO = U.PHONE
   		WHERE 
-  			MEMBER_NO = #{mid, jdbcType=VARCHAR}
+  			MEMBER_NO = #{memberNo, jdbcType=VARCHAR}
+  		ORDER BY DATE DESC
   	</select>
   	
   	<select id="findOfflineOrderDtoById" resultMap="offlineOrderDtoMap">
   		SELECT
-  			T.*,
-  			 
-  		FROM	
-  			T_OFFLINE_ORDER T
-  		WHERE 
-  			T.ID = #{id, jdbcType=INTEGER}
+  			C.ID, 
+  			C.MEMBER_NO,
+			C.PRODUCT_NAME,
+			C.ORIGNAL_PRICE,
+			C.MEMBER_PRICE,
+			C.PREFERENTIAL_PRICE,
+			C.NUM,
+			C.DATE,
+			ROUND(IFNULL(C.ORIGNAL_PRICE, 0) * C.NUM, 2) total_orignal_price,
+			ROUND(IFNULL(C.MEMBER_PRICE, 0) * C.NUM, 2) total_member_price, 
+			ROUND(IFNULL(C.PREFERENTIAL_PRICE, 0) * C.NUM, 2) total_preferential_price
+		FROM T_OFFLINE_ORDER C
+		WHERE
+			C.ID = #{id, jdbcType=INTEGER} 
+  	</select>
+  	
+  	
+  	<select id="findTotalMemberPriceOneYear" resultType="double">
+  		SELECT
+			sum(
+				t.num * ifnull(t.preferential_price, 0)
+			)
+		FROM
+			t_offline_order t
+		LEFT JOIN
+			t_user u
+		ON	
+			t.member_no = u.phone
+		WHERE
+			to_days(t.date) > (TO_DAYS(now()) - 365)
+		AND
+			u.id = #{userId, jdbcType=INTEGER}
   	</select>
   	
 </mapper>

@@ -41,6 +41,7 @@
 
 		<typeAlias type="com.tianwen.core.center.dto.OrderSubDetailDto" alias="orderSubDetailDto"/>
 		<typeAlias type="com.tianwen.core.center.dto.OfflineOrderDto" alias="offlineOrderDto"/>
+		<typeAlias type="com.tianwen.core.center.dto.UserDto" alias="userDto"/>
 	</typeAliases>
 	
 	<mappers>

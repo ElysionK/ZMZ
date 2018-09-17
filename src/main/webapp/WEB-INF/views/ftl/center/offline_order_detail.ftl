@@ -67,45 +67,56 @@
 </style>
 <body>
 	<header>
-		<a href="center.html"><em>&#xe678;</em></a>
-		<span>线上订单</span>
+		<a href="window.history.back()"><em>&#xe678;</em></a>
+		<span>订单详情</span>
 	</header>
 	
 	<ul class="zichan">
 		<table>
-			<thead>
-				<tr>
-					<td style="width:10%">订单号</td>
-					<td style="width:35%">下单时间</td>
-					<td style="width:35%">发货时间</td>
-					<td style="width:10%">状态</td>
-				</tr>
-			</thead>
+			<tr>
+				<td>日期：</td>
+				<td>${order.date}</td>
+			</tr>
+			<tr>
+				<td>会员号</td>
+				<td>${order.memberNo}</td>
+			</tr>
+			<tr>
+				<td>产品名称：</td>
+				<td>${order.productName}</td>
+			</tr>
+			<tr>
+				<td>数量：</td>
+				<td>${order.num}</td>
+			</tr>
+			<tr>
+				<td>原单价：</td>
+				<td>${order.orignalPrice}</td>
+			</tr>
+			<tr>
+				<td>原价总金额：</td>
+				<td>${order.totalOrignalPrice}</td>
+			</tr>
+			<tr>
+				<td>会员单价：</td>
+				<td>${order.memberPrice}</td>
+			</tr>
+			<tr>
+				<td>会员单价总金额：</td>
+				<td>${order.totalMemberPrice}</td>
+			</tr>
+			<tr>
+				<td>优惠单价：</td>
+				<td>${order.preferentialPrice}</td>
+			</tr>
+			<tr>
+				<td>优惠价总金额：</td>
+				<td>${order.totalPreferentialPrice}</td>
+			</tr>
 		</table>
 	</ul>
 	
-	<ul class="zichan">
-		<table>
-			<tbody>
-				<#list onlineOrders as order>
-					<tr>
-						<td style="width:10%">${order.oid}</td>
-						<td style="width:35%">${order.orderTime}</td>
-						<td style="width:35%">${order.deliverTime}</td>
-						<td style="width:10%">
-							<#if order.status = 0>
-								已生成
-							<#elseif order.status = 1>
-								待完成
-							<#else>	
-								完成
-							</#if>
-						</td>
-					</tr>				
-				</#list>
-			</tbody>
-		</table>
-	</ul>
+	
 </body>
 <script src="${basePath}/js/rem.js"></script>
 </html>

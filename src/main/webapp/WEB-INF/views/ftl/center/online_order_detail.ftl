@@ -67,51 +67,79 @@
 </style>
 <body>
 	<header>
-		<a onclick="window.history.back()"><em>&#xe678;</em></a>
-		<span>线上订单</span>
+		<a href="window.history.back()"><em>&#xe678;</em></a>
+		<span>订单详情</span>
 	</header>
 	
 	<ul class="zichan">
 		<table>
-			<thead>
-				<tr>
-					<td style="width:10%">订单号</td>
-					<td style="width:35%">下单时间</td>
-					<td style="width:35%">发货时间</td>
-					<td style="width:10%">状态</td>
-				</tr>
-			</thead>
+			<tr>
+				<td>订单号:</td>
+				<td>${data.oid}</td>
+			</tr>
+			<tr>
+				<td>手机号:</td>
+				<td>${data.phone}</td>
+			</tr>
+			<tr>
+				<td>地址:</td>
+				<td>${data.address}</td>
+			</tr>
+			<tr>
+				<td>下单时间:</td>
+				<td>${data.orderTime}</td>
+			</tr>
+			<tr>
+				<td>发货时间:</td>
+				<td>${data.deliverTime}</td>
+			</tr>
+			<tr>
+				<td>状态:</td>
+				<td>
+					<#if data.status == 1>
+						待完成
+					<#else>		
+						已完成
+					</#if>
+				</td>
+			</tr>
 		</table>
 	</ul>
-	
 	<ul class="zichan">
 		<table>
+			<thead>
+				<tr>
+					<td style="width:30%">商品名称</td>
+					<td style="width:20%">原价</td>
+					<td style="width:20%">折后价</td>
+					<td style="width:20%">数量</td>
+				</tr>
+			</thead>
 			<tbody>
-				<#list data as order>
-					<tr onclick="window.location.href='toDetail/onlineOrder/${order.oid}'">
-						<td style="width:10%">${order.oid}</td>
-						<td style="width:35%">${order.orderTime}</td>
-						<td style="width:35%">
-							<#if order.deliverTime == null>
-								-
-							<#else>
-								${order.deliverTime}
-							</#if>
-						</td>
-						<td style="width:10%">
-							<#if order.status = 0>
-								已生成
-							<#elseif order.status = 1>
-								待完成
-							<#else>	
-								完成
-							</#if>
-						</td>
-					</tr>				
+				<#list data.orderSubDetails as detail>
+					<tr>
+						<td style="width:30%">${detail.productName}</td>
+						<td style="width:20%">${detail.originPrice}</td>
+						<td style="width:20%">${detail.discountPrice}</td>
+						<td style="width:20%">${detail.num}</td>
+					</tr>
 				</#list>
 			</tbody>
 		</table>
 	</ul>
+	<ul class="zichan">
+		<table>
+			<tr>
+				<td>总价:</td>
+				<td>${data.memberPrice}</td>
+			</tr>
+			<tr>
+				<td>折后总价:<td>
+				<td>${data.memberPrice}</td>			
+			</tr>
+		</table>
+	</ul>
+	
 </body>
 <script src="${basePath}/js/rem.js"></script>
 </html>
