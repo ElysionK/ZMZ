@@ -21,16 +21,31 @@ var settings = {
     	}
     	var index = layer.load(2);
 		var data = {};
-		$.getMyJSON(settings.URL.ajaxLoad(pageNo), data, function(data){
-			layer.close(index);
-			var productInfo = $.templates('#orderInfo');
-			console.info(data.data[0].list)
-			var product = productInfo.render(data.data[0].list);
-			currentPage = data.data[0].currentPage;
-			$("#orderFill").html(product);
-			$("#ajaxPage").html(data.data[1]);
-			//$("#ajaxUrl").val(settings.URL.laboratorySetList);
+		var data = JSON.stringify({
+				"memberNo": $('#memberNo').val(),
+				"productName": $('#productName').val(),
+				"date": $('#date').val()
 		});
+		
+		$.ajax({
+	        type : "POST",
+	        url : settings.URL.ajaxLoad(pageNo),
+	        data : data,
+	        dataType : "json",
+	        contentType : "application/json; charset=utf-8",
+	        success:function (data) {
+	        	layer.close(index);
+				var productInfo = $.templates('#orderInfo');
+				console.info(data.data[0].list)
+				var product = productInfo.render(data.data[0].list);
+				currentPage = data.data[0].currentPage;
+				$("#orderFill").html(product);
+				$("#ajaxPage").html(data.data[1]);
+			},
+	 	    error: function (error) { 
+	 	    	alert('网络连接失败'); 
+	 	    }
+	    });
     },
     
     ajaxSearch : function() {

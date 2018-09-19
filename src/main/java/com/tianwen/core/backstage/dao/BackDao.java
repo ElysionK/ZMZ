@@ -14,6 +14,7 @@ import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.entity.RegistCode;
 import com.tianwen.core.backstage.entity.TOfflineOrder;
+import com.tianwen.core.user.entity.User;
 
 @Repository
 public interface BackDao {
@@ -71,5 +72,7 @@ public interface BackDao {
 	OnlineOrderDetail findOnlineOrderDetailByOid(@Param("oid") Integer oid);
 
 	Admin findExistAdminByNameAndPwd(@Param("name") String name, @Param("password") String password);
-	
+
+	Integer updAdmin(@Param("admin") Admin admin);
+
 }

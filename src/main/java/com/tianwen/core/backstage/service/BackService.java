@@ -15,6 +15,7 @@ import com.tianwen.core.backstage.dto.OnlineOrderCondition;
 import com.tianwen.core.backstage.dto.OnlineOrderDto;
 import com.tianwen.core.backstage.dto.ProductCondition;
 import com.tianwen.core.backstage.dto.RegistCodeCondition;
+import com.tianwen.core.backstage.dto.UserCondition;
 import com.tianwen.core.backstage.entity.Admin;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
@@ -60,6 +61,10 @@ public interface BackService {
 	JsonResponseResult listOnlineOrderDetailByOid(Integer oid);
 
 	JsonResponseResult doLogin(Admin admin);
+
+	JsonResponseResult updAdmin(Admin admin);
+
+	JsonResponseResult listUser(String pageNo, UserCondition condition);
 
 
 }

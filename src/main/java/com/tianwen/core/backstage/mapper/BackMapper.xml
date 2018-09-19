@@ -123,10 +123,8 @@
   	</insert>
   	
   	<sql id="productCondition">
-  		<if test="name != null and name != ''">AND P.NAME LIKE '%'||#{name}||'%' </if>
+  		<if test="name != null and name != ''">AND P.NAME LIKE CONCAT(CONCAT('%', #{name}),'%') </if>
   		<if test="category != null and category != ''">AND P.CATEGORY = #{category} </if>
-  		<if test="minPrice != null and minPrice != ''">P.DISCOUNT_PRICE <![CDATA[ >= ]]> #{minPrice} </if>
-  		<if test="maxPrice != null and maxPrice != ''">P.DISCOUNT_PRICE <![CDATA[ <= ]]> #{maxPrice} </if>
   	</sql>
   	
   	<select id="findAllProducts" resultMap="productMap">
@@ -137,6 +135,7 @@
 			T_CATEGORY C
 		ON P.CATEGORY = C.ID WHERE 1 = 1
 		<include refid="productCondition" />
+		ORDER BY P.ID
 		<include refid="BaseMap.mysqlPageSqlSuffix" />
   	</select>
   	
@@ -281,9 +280,9 @@
   	
   	
   	<sql id="offlineOrderCondition">
-  		<if test="productName != null and productName != ''">AND C.PRODUCT_NAME LIKE '%'||#{productName}||'%' </if>
-  		<if test="memberNo != null and memberNo != ''">AND C.MEMBER_NO = #{memberNo} </if>
-  		<if test="date != null and date != ''">AND C.DATE = #{date} </if>
+  		<if test="productName != null and productName != ''">AND C.PRODUCT_NAME LIKE CONCAT(CONCAT('%', #{productName}),'%') </if>
+  		<if test="memberNo != null and memberNo != ''">AND C.MEMBER_NO LIKE CONCAT(CONCAT('%', #{memberNo}),'%') </if>
+  		<if test="date != null and date != ''">AND C.DATE LIKE CONCAT(CONCAT('%', #{date}),'%') </if>
   	</sql>
   	
   	<select id="listOfflineOrder" resultMap="offlineOrderDtoMap">
@@ -302,12 +301,12 @@
 		FROM T_OFFLINE_ORDER C
 		WHERE 1 = 1
 		<include refid="offlineOrderCondition" />
-		ORDER BY C.DATE DESC
+		ORDER BY C.DATE DESC, C.ID ASC
 		<include refid="BaseMap.mysqlPageSqlSuffix" />
   	</select>
   	
   	<select id="countOfflineOrder" resultType="int">
-  		SELECT COUNT(T.ID) FROM (SELECT C.ID FROM T_OFFLINE_ORDER C WHERE 1 = 1 ORDER BY C.ID
+  		SELECT COUNT(T.ID) FROM (SELECT C.ID FROM T_OFFLINE_ORDER C WHERE 1 = 1 
   		<include refid="offlineOrderCondition" />) T
   	</select>
 
@@ -350,7 +349,9 @@
   	</update>
   	
   	<sql id="orderCondition">
-  		<if test="phone != null and phone != ''">AND U.PHONE LIKE '%'||#{phone}||'%' </if>
+  		<if test="phone != null and phone != ''">AND U.PHONE LIKE CONCAT(CONCAT('%', #{phone}),'%') </if>
+  		<if test="orderTime != null and orderTime != ''">AND T.ORDER_TIME LIKE CONCAT(CONCAT('%', #{orderTime}),'%') </if>
+  		<if test="deliverTime != null and deliverTime != ''">AND T.DELIVER_TIME LIKE CONCAT(CONCAT('%', #{deliverTime}),'%') </if>
   	</sql>
   	
   	<select id="listOnlineOrder" resultMap="onlineOrderDtoMap">
@@ -371,8 +372,8 @@
   	</select>
   	
   	<select id="countOnlineOrder" resultType="int">
-  		SELECT COUNT(T.OID) FROM (SELECT C.OID FROM T_ORDER C LEFT JOIN T_USER U ON C.MID = U.ID WHERE 1 = 1 ORDER BY C.OID
-  		<include refid="orderCondition" />) T
+  		SELECT COUNT(B.OID) FROM (SELECT T.OID FROM T_ORDER T LEFT JOIN T_USER U ON T.MID = U.ID WHERE 1 = 1
+  		<include refid="orderCondition" />) B
   	</select>
   	
   	<delete id="delOfflineOrderById">
@@ -430,4 +431,19 @@
   		AND
   			PASSWORD = #{password, jdbcType=VARCHAR}
   	</select>
+  	
+  	<update id="updAdmin">
+  		UPDATE 	
+  			T_ADMIN
+  		<set>
+  			<if test="admin.name != null and admin.name != ''">
+  				NAME = #{admin.name, jdbcType=VARCHAR},
+  			</if>
+  			<if test="admin.password != null and admin.password != ''">
+  				PASSWORD = #{admin.password, jdbcType=VARCHAR}
+  			</if>
+  		</set>
+  		WHERE
+  			ID = #{admin.id, jdbcType=INTEGER}
+  	</update>
 </mapper>

@@ -14,12 +14,25 @@
 		<div class="contenttop">
 			<div class="tit">套餐列表</div>
 		</div>
-		
+		<div class="search-body">
+			<div class="search-box">
+				<span>关键字：</span>
+				<input type="text" id="name" placeholder="商品名称" value="">
+				<select id="category" style="margin-top: 8px">
+					<option selected="selected">类别</option>
+					<c:forEach items="${data}" var="item">
+						<option value="${item.id}">${item.name}</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="timeBox">
+				<span class="btn btn-info" onclick="settings.ajaxSearch()">搜索</span>
+			</div>
+		</div>
 		<div class="portlet-body">
 			<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
 				<thead>
 					<tr>
-						<th><input type="checkbox" class="checkAll" disabled/></th>
 						<th>序号</th>
 						<td>商品名称</td>
 						<th>分类名称</th>
@@ -45,8 +58,7 @@
 </div>
 <script id="productInfo" type="text/x-jsrender">
 	<tr>
-		<td><input type="checkbox" class="pids" value=""  data=""/></td>
-		<td></td>
+		<td>{{:id}}</td>
 		<td>{{:name}}</td>
 		<td>{{:categoryName}}</td>
 		<td>{{:orignalPrice}}</td>
