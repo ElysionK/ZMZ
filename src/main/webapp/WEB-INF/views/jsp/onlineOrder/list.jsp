@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>线下订单列表</title>
+	<title>线上订单列表</title>
 	<%@include file="../public/head.jsp" %>
 	<link href="/css/back/category.css" rel="stylesheet" type="text/css" />
 	<link href="/css/setup.css" rel="stylesheet" type="text/css" />
@@ -14,7 +14,17 @@
 		<div class="contenttop">
 			<div class="tit">线上订单列表</div>
 		</div>
-		
+		<div class="search-body">
+			<div class="search-box">
+				<span>关键字：</span>
+				<input type="text" id="phone" placeholder="会员号" value="">
+				<input type="text" id="orderTime" placeholder="下单时间" value="">
+				<input type="text" id="deliverTime" placeholder="发货时间" value="">
+			</div>
+			<div class="timeBox">
+				<span class="btn btn-info" onclick="settings.ajaxSearch()">搜索</span>
+			</div>
+		</div>
 		<div class="portlet-body">
 			<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
 				<thead>

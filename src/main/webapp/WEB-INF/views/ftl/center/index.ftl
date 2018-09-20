@@ -39,7 +39,7 @@
 		<a href="resource.html"><img src="../../../../images/Screenshot_2018-04-17-15-12-11-01_03.png" alt=""></a>
 		<h1>${data.phone}</h1>
 		<div>
-			<a javascript="void(0)"><p>退出</p></a>
+			<a onclick="logout()"><p>退出</p></a>
 		</div>
 	</header>
 	<ul class="server">
@@ -115,4 +115,24 @@
 	<#include "/public/menu.ftl" />
 </body>
 <script src="${basePath}/js/rem.js"></script>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+
+<script>
+	function logout() {
+		$.ajax({
+	        type : "POST",
+	        url : "/open/logout",
+	        success:function (data) {
+	 	   	   if (data.returncode == 0) {
+	 	   		   window.location.reload();
+	 	   	   } else {
+	 	   		   alert('退出登录失败');
+	 	   	   }
+	 	    },
+	 	    error: function (error) { 
+	 	    	alert('网络连接失败'); 
+	 	    }
+	    });
+	}
+</script>
 </html>

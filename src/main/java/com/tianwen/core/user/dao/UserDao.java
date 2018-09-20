@@ -1,5 +1,6 @@
 package com.tianwen.core.user.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -18,5 +19,9 @@ public interface UserDao {
 	User findUserByPhoneAndPassword(@Param("phone") String phone, @Param("password") String password);
 
 	User findUserById(@Param("userId") Integer userId);
+
+	int countUser(HashMap<String, Object> param);
+
+	List<User> listUser(HashMap<String, Object> param);
 	
 }

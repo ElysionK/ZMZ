@@ -11,7 +11,7 @@ var settings = {
             return "/";
         },
         ajaxLoad : function(pageNo){
-        	return settings.URL.basePath() + "backstage/product/ajaxLoadProduct/" + pageNo
+        	return settings.URL.basePath() + "backstage/user/ajaxLoadUser/" + pageNo
         }
     },
     
@@ -20,11 +20,10 @@ var settings = {
     		pageNo = 1;
     	}
     	var index = layer.load(2);
-		
-		
+		var data = {};
 		var data = JSON.stringify({
-				"name": $('#name').val(),
-				"category": $('#category').find("option:selected").attr("value")
+				"phone": $('#phone').val(),
+				"registTime": $('#registTime').val()
 		});
 		
 		$.ajax({
@@ -35,11 +34,11 @@ var settings = {
 	        contentType : "application/json; charset=utf-8",
 	        success:function (data) {
 	        	layer.close(index);
-				var productInfo = $.templates('#productInfo');
+				var productInfo = $.templates('#orderInfo');
 				console.info(data.data[0].list)
 				var product = productInfo.render(data.data[0].list);
 				currentPage = data.data[0].currentPage;
-				$("#productFill").html(product);
+				$("#orderFill").html(product);
 				$("#ajaxPage").html(data.data[1]);
 			},
 	 	    error: function (error) { 

@@ -34,6 +34,10 @@ import org.apache.commons.httpclient.methods.PostMethod;
  * @date 2011-5-26
  */
 public class SysUtils {
+	
+	public static void main(String[] args) {
+		System.out.println(SysUtils.retMd5Pwd("123456"));
+	}
 
 	public static String append(String str, String tmp) {
 		if (SysUtils.isEmpty(str)) {

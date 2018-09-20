@@ -2,18 +2,13 @@ package com.tianwen.core.backstage.service.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -38,11 +33,15 @@ import com.tianwen.core.backstage.dto.OnlineOrderDetail;
 import com.tianwen.core.backstage.dto.OnlineOrderDto;
 import com.tianwen.core.backstage.dto.ProductCondition;
 import com.tianwen.core.backstage.dto.RegistCodeCondition;
+import com.tianwen.core.backstage.dto.UserCondition;
+import com.tianwen.core.backstage.entity.Admin;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.entity.RegistCode;
 import com.tianwen.core.backstage.entity.TOfflineOrder;
 import com.tianwen.core.backstage.service.BackService;
+import com.tianwen.core.user.dao.UserDao;
+import com.tianwen.core.user.entity.User;
 
 @Service
 public class BackServiceImpl implements BackService{
@@ -281,6 +280,54 @@ public class BackServiceImpl implements BackService{
 		OnlineOrderDetail orderDetail = backDao.findOnlineOrderDetailByOid(oid);
 		JsonResponseResult result = JsonResponseResult.createSuccess();
 		result.addData(orderDetail);
+		return result;
+	}
+
+	@Override
+	public JsonResponseResult doLogin(Admin admin) {
+		if (SysUtils.isEmpty(admin.getName()) || SysUtils.isEmpty(admin.getPassword())) {
+			return JsonResponseResult.createFalied("用户名或密码错误");
+		}
+		admin.setPassword(SysUtils.retMd5Pwd(admin.getPassword()));
+		Admin dbAdmin = backDao.findExistAdminByNameAndPwd(admin.getName(), admin.getPassword());
+		if (SysUtils.isEmpty(dbAdmin)) {
+			return JsonResponseResult.createFalied("用戶名或密码有误");
+		}
+		JsonResponseResult result = JsonResponseResult.createSuccess();
+		result.addData(admin);
+		return result;
+	}
+
+	@Override
+	public JsonResponseResult updAdmin(Admin admin) {
+		if (SysUtils.isEmpty(admin.getName()) && SysUtils.isEmpty(admin.getPassword())) {
+			return JsonResponseResult.createFalied("账号和密码不能同时为空");
+		}
+		if (!SysUtils.isEmpty(admin.getPassword())) {
+			admin.setPassword(SysUtils.retMd5Pwd(admin.getPassword()));
+		}
+		backDao.updAdmin(admin);
+		return JsonResponseResult.createSuccess();
+	}
+
+	@Autowired
+	private UserDao userDao;
+	
+	@Override
+	public JsonResponseResult listUser(String pageNo, UserCondition condition) {
+		Pager pager = new Pager();
+		HashMap<String, Object> param = SysUtils.transBean2Map(condition);
+		pager.setPageNo(pageNo);
+		pager.setPageSize(8);
+		pager.setTotalRows(param, userDao.countUser(param));
+		List<User> list = userDao.listUser(param);
+		pager.setList(list);
+		
+		String ajaxPage = pager.getSiAjaxPageHtml();
+		JsonResponseResult result = JsonResponseResult.createSuccess();
+		result.addData(pager);
+		result.addData(ajaxPage);
+		
 		return result;
 	}
 

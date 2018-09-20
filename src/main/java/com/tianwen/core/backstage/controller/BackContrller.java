@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianwen.base.controller.BaseController;
 import com.tianwen.base.util.Pager;
+import com.tianwen.common.SysConstant;
 import com.tianwen.common.util.ImageUtil;
 import com.tianwen.common.util.JsonResponseResult;
 import com.tianwen.core.backstage.dto.CategoryDto;
@@ -26,11 +27,12 @@ import com.tianwen.core.backstage.dto.OfflineOrderCondition;
 import com.tianwen.core.backstage.dto.OnlineOrderCondition;
 import com.tianwen.core.backstage.dto.ProductCondition;
 import com.tianwen.core.backstage.dto.RegistCodeCondition;
+import com.tianwen.core.backstage.dto.UserCondition;
+import com.tianwen.core.backstage.entity.Admin;
 import com.tianwen.core.backstage.entity.Banner;
 import com.tianwen.core.backstage.entity.Product;
 import com.tianwen.core.backstage.entity.TOfflineOrder;
 import com.tianwen.core.backstage.service.BackService;
-import com.tianwen.core.center.service.CenterService;
 
 @Scope("prototype")
 @Controller
@@ -39,9 +41,6 @@ public class BackContrller extends BaseController {
 
 	@Autowired
 	private BackService backService;
-
-	@Autowired
-	private CenterService centerService;
 	
 	@Autowired
 	private ImageUtil imageUtil;
@@ -153,13 +152,13 @@ public class BackContrller extends BaseController {
 
 	@GetMapping(value = "/product/list")
 	public ModelAndView toProductList() {
-		// List<Product> list = backService.findAllProducts();
-		return new ModelAndView("/product/list");
+		List<CategoryDto> categories = backService.findAllCategories();
+		return new ModelAndView("/product/list", "data", categories);
 	}
 
 	@PostMapping(value = "/product/ajaxLoadProduct/{pageNo}", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public JsonResponseResult ajaxLoadProduct(@PathVariable String pageNo, ProductCondition condition) {
+	public JsonResponseResult ajaxLoadProduct(@PathVariable String pageNo, @RequestBody ProductCondition condition) {
 		JsonResponseResult result = null;
 		// List<Product> list = backService.findAllProducts();
 		Pager pager = backService.findAllProducts(condition, pageNo);
@@ -194,7 +193,7 @@ public class BackContrller extends BaseController {
 
 	@PostMapping(value = "/onlineOrder/ajaxLoadOnlineOrder/{pageNo}", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public JsonResponseResult ajaxLoadOnineOrder(@PathVariable String pageNo, OnlineOrderCondition condition) {
+	public JsonResponseResult ajaxLoadOnineOrder(@PathVariable String pageNo, @RequestBody OnlineOrderCondition condition) {
 		return backService.listOnlineOrder(pageNo, condition);
 	}
 	
@@ -214,7 +213,7 @@ public class BackContrller extends BaseController {
 
 	@PostMapping(value = "/offlineOrder/ajaxLoadOfflineOrder/{pageNo}", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public JsonResponseResult ajaxLoadOfflineOrder(@PathVariable String pageNo, OfflineOrderCondition condition) {
+	public JsonResponseResult ajaxLoadOfflineOrder(@PathVariable String pageNo, @RequestBody OfflineOrderCondition condition) {
 		return backService.listOfflineOrder(pageNo, condition);
 	}
 
@@ -235,5 +234,57 @@ public class BackContrller extends BaseController {
 	public JsonResponseResult updOfflineOrder(@PathVariable String id) {
 		return backService.delOfflineOrderById(Integer.valueOf(id));
 	}
+	
+	/************ admin login  **********/
+	@GetMapping(value = "/toLogin")
+	public ModelAndView toLogin() {
+		return new ModelAndView("/login");
+	}
+	
+	@PostMapping(value = "/adminLogin", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult login(@RequestBody Admin admin) {
+		JsonResponseResult result = backService.doLogin(admin);
+		if(result.getReturncode() == 0){
+			super.getSession().setAttribute(SysConstant.SYS_ADMIN_LOG_SUCC_INFO, result.getData().get(0));
+		}
+		return result;
+	}
+	
+	@PostMapping(value = "/logout", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult logout() {
+		super.getSession().removeAttribute(SysConstant.SYS_ADMIN_LOG_SUCC_INFO);
+		return JsonResponseResult.createSuccess();
+	}
+	
+	/************** modify admin info *************************/
+	@GetMapping(value = "/admin/center")
+	public ModelAndView toAdminCenter() {
+		Admin admin = (Admin) super.getSession().getAttribute(SysConstant.SYS_ADMIN_LOG_SUCC_INFO);
+		return new ModelAndView("/center", "admin", admin);
+	}
+	
+	@PostMapping(value = "/modify/adminInfo", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult modifyAdminInfo(@RequestBody Admin admin) {
+		Admin oldAdmin = (Admin) super.getSession().getAttribute(SysConstant.SYS_ADMIN_LOG_SUCC_INFO);
+		admin.setId(oldAdmin.getId());
+		return backService.updAdmin(admin);
+	}
+	
+	/*********   users ************/
+	@GetMapping(value = "/user/list")
+	public ModelAndView toUserList() {
+		return new ModelAndView("/user/list");
+	}
+
+	@PostMapping(value = "/user/ajaxLoadUser/{pageNo}", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public JsonResponseResult ajaxLoadUser(@PathVariable String pageNo, @RequestBody UserCondition condition) {
+		return backService.listUser(pageNo, condition);
+	}
+
+	
 
 }

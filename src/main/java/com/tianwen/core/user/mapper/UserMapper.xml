@@ -50,4 +50,25 @@
   			ID = #{userId, jdbcType=INTEGER}
   	</select>
   	
+  	<sql id="userCondition">
+  		<if test="phone != null and phone != ''">AND C.PHONE LIKE CONCAT(CONCAT('%', #{phone}),'%') </if>
+  		<if test="registTime != null and registTime != ''">AND C.REGIST_TIME LIKE CONCAT(CONCAT('%', #{registTime}),'%') </if>
+  	</sql>
+  	
+  	<select id="listUser" resultMap="userMap">
+  		SELECT
+  			*
+		FROM T_USER C
+		WHERE 1 = 1
+		<include refid="userCondition" />
+		ORDER BY C.ID 
+		<include refid="BaseMap.mysqlPageSqlSuffix" />
+  	</select>
+  	
+  	<select id="countUser" resultType="int">
+  		SELECT COUNT(T.ID) FROM (SELECT C.ID FROM T_USER C WHERE 1 = 1 
+  		<include refid="userCondition" />) T
+  	</select>
+  	
+  	
 </mapper>

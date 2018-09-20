@@ -11,10 +11,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.tianwen.common.SysConstant;
 import com.tianwen.common.log.LogUtils;
-import com.tianwen.common.util.AESUtil;
-import com.tianwen.common.util.CookieUtil;
 import com.tianwen.common.util.StringUtils;
 import com.tianwen.common.util.SysUtils;
+import com.tianwen.core.backstage.entity.Admin;
 import com.tianwen.core.user.entity.User;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
@@ -37,6 +36,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		String requestUri = request.getRequestURI();//请求原始地址		
 		String retUrl = request.getHeader("Referer");
 		User user = (User) session.getAttribute(SysConstant.SYS_MEMBER_LOG_SUCC_INFO);
+		Admin admin = (Admin) session.getAttribute(SysConstant.SYS_ADMIN_LOG_SUCC_INFO);
 		// LogUtils.info(LoginInterceptor.class,"请求的上一个地址："+retUrl);
 		if (requestUri.startsWith(request.getContextPath())) {
 			requestUri = requestUri.substring(request.getContextPath().length(), requestUri.length());
@@ -58,12 +58,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		retUrl = StringUtils.isBlank(retUrl) ? "" : URLEncoder.encode(retUrl, "UTF-8");
 		// 其他需要登录后才能进行访问的url		
 		// 如果没有登录
-		if (SysUtils.isEmpty(user)) {
-			// 是否为ajax请求
-			if (SysUtils.isAjaxRequest(request)) {
-				response.setHeader("SESSIONSTATUS", "TIMEOUT");
-				response.setHeader("CONTEXTPATH", "/user/toCodeLogin?backurl=" + retUrl);
-				response.setStatus(HttpServletResponse.SC_FORBIDDEN);// 403 禁止
+		if (SysUtils.isEmpty(user) && SysUtils.isEmpty(admin)) {
+			if (StringUtils.contains(requestUri, "backstage")) {
+				response.sendRedirect("/backstage/toLogin?backurl=" + retUrl);
 			} else {
 				// 返回到登录页面
 				// request.getRequestDispatcher("/user/toCodeLogin").forward(request,

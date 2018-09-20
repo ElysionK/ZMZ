@@ -150,4 +150,6 @@ public class SysConstant {
 	// end 用户(患者)就诊轨迹表
 	
 	public static final String TREAT_STATS ="today|";
+
+	public static final String SYS_ADMIN_LOG_SUCC_INFO = "admin";
 }

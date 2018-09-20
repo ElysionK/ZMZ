@@ -12,7 +12,7 @@
 <input type="hidden" id="leftCss" value="index">
 <div class="page-container">
 	<%@include file="./public/leftMenu.jsp" %>
-    <div class="contentBox">
+    <div class="contentBox" style="margin-top: 15px;">
         <div class="menulink">
       	<h4>  欢迎您进入天问医疗管理平台-医生端，请点击左侧菜单进行操作</h4>
         </div>

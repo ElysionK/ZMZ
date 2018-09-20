@@ -43,6 +43,16 @@
 					<span class="title">线下订单</span>
 					<span class="arrowicon"></span>
 				</a>
+				<a class="sideblk blk" href="/backstage/user/list">
+					<i class="record"><img src="/images/back_category.png"/></i>
+					<span class="title">注册用户</span>
+					<span class="arrowicon"></span>
+				</a>
+				<a class="sideblk blk" href="/backstage/admin/center">
+					<i class="record"><img src="/images/back_category.png"/></i>
+					<span class="title">个人中心</span>
+					<span class="arrowicon"></span>
+				</a>
 			</li>
 		</ul>
 	</div>

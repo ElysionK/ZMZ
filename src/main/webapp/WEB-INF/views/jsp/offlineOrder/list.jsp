@@ -14,7 +14,17 @@
 		<div class="contenttop">
 			<div class="tit">线下订单列表</div>
 		</div>
-		
+		<div class="search-body">					
+			<div class="search-box">
+				<span>关键字：</span>
+				<input type="text" id="memberNo" placeholder="会员号" value="">
+				<input type="text" id="productName" placeholder="产品名称" value="">
+				<input type="text" id="date" placeholder="日期" value="">
+			</div>
+			<div class="timeBox">
+				<span class="btn btn-info" onclick="settings.ajaxSearch()">搜索</span>
+			</div>
+		</div>
 		<div class="portlet-body">
 			<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
 				<thead>
