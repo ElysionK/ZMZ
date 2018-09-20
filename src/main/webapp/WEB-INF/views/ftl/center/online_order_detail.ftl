@@ -9,7 +9,7 @@
 <style>
 
 	body{
-		background-color: #EFEFEF;
+		background-color: #fff;
 	}
 	header{
 		width: 100%;
@@ -42,7 +42,7 @@
 		margin-left: 0.33rem;
 	}
 	table {
-		font-size: 0.16rem;
+		font-size: 0.17rem;
     	color: #333;
     	width: 100%;
     	padding-top: 0.1rem;
@@ -109,19 +109,19 @@
 		<table>
 			<thead>
 				<tr>
-					<td style="width:30%">商品名称</td>
-					<td style="width:20%">原价</td>
-					<td style="width:20%">折后价</td>
-					<td style="width:20%">数量</td>
+					<td style="width:40%;border-top:1px solid #ccc;margin-left:0;padding-top:0.1rem;padding-bottom:0.1rem;">商品名称</td>
+					<td style="width:20%;border-top:1px solid #ccc;margin-left:0;padding-top:0.1rem;padding-bottom:0.1rem;">原价</td>
+					<td style="width:20%;border-top:1px solid #ccc;margin-left:0;padding-top:0.1rem;padding-bottom:0.1rem;">折后价</td>
+					<td style="width:20%;border-top:1px solid #ccc;margin-left:0;padding-top:0.1rem;padding-bottom:0.1rem;">数量</td>
 				</tr>
 			</thead>
 			<tbody>
 				<#list data.orderSubDetails as detail>
 					<tr>
-						<td style="width:30%">${detail.productName}</td>
-						<td style="width:20%">${detail.originPrice}</td>
-						<td style="width:20%">${detail.discountPrice}</td>
-						<td style="width:20%">${detail.num}</td>
+						<td style="width:40%;border-top:1px solid #ccc;margin-left:0;padding-top:0.1rem;padding-bottom:0.1rem;">${detail.productName}</td>
+						<td style="width:20%;border-top:1px solid #ccc;margin-left:0;padding-top:0.1rem;padding-bottom:0.1rem;">${detail.originPrice}</td>
+						<td style="width:20%;border-top:1px solid #ccc;margin-left:0;padding-top:0.1rem;padding-bottom:0.1rem;">${detail.discountPrice}</td>
+						<td style="width:20%;border-top:1px solid #ccc;margin-left:0;padding-top:0.1rem;padding-bottom:0.1rem;">${detail.num}</td>
 					</tr>
 				</#list>
 			</tbody>

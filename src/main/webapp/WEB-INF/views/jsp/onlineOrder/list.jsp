@@ -84,7 +84,7 @@
 	</div>
 	
 		      	 <script id="detailInfo" type="text/x-jsrender">
-				<table>
+				<table  style='width:100%'>
 					<tr>
 						<td>订单号</td>
 						<td>{{:oid}}</td>
@@ -117,16 +117,15 @@
 					</tr>
 				</table>
 
-				<table>
-					<thead>
-						<tr>
-							<th>商品名称</th>
-							<th>原价</th>
-							<th>折后价</th>
-							<th>数量</th>
-						</tr>
-					</thead>
+				<table style='width:100%'>
+					
 					<tbody>
+						<tr>
+							<td>商品名称</td>
+							<td>原价</td>
+							<td>折后价</td>
+							<td>数量</td>
+						</tr>
 						{{for orderSubDetails}}
 							<tr>
 								<td>{{:productName}}</td>
@@ -138,9 +137,9 @@
 					</tbody>
 				</table>
 		
-				<table>
+				<table style='font-weight:800;width:100%'>
 					<tr>
-						<td>总价</td>
+						<td  style='width:40%'>总价</td>
 						<td>{{:normalPrice}}</td>
 					<tr>
 					<tr>

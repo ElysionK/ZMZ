@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>个人中心</title>
 	<link rel="stylesheet" href="${basePath}/css/public.css">
 	<link rel="stylesheet" href="${basePath}/css/center.css">
 </head>
@@ -43,13 +43,13 @@
 		</div>
 	</header>
 	<ul class="server">
-		<li>
+		<li onclick="window.location.href='onlineOrder'">
 			<em>&#xe656;</em>
-			<a href="onlineOrder"><span>线上订单</span></a>
+			<a><span>线上订单</span></a>
 		</li>
-		<li>
+		<li onclick="window.location.href='offlineOrder'">
 			<em>&#xe87e;</em>
-			<a href="offlineOrder"><span>线下订单</span></a>
+			<a><span>线下订单</span></a>
 		</li>
 	</ul>
 	

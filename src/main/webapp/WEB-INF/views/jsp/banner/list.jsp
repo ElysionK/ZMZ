@@ -6,6 +6,11 @@
 	<%@include file="../public/head.jsp" %>
 	<link href="/css/back/category.css" rel="stylesheet" type="text/css" />
 	<link href="/css/back/addCategory.css" rel="stylesheet" type="text/css"/>
+	<style>
+		.portlet-body tbody tr td img{
+			width:300px
+		}
+	</style>
 </head>
 <body>
 <div class="page-container">

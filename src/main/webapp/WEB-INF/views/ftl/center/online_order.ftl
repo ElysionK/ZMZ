@@ -7,9 +7,12 @@
 	<link rel="stylesheet" href="${basePath}/css/center.css">
 </head>
 <style>
-
+	.zichan{
+		margin-top:0;
+		padding-left:0;
+	}
 	body{
-		background-color: #EFEFEF;
+		background-color: #fff;
 	}
 	header{
 		width: 100%;
@@ -42,7 +45,7 @@
 		margin-left: 0.33rem;
 	}
 	table {
-		font-size: 0.16rem;
+		font-size: 0.17rem;
     	color: #333;
     	width: 100%;
     	padding-top: 0.1rem;
@@ -52,11 +55,12 @@
 	
 	tr {
 		height: 0.35rem;
+		
 	}
 	
 	td {
-		margin-left: 0.1rem;
-	    float: left;
+		    padding: 0.2rem 0.1rem;
+    border-bottom: 1px solid #ccc;
 	}
 	
 	tbody {
@@ -77,8 +81,8 @@
 				<tr>
 					<td style="width:10%">订单号</td>
 					<td style="width:35%">下单时间</td>
-					<td style="width:35%">发货时间</td>
-					<td style="width:10%">状态</td>
+					<td style="width:30%">发货时间</td>
+					<td style="width:15%">状态</td>
 				</tr>
 			</thead>
 		</table>
@@ -91,14 +95,14 @@
 					<tr onclick="window.location.href='toDetail/onlineOrder/${order.oid}'">
 						<td style="width:10%">${order.oid}</td>
 						<td style="width:35%">${order.orderTime}</td>
-						<td style="width:35%">
+						<td style="width:30%">
 							<#if order.deliverTime == null>
 								-
 							<#else>
 								${order.deliverTime}
 							</#if>
 						</td>
-						<td style="width:10%">
+						<td style="width:15%">
 							<#if order.status = 0>
 								已生成
 							<#elseif order.status = 1>

@@ -9,7 +9,7 @@
 <style>
 
 	body{
-		background-color: #EFEFEF;
+		background-color: #fff;
 	}
 	header{
 		width: 100%;
@@ -42,7 +42,7 @@
 		margin-left: 0.33rem;
 	}
 	table {
-		font-size: 0.16rem;
+		font-size: 0.17rem;
     	color: #333;
     	width: 100%;
     	padding-top: 0.1rem;
