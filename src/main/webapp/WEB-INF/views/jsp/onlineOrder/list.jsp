@@ -19,7 +19,7 @@
 			<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
 				<thead>
 					<tr>
-						<th>序号</th>
+						<th>订单号</th>
 						<th>会员号</th>
                         <th>下单时间</th>
                         <th>发货时间</th>
@@ -64,7 +64,16 @@
 	        <h4 class="modal-title" id="myModalLabel">订单详情</h4>
 	      </div>
 	      <div class="modal-body" id="detailFill">
-	      	 <script id="detailInfo" type="text/x-jsrender">
+
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+		      	 <script id="detailInfo" type="text/x-jsrender">
 				<table>
 					<tr>
 						<td>订单号</td>
@@ -79,7 +88,7 @@
 						<td>{{:address}}</td>
 					</tr>
 					<tr>
-						<td>下单时间<td>
+						<td>下单时间</td>
 						<td>{{:orderTime}}</td>
 					</tr>
 					<tr>
@@ -126,20 +135,10 @@
 					<tr>
 					<tr>
 						<td>折后总价</td>
-						<td>{{memberPrice}}</td>
+						<td>{{:memberPrice}}</td>
 					</tr>
 				</table>
-				
-
 			 </script>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-	        <button type="button" class="btn btn-primary" id="upload-btn">确定</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
 </body>
 <script type="text/javascript" src="/js/jsrender.js"></script>
 <script type="text/javascript" src="/js/back/onlineOrder/setting.js"></script>
@@ -158,13 +157,10 @@ $(document).on('click', '.detail-btn', function() {
         url : urlStr,
         success:function (data) {
  	   	   if(data.returncode==0){
+	 	   		var detailInfo = $.templates('#detailInfo');
+				var detail = detailInfo.render(data.data[0]);
+				$("#detailFill").html(detail);
  	   			$('#detail-modal').modal('show');
-	 	   		var productInfo = $.templates('#detailInfo');
-				console.info(data.data[0].list)
-				var product = productInfo.render(data.data[0].list);
-				currentPage = data.data[0].currentPage;
-				$("#detailFill").html(product);
-				$("#ajaxPage").html(data.data[1]);
  	   	   }else{                   	   
  	   			layer.alert('获取数据失败！', {icon: 6});
  	   	   }              

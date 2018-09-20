@@ -8,23 +8,24 @@ import com.tianwen.core.user.entity.User;
 
 public class CenterDto {
 	
-	private UserDto userDto;
+	private String phone;
 	private Double totalMemberPriceOneYear;
 	private List<Order> onlineOrders;
 	private List<TOfflineOrder> offlineOrders;
 
-	public CenterDto(UserDto userDto, List<Order> onlineOrders, List<TOfflineOrder> offlineOrders) {
-		this.userDto = userDto;
+	public CenterDto(String phone, Double totalMemberPriceOneYear, List<Order> onlineOrders, List<TOfflineOrder> offlineOrders) {
+		this.phone = phone;
+		this.totalMemberPriceOneYear = totalMemberPriceOneYear;
 		this.onlineOrders = onlineOrders;
 		this.offlineOrders = offlineOrders;
 	}
 
-	public UserDto getUserDto() {
-		return userDto;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setUserDto(UserDto userDto) {
-		this.userDto = userDto;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public Double getTotalMemberPriceOneYear() {
@@ -50,6 +51,7 @@ public class CenterDto {
 	public void setOfflineOrders(List<TOfflineOrder> offlineOrders) {
 		this.offlineOrders = offlineOrders;
 	}
-
 	
+	
+
 }

@@ -199,6 +199,7 @@ public class BackContrller extends BaseController {
 	}
 	
 	@PostMapping(value = "/onlineOrder/ajaxLoadDetail/{oid}", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
 	public JsonResponseResult ajaxLoadOnineOrderDetail(@PathVariable Integer oid) {
 		return backService.listOnlineOrderDetailByOid(oid);
 	}
